@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 API_KEY = os.environ.get("ANTHROPIC_API_KEY")
 if not API_KEY:
     raise ValueError("ANTHROPIC_API_KEY が設定されていません。")
+API_KEY = API_KEY.strip()
 
 HTML_PATH = "daily-demo/index.html"
 
