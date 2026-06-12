@@ -42,9 +42,9 @@ prompt = f"""
 {html_content}
 """
 
-# 5. Claude API (Claude 3.5 Sonnet) へのリクエスト準備
+# 5. Claude API へのリクエスト準備
 data = {
-    "model": "claude-3-5-sonnet-20241022",
+    "model": "claude-3-5-sonnet-20240620",
     "max_tokens": 8000,
     "system": "You are a professional AI web developer. You strictly output ONLY raw HTML code without any markdown formatting or explanations.",
     "messages": [
@@ -59,7 +59,8 @@ req = urllib.request.Request(
         "x-api-key": API_KEY,
         "anthropic-version": "2023-06-01",
         "content-type": "application/json"
-    }
+    },
+    method="POST"
 )
 
 # 6. API通信とHTMLの上書き
@@ -85,6 +86,11 @@ try:
         
     print(f"成功: {HTML_PATH} を自動更新しました！")
     
+except urllib.error.HTTPError as e:
+    error_body = e.read().decode("utf-8")
+    print(f"HTTPエラーが発生しました: {e.code} {e.reason}")
+    print(f"エラーの詳細: {error_body}")
+    exit(1)
 except Exception as e:
-    print(f"エラーが発生しました: {e}")
+    print(f"予期せぬエラーが発生しました: {e}")
     exit(1)
