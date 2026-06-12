@@ -92,8 +92,14 @@ try:
     print("Claude APIにリクエストを送信中...")
     response = urllib.request.urlopen(req)
     result = json.loads(response.read().decode("utf-8"))
-    new_html = result["content"][0]["text"].strip()
     
+    try:
+        new_html = result["content"][0]["text"].strip()
+    except KeyError:
+        print("APIからの返答形式が予想と異なりました。実際の返答データ:")
+        print(json.dumps(result, indent=2, ensure_ascii=False))
+        raise
+
     # 万が一Markdown記法が含まれていた場合の除去処理
     if new_html.startswith("```html"):
         new_html = new_html[7:]
