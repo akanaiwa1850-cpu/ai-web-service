@@ -42,9 +42,33 @@ prompt = f"""
 {html_content}
 """
 
-# 5. Claude API へのリクエスト準備
+# 5. 使用可能なAIモデルを自動で取得する
+models_req = urllib.request.Request(
+    "https://api.anthropic.com/v1/models",
+    headers={
+        "x-api-key": API_KEY,
+        "anthropic-version": "2023-06-01"
+    }
+)
+try:
+    models_response = urllib.request.urlopen(models_req)
+    models_data = json.loads(models_response.read().decode("utf-8"))
+    
+    # 取得したモデルリストの中から一番上にあるClaudeモデルを選択
+    available_models = [m["id"] for m in models_data.get("data", []) if "claude" in m["id"]]
+    if not available_models:
+        raise ValueError("使用可能なClaudeモデルが見つかりません。APIキーの権限を確認してください。")
+    
+    selected_model = available_models[0]
+    print(f"自動選択されたモデル: {selected_model}")
+except urllib.error.HTTPError as e:
+    print(f"モデル一覧の取得に失敗しました: {e.read().decode('utf-8')}")
+    # 万が一取得できない場合のデフォルトフォールバック
+    selected_model = "claude-3-haiku-20240307"
+
+# 6. Claude API へのリクエスト準備
 data = {
-    "model": "claude-3-haiku-20240307",
+    "model": selected_model,
     "max_tokens": 4000,
     "system": "You are a professional AI web developer. You strictly output ONLY raw HTML code without any markdown formatting or explanations.",
     "messages": [
@@ -63,7 +87,7 @@ req = urllib.request.Request(
     method="POST"
 )
 
-# 6. API通信とHTMLの上書き
+# 7. API通信とHTMLの上書き
 try:
     print("Claude APIにリクエストを送信中...")
     response = urllib.request.urlopen(req)
