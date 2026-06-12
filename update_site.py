@@ -44,8 +44,8 @@ prompt = f"""
 
 # 5. Claude API へのリクエスト準備
 data = {
-    "model": "claude-3-5-sonnet-20240620",
-    "max_tokens": 8000,
+    "model": "claude-3-haiku-20240307",
+    "max_tokens": 4000,
     "system": "You are a professional AI web developer. You strictly output ONLY raw HTML code without any markdown formatting or explanations.",
     "messages": [
         {"role": "user", "content": prompt}
