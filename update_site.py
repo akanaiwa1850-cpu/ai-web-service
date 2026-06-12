@@ -94,9 +94,19 @@ try:
     result = json.loads(response.read().decode("utf-8"))
     
     try:
-        new_html = result["content"][0]["text"].strip()
-    except KeyError:
-        print("APIからの返答形式が予想と異なりました。実際の返答データ:")
+        new_html = ""
+        for block in result.get("content", []):
+            if block.get("type") == "text":
+                new_html = block.get("text", "")
+                break
+                
+        if not new_html:
+            raise ValueError("テキストデータが見つかりませんでした。")
+            
+        new_html = new_html.strip()
+    except Exception as e:
+        print(f"APIからの返答形式が予想と異なりました。エラー: {e}")
+        print("実際の返答データ:")
         print(json.dumps(result, indent=2, ensure_ascii=False))
         raise
 
