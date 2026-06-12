@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{BusinessName}} | エレガント</title>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #FAF8F5; /* Soft Beige */
+            --text-color: #2C2C2C; /* Dark Charcoal */
+            --accent: #C2A878; /* Champagne Gold */
+        }
+        body { margin: 0; font-family: 'Shippori Mincho', serif; background-color: var(--bg-color); color: var(--text-color); }
+        .wrapper { border: 1px solid var(--accent); margin: 20px; min-height: calc(100vh - 40px); display: flex; flex-direction: column; }
+        .header { text-align: center; padding: 40px 0; border-bottom: 1px solid rgba(194, 168, 120, 0.3); }
+        .logo { font-size: 2.2rem; font-weight: 600; letter-spacing: 4px; color: var(--text-color); }
+        .nav { margin-top: 20px; }
+        .nav a { margin: 0 15px; text-decoration: none; color: var(--text-color); font-size: 0.9rem; letter-spacing: 2px; transition: color 0.3s; }
+        .nav a:hover { color: var(--accent); }
+        .hero { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 20px; }
+        .hero h1 { font-size: 2.8rem; margin-bottom: 30px; line-height: 1.5; font-weight: 400; letter-spacing: 2px; }
+        .hero p { font-size: 1.1rem; line-height: 2; max-width: 600px; color: #555; }
+        .btn { margin-top: 50px; display: inline-block; padding: 12px 40px; border: 1px solid var(--text-color); color: var(--text-color); text-decoration: none; letter-spacing: 2px; transition: all 0.4s; background: transparent; }
+        .btn:hover { background-color: var(--text-color); color: var(--bg-color); }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="logo">{{BusinessName}}</div>
+            <nav class="nav">
+                <a href="#concept">CONCEPT</a>
+                <a href="#menu">MENU</a>
+                <a href="#access">ACCESS</a>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <h1>心満たされる、<br>上質なひとときを。</h1>
+            <p>{{Catchphrase}}</p>
+            <a href="#reservation" class="btn">ご予約・お問い合わせ</a>
+        </section>
+    </div>
+</body>
+</html>

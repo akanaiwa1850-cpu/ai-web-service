@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{BusinessName}} | スタイリッシュ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #121212;
+            --text-color: #ffffff;
+            --accent: #d4af37; /* Gold */
+        }
+        body { margin: 0; font-family: 'Montserrat', sans-serif; background: var(--bg-color); color: var(--text-color); }
+        .hero { height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://source.unsplash.com/random/1920x1080/?architecture') no-repeat center/cover; }
+        h1 { font-size: 4rem; letter-spacing: 2px; margin-bottom: 20px; text-transform: uppercase; }
+        p { font-size: 1.2rem; max-width: 600px; margin: 0 auto; color: #ccc; }
+        .btn { margin-top: 30px; display: inline-block; padding: 15px 40px; border: 1px solid var(--accent); color: var(--accent); text-decoration: none; text-transform: uppercase; transition: all 0.3s; }
+        .btn:hover { background: var(--accent); color: var(--bg-color); }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div>
+            <h1>{{BusinessName}}</h1>
+            <p>{{Catchphrase}}</p>
+            <a href="#about" class="btn">Discover More</a>
+        </div>
+    </div>
+</body>
+</html>

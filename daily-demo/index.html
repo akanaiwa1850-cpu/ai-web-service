@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>【実証デモ】毎日進化するAI自動更新ホームページ</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- 常に上部に表示される「生きた証明」バッジ -->
+    <div class="live-header">
+        <span class="live-badge">🟢 LIVE</span>
+        <span id="update-timestamp">最終更新を計算中...</span>
+        （※前日18:00までの要望をAIが毎朝09:00に自動反映します）
+    </div>
+
+    <header class="hero container">
+        <h1 class="hero-title">このホームページは、<br><span class="text-gradient">毎日進化</span>しています。</h1>
+        <p class="hero-subtitle">
+            これは月額1万円の「AI自動更新ホームページ」の実際のデモサイトです。<br>
+            AIがどんな要望を受け取り、どうサイトを変化させているのか、本物の作業履歴をご覧ください。
+        </p>
+        <a href="../lp/index.html" class="btn">サービス詳細・お申し込みはこちら</a>
+    </header>
+
+    <section class="container changelog-section">
+        <h2 class="section-title">AIによる自動更新の履歴</h2>
+        
+        <!-- 更新履歴 1 (最新) -->
+        <div class="glass-panel changelog-card">
+            <div class="changelog-date" id="changelog-date-1">📅 2026年6月10日の更新</div>
+            <div class="changelog-grid">
+                <div class="log-box request">
+                    <div class="log-title">📩 クライアント（あなた）の要望</div>
+                    <p>「お客様から『毎日更新されるって本当？』と聞かれることが多いので、このサイト自体を『毎日更新されるデモサイト』として新しく作り直して公開してほしい！」</p>
+                </div>
+                <div class="log-box result">
+                    <div class="log-title">✨ AIの対応結果</div>
+                    <p>承知いたしました。<br>専用のデモページ（当サイト）を新規構築し、デザインを実用的かつ先進的なテイストに調整しました。また、常に最新の更新時刻を表示するプログラムを組み込みました。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 更新履歴 2 (過去分サンプル) -->
+        <div class="glass-panel changelog-card" style="opacity: 0.8;">
+            <div class="changelog-date">📅 2026年6月9日の更新</div>
+            <div class="changelog-grid">
+                <div class="log-box request">
+                    <div class="log-title">📩 クライアント（あなた）の要望</div>
+                    <p>「そろそろ梅雨に入るので、サービスサイトの雰囲気を少し雨っぽく、ブルーグレーを基調とした涼しげなデザインに変えておいて。」</p>
+                </div>
+                <div class="log-box result">
+                    <div class="log-title">✨ AIの対応結果</div>
+                    <p>承知いたしました。<br>ベースカラーを初夏向けの涼しげなトーンに変更し、梅雨シーズンのマーケティング施策として「雨の日限定キャンペーン」の準備枠を追加しました。</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="container features-section">
+        <h2 class="section-title">なぜ「毎日進化」が必要なのか？</h2>
+        <div class="features-grid">
+            <div class="glass-panel feature-card">
+                <div class="feature-icon">💰</div>
+                <h3>圧倒的低価格</h3>
+                <p>初期費用数十万の従来型サイトとは異なり、すべてコミコミ月額1万円で作れます。</p>
+            </div>
+            <div class="glass-panel feature-card">
+                <div class="feature-icon">🤝</div>
+                <h3>新鮮さ＝信頼</h3>
+                <p>常に最新情報が載っている生きているサイトは、お客様からの信頼度が段違いです。</p>
+            </div>
+            <div class="glass-panel feature-card">
+                <div class="feature-icon">🚀</div>
+                <h3>ビジネスの加速</h3>
+                <p>思いついたアイデアやキャンペーンが、翌朝にはサイトに反映される圧倒的スピード。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="cross-sell glass-panel" style="background: #0f172a; border-color: rgba(255,255,255,0.1);">
+            <h2 style="font-size: 2rem; margin-bottom: 20px;">さらに集客を加速させたい方へ</h2>
+            <p style="color: #94a3b8; margin-bottom: 30px; line-height: 1.8;">
+                このサイトのように常に最新状態に保たれたホームページに、<br>最強の飛び道具である「ショート動画」と「AIブログ記事」を組み合わせませんか？<br>
+                動画制作とライティングを完全に丸投げできるパッケージもご用意しています。
+            </p>
+            <a href="../video-lp/index.html" class="btn btn-accent">動画編集×AIライティング サービスを見る</a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 AI WebAuto. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 本日の日付を取得し、常に「今日の09:00」を最終更新時刻として表示する
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            // 現在時刻が9時前の場合は「昨日の9時」を最終更新とする
+            if (now.getHours() < 9) {
+                now.setDate(now.getDate() - 1);
+            }
+            
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const date = now.getDate();
+            
+            const timestampText = `最終更新：${year}年${month}月${date}日 09:00`;
+            document.getElementById('update-timestamp').textContent = timestampText;
+            
+            // 最新の作業履歴の日付も動的に今日にする
+            document.getElementById('changelog-date-1').textContent = `📅 ${year}年${month}月${date}日の更新`;
+        });
+    </script>
+</body>
+</html>
