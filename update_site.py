@@ -65,14 +65,17 @@ try:
     all_models = [m["id"] for m in models_data.get("data", [])]
     print(f"あなたのアカウントで利用可能な全モデル: {all_models}")
     
-    # fable系は一時的に利用制限がかかっているようなので除外し、opusを優先する
-    safe_models = [m for m in all_models if "fable" not in m and ("claude" in m or "opus" in m)]
+    # fable系は一時的に利用制限がかかっているようなので除外する
+    safe_models = [m for m in all_models if "fable" not in m and ("claude" in m or "opus" in m or "sonnet" in m or "haiku" in m)]
     
-    # opusを含むものを最優先
-    opus_models = [m for m in safe_models if "opus" in m]
+    # 料金を節約するため、haiku（安価で高速）またはsonnetを最優先する
+    haiku_models = [m for m in safe_models if "haiku" in m]
+    sonnet_models = [m for m in safe_models if "sonnet" in m]
     
-    if opus_models:
-        selected_model = opus_models[0]
+    if haiku_models:
+        selected_model = haiku_models[0]
+    elif sonnet_models:
+        selected_model = sonnet_models[0]
     elif safe_models:
         selected_model = safe_models[0]
     elif all_models:
