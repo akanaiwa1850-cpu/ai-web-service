@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{BusinessName}} | カタログ・物販型</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #9d8189; --bg: #fdfbf7; --text: #3d3b3c; }
+        body { margin: 0; font-family: 'Noto Serif JP', serif; color: var(--text); background: var(--bg); }
+        header { padding: 40px 20px; text-align: center; border-bottom: 1px solid #eaeaea; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; margin: 0; letter-spacing: 2px; }
+        .catchphrase { font-size: 1.1rem; color: #7f7f7f; margin-top: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+        .product-card { text-align: center; }
+        .product-card img { width: 100%; height: 350px; object-fit: cover; border-radius: 4px; transition: transform 0.5s; }
+        .product-card:hover img { transform: scale(1.03); }
+        .product-title { font-size: 1.2rem; margin: 20px 0 5px 0; }
+        .product-price { color: var(--primary); font-weight: bold; font-size: 1.1rem; }
+        .btn-buy { display: inline-block; margin-top: 15px; padding: 10px 30px; border: 1px solid var(--text); color: var(--text); text-decoration: none; transition: all 0.3s; }
+        .btn-buy:hover { background: var(--text); color: white; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{BusinessName}}</h1>
+        <div class="catchphrase">{{Catchphrase}}</div>
+    </header>
+    
+    <div class="grid">
+        <div class="product-card">
+            <img src="https://source.unsplash.com/random/400x500/?product,minimal" alt="Product 1">
+            <h3 class="product-title">シグネチャーアイテム A</h3>
+            <div class="product-price">¥ 12,000</div>
+            <a href="#" class="btn-buy">カートに入れる</a>
+        </div>
+        <div class="product-card">
+            <img src="https://source.unsplash.com/random/400x500/?product,lifestyle" alt="Product 2">
+            <h3 class="product-title">エッセンシャルアイテム B</h3>
+            <div class="product-price">¥ 8,500</div>
+            <a href="#" class="btn-buy">カートに入れる</a>
+        </div>
+        <div class="product-card">
+            <img src="https://source.unsplash.com/random/400x500/?product,design" alt="Product 3">
+            <h3 class="product-title">リミテッドアイテム C</h3>
+            <div class="product-price">¥ 24,000</div>
+            <a href="#" class="btn-buy">カートに入れる</a>
+        </div>
+    </div>
+</body>
+</html>

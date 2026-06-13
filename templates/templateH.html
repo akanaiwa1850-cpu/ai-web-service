@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{BusinessName}} | 採用・求人特化型</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #10b981; --bg: #ffffff; --text: #1f2937; }
+        body { margin: 0; font-family: 'Noto Sans JP', sans-serif; color: var(--text); background: var(--bg); }
+        .hero { height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 0 10%; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://source.unsplash.com/random/1920x1080/?team,office') center/cover; color: white; }
+        h1 { font-size: 3.5rem; font-weight: 900; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 1.2rem; font-weight: 700; background: var(--primary); padding: 5px 15px; display: inline-block; }
+        .message-section { padding: 80px 10%; display: flex; gap: 40px; align-items: center; }
+        .message-section img { width: 300px; height: 300px; object-fit: cover; border-radius: 50%; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .apply-btn { position: fixed; bottom: 30px; right: 30px; background: var(--primary); color: white; padding: 20px 40px; border-radius: 50px; font-weight: bold; font-size: 1.2rem; text-decoration: none; box-shadow: 0 10px 15px rgba(16, 185, 129, 0.3); transition: transform 0.3s; z-index: 100; }
+        .apply-btn:hover { transform: translateY(-5px); }
+        @media (max-width: 768px) { .message-section { flex-direction: column; text-align: center; } h1 { font-size: 2rem; } }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <p>RECRUIT</p>
+        <h1>{{Catchphrase}}<br>共に創る、新しい未来。</h1>
+    </div>
+    
+    <div class="message-section">
+        <img src="https://source.unsplash.com/random/500x500/?portrait,ceo" alt="CEO Message">
+        <div>
+            <h2 style="color: var(--primary);">代表メッセージ</h2>
+            <h3 style="font-size: 1.8rem; margin-top: 0;">{{BusinessName}}は、挑戦する人を応援します。</h3>
+            <p style="line-height: 1.8; color: #4b5563;">私たちは単なる利益の追求だけでなく、社会に新しい価値を提供し続けるチームでありたいと考えています。失敗を恐れず、自ら考え行動できる方と一緒に働けることを楽しみにしています。</p>
+        </div>
+    </div>
+    
+    <a href="#entry" class="apply-btn">✉️ エントリーする</a>
+</body>
+</html>

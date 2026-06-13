@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{BusinessName}} | 予約特化型</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #ff6b6b; --bg: #fff5f5; --text: #333; }
+        body { margin: 0; font-family: 'Noto Sans JP', sans-serif; color: var(--text); padding-bottom: 80px; }
+        header { background: #fff; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .hero { background: var(--bg); padding: 60px 20px; text-align: center; }
+        h1 { margin: 0; font-size: 2rem; color: var(--primary); }
+        .menu-list { max-width: 600px; margin: 40px auto; padding: 0 20px; }
+        .menu-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed #ccc; }
+        .sticky-btn { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: white; text-align: center; padding: 20px 0; font-size: 1.2rem; font-weight: bold; text-decoration: none; box-shadow: 0 -4px 15px rgba(255,107,107,0.4); z-index: 100; }
+    </style>
+</head>
+<body>
+    <header><h1>{{BusinessName}}</h1></header>
+    <div class="hero">
+        <h2>{{Catchphrase}}</h2>
+        <p>心と身体を癒す特別なプライベート空間</p>
+    </div>
+    <div class="menu-list">
+        <h3>おすすめメニュー</h3>
+        <div class="menu-item"><span>リラックス全身コース</span><span>¥8,000</span></div>
+        <div class="menu-item"><span>フェイシャル特別ケア</span><span>¥6,500</span></div>
+        <div class="menu-item"><span>ショート体験コース</span><span>¥3,000</span></div>
+    </div>
+    <a href="#" class="sticky-btn">📅 今すぐ予約する（空き状況を見る）</a>
+</body>
+</html>

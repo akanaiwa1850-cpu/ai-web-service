@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{BusinessName}} | BtoBリード獲得型</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #0284c7; --bg: #f0f9ff; --text: #1e293b; }
+        body { margin: 0; font-family: 'Inter', 'Noto Sans JP', sans-serif; color: var(--text); background: #f8fafc; }
+        .hero { background: var(--primary); color: white; padding: 80px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
+        h1 { margin: 0 0 20px 0; font-size: 2.5rem; font-weight: 800; }
+        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 40px; opacity: 0.9; }
+        .lead-form { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); max-width: 400px; width: 100%; margin-top: -60px; position: relative; z-index: 10; margin-left: auto; margin-right: auto; }
+        .lead-form h3 { margin-top: 0; color: var(--primary); text-align: center; }
+        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
+        .btn { display: block; width: 100%; padding: 15px; background: #ea580c; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; text-align: center; text-decoration: none; }
+        .trust-badges { display: flex; justify-content: center; gap: 30px; padding: 60px 20px; flex-wrap: wrap; }
+        .badge { display: flex; flex-direction: column; align-items: center; gap: 10px; color: #64748b; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>{{Catchphrase}}</h1>
+        <p>{{BusinessName}}の画期的なソリューションで、御社のビジネス課題を今すぐ解決します。</p>
+    </div>
+    
+    <div class="lead-form">
+        <h3>無料ホワイトペーパーをダウンロード</h3>
+        <input type="text" placeholder="会社名">
+        <input type="email" placeholder="メールアドレス">
+        <a href="#" class="btn">今すぐ無料でダウンロード</a>
+    </div>
+
+    <div class="trust-badges">
+        <div class="badge"><span style="font-size: 2rem;">🏢</span>導入企業 500社突破</div>
+        <div class="badge"><span style="font-size: 2rem;">⭐</span>顧客満足度 98%</div>
+        <div class="badge"><span style="font-size: 2rem;">🔒</span>強固なセキュリティ</div>
+    </div>
+</body>
+</html>
