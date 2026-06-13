@@ -1,8 +1,15 @@
 import os
 import json
 import urllib.request
+import urllib.error
 import re
 from datetime import datetime, timedelta
+
+try:
+    import tweepy
+except ImportError:
+    print("tweepyがインストールされていません。pip install tweepyを実行してください。")
+    tweepy = None
 
 # 1. APIキーの取得（GitHub Secretsから渡される）
 API_KEY = os.environ.get("ANTHROPIC_API_KEY")
@@ -126,6 +133,63 @@ try:
         
     print(f"成功: {HTML_PATH} を自動更新しました！")
     
+    # 8. X (Twitter) への自動投稿（設定されている場合のみ）
+    twitter_api_key = os.environ.get("TWITTER_API_KEY")
+    twitter_api_secret = os.environ.get("TWITTER_API_SECRET")
+    twitter_access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
+    twitter_access_secret = os.environ.get("TWITTER_ACCESS_SECRET")
+
+    if tweepy and twitter_api_key and twitter_access_token:
+        print("X(Twitter)への自動投稿を開始します...")
+        
+        # ツイート内容をClaudeに考えさせる
+        tweet_prompt = f"あなたはプロのSNSマーケターです。以下の要望に基づいてデモサイトのホームページをAIが自動更新しました。このことをアピールする魅力的な宣伝ツイートを100文字以内で作成してください。ハッシュタグ #AI自動更新 を含め、出力はツイートの文章のみにしてください。\n要望: {prompt}"
+        
+        tweet_data = {
+            "model": selected_model,
+            "max_tokens": 300,
+            "system": "You strictly output ONLY the tweet text without any quotes or markdown explanations.",
+            "messages": [{"role": "user", "content": tweet_prompt}]
+        }
+        
+        tweet_req = urllib.request.Request(
+            "https://api.anthropic.com/v1/messages",
+            data=json.dumps(tweet_data).encode("utf-8"),
+            headers={
+                "x-api-key": API_KEY,
+                "anthropic-version": "2023-06-01",
+                "content-type": "application/json"
+            },
+            method="POST"
+        )
+        
+        try:
+            tweet_resp = urllib.request.urlopen(tweet_req)
+            tweet_result = json.loads(tweet_resp.read().decode("utf-8"))
+            
+            tweet_text = ""
+            for block in tweet_result.get("content", []):
+                if block.get("type") == "text":
+                    tweet_text = block.get("text", "").strip()
+                    break
+                    
+            # URLを追加して最終的なツイート文を作成
+            final_tweet = f"{tweet_text}\n\n👇自動更新されるデモサイトはこちら\nhttps://melodic-peony-09bb15.netlify.app/daily-demo/index.html"
+            
+            # Tweepyを使ってXに投稿
+            client = tweepy.Client(
+                consumer_key=twitter_api_key,
+                consumer_secret=twitter_api_secret,
+                access_token=twitter_access_token,
+                access_token_secret=twitter_access_secret
+            )
+            
+            response = client.create_tweet(text=final_tweet)
+            print(f"Xへの投稿が成功しました！ Tweet ID: {response.data['id']}")
+            
+        except Exception as e:
+            print(f"Xへの投稿中にエラーが発生しました（HPの更新は成功しています）: {e}")
+
 except urllib.error.HTTPError as e:
     error_body = e.read().decode("utf-8")
     print(f"HTTPエラーが発生しました: {e.code} {e.reason}")
