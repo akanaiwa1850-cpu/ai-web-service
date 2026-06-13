@@ -61,17 +61,29 @@ try:
     models_response = urllib.request.urlopen(models_req)
     models_data = json.loads(models_response.read().decode("utf-8"))
     
-    # 取得したモデルリストの中から一番上にあるClaudeモデルを選択
-    available_models = [m["id"] for m in models_data.get("data", []) if "claude" in m["id"]]
-    if not available_models:
-        raise ValueError("使用可能なClaudeモデルが見つかりません。APIキーの権限を確認してください。")
+    # 取得した全モデルを出力（デバッグ用）
+    all_models = [m["id"] for m in models_data.get("data", [])]
+    print(f"あなたのアカウントで利用可能な全モデル: {all_models}")
     
-    selected_model = available_models[0]
+    # fable系は一時的に利用制限がかかっているようなので除外し、opusを優先する
+    safe_models = [m for m in all_models if "fable" not in m and ("claude" in m or "opus" in m)]
+    
+    # opusを含むものを最優先
+    opus_models = [m for m in safe_models if "opus" in m]
+    
+    if opus_models:
+        selected_model = opus_models[0]
+    elif safe_models:
+        selected_model = safe_models[0]
+    elif all_models:
+        selected_model = all_models[0]
+    else:
+        raise ValueError("使用可能なAIモデルが見つかりません。")
+        
     print(f"自動選択されたモデル: {selected_model}")
 except urllib.error.HTTPError as e:
     print(f"モデル一覧の取得に失敗しました: {e.read().decode('utf-8')}")
-    # 万が一取得できない場合のデフォルトフォールバック
-    selected_model = "claude-3-haiku-20240307"
+    selected_model = "opus-4.8" # エラーメッセージの推奨モデルを強制指定
 
 # 6. Claude API へのリクエスト準備
 data = {
