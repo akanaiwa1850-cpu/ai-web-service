@@ -22,6 +22,13 @@
         .hero-subtitle {
             color: #2563eb;
         }
+        /* 2026年06月14日の更新：メインタイトルのグラデーション文字をより力強い色に変更 */
+        .hero-title .text-gradient {
+            background: linear-gradient(90deg, #e11d48, #f97316);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
 </head>
 <body>
@@ -47,7 +54,22 @@
         
         <!-- 更新履歴 1 (最新) -->
         <div class="glass-panel changelog-card">
-            <div class="changelog-date" id="changelog-date-1">📅 2026年06月13日の更新</div>
+            <div class="changelog-date" id="changelog-date-1">📅 2026年06月14日の更新</div>
+            <div class="changelog-grid">
+                <div class="log-box request">
+                    <div class="log-title">📩 クライアント（あなた）の要望</div>
+                    <p>「メインの『毎日もっと良くなる』っていうカラフルな文字、もっと情熱的でワクワクする感じにできない？赤からオレンジっぽい暖色系のグラデーションにしてほしいな。」</p>
+                </div>
+                <div class="log-box result">
+                    <div class="log-title">✨ AIの対応結果</div>
+                    <p>承知いたしました。<br>メインタイトル「毎日もっと良くなる」のグラデーション文字を、情熱的でワクワク感のある暖色系（ローズレッド #e11d48 → オレンジ #f97316）に変更しました。サイトの第一印象にエネルギッシュな印象が加わりました。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 更新履歴 2 (過去分サンプル) -->
+        <div class="glass-panel changelog-card" style="opacity: 0.8;">
+            <div class="changelog-date">📅 2026年06月13日の更新</div>
             <div class="changelog-grid">
                 <div class="log-box request">
                     <div class="log-title">📩 クライアント（あなた）の要望</div>
@@ -56,21 +78,6 @@
                 <div class="log-box result">
                     <div class="log-title">✨ AIの対応結果</div>
                     <p>承知いたしました。<br>ヒーローセクションのサブタイトル（説明文）の文字色を、視認性が高く爽やかな印象のブルー（#2563eb）に変更しました。これにより、サイトの第一印象がより明るく目を引くものになりました。</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 更新履歴 2 (過去分サンプル) -->
-        <div class="glass-panel changelog-card" style="opacity: 0.8;">
-            <div class="changelog-date">📅 2026年06月12日の更新</div>
-            <div class="changelog-grid">
-                <div class="log-box request">
-                    <div class="log-title">📩 クライアント（あなた）の要望</div>
-                    <p>「『なぜ毎日進化が必要なのか？』の見出しがちょっと寂しい感じ。もっと明るくて前向きに見えるように、緑っぽい色にしてくれる？」</p>
-                </div>
-                <div class="log-box result">
-                    <div class="log-title">✨ AIの対応結果</div>
-                    <p>承知いたしました。<br>「なぜ『毎日進化』が必要なのか？」の見出しの文字色を、明るく前向きな印象のグリーン（#16a34a）に変更しました。ページ全体にポジティブで活気のある雰囲気が加わりました。</p>
                 </div>
             </div>
         </div>
