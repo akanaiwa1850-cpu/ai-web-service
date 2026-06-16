@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オンボーディング設定 | AI WebAuto</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .form-container {
+            max-width: 900px;
+            margin: 120px auto 100px;
+            padding: 0 20px;
+        }
+        .form-section {
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .form-section:last-child {
+            border-bottom: none;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: #fff;
+        }
+        .required {
+            color: #f43f5e;
+            font-size: 0.8rem;
+            margin-left: 5px;
+            vertical-align: super;
+        }
+        input[type="text"],
+        input[type="email"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #38bdf8;
+            background: rgba(255, 255, 255, 0.1);
+        }
+        .template-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .template-option {
+            cursor: pointer;
+            text-align: center;
+        }
+        .template-option input[type="radio"] {
+            display: none;
+        }
+        .template-card {
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s;
+            background: rgba(255,255,255,0.05);
+        }
+        .template-option input[type="radio"]:checked + .template-card {
+            border-color: #38bdf8;
+            box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
+            transform: translateY(-5px);
+        }
+        .template-card img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+        }
+        .template-card .label {
+            padding: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .option-checkbox {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .option-checkbox:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .option-checkbox input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-right: 15px;
+            cursor: pointer;
+        }
+        .option-details {
+            flex-grow: 1;
+        }
+        .option-title {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+        .option-price {
+            color: #f97316;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-elements">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">AI<span class="gradient-text">WebAuto</span></a>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <div class="glass-card" style="padding: 40px; border-radius: 20px;">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <h1 style="font-size: 2.5rem; margin-bottom: 15px;">初期セットアップ</h1>
+                <p style="color: var(--text-gray); font-size: 1.1rem;">
+                    ご契約ありがとうございます。<br>
+                    AIがあなたのビジネスを学習し、最適なサイトを構築するための情報を入力してください。
+                </p>
+            </div>
+
+            <!-- フォーム送信先には Formspree などのURLを設定します -->
+            <form action="https://formspree.io/f/YOUR_FORM_ID_HERE" method="POST">
+                
+                <!-- Section 1: 基本情報 -->
+                <div class="form-section">
+                    <h2 style="color: #38bdf8; margin-bottom: 20px;">1. 基本情報</h2>
+                    
+                    <div class="form-group">
+                        <label>会社名 / 店舗名 <span class="required">*</span></label>
+                        <input type="text" name="company_name" placeholder="例：株式会社未来デザイン" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>ご担当者様名 <span class="required">*</span></label>
+                        <input type="text" name="contact_name" placeholder="例：山田 太郎" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>ご連絡先メールアドレス <span class="required">*</span></label>
+                        <input type="email" name="email" placeholder="例：info@example.com" required>
+                    </div>
+                </div>
+
+                <!-- Section 2: テンプレート選択 -->
+                <div class="form-section">
+                    <h2 style="color: #38bdf8; margin-bottom: 20px;">2. ベースデザインの選択</h2>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;">AIが構築のベースとするテンプレートを1つお選びください。</p>
+                    
+                    <div class="template-selector">
+                        <!-- 世界観型 -->
+                        <label class="template-option">
+                            <input type="radio" name="template" value="A_Stylish" required>
+                            <div class="template-card">
+                                <img src="assets/template_a_1781050758817.png" alt="A">
+                                <div class="label">A. スタイリッシュ</div>
+                            </div>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="B_Simple">
+                            <div class="template-card">
+                                <img src="assets/template_b_1781050767613.png" alt="B">
+                                <div class="label">B. シンプル</div>
+                            </div>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="C_Pop">
+                            <div class="template-card">
+                                <img src="assets/template_c_1781050779846.png" alt="C">
+                                <div class="label">C. ポップ</div>
+                            </div>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="D_Corporate">
+                            <div class="template-card">
+                                <img src="assets/template_d_1781050790850.png" alt="D">
+                                <div class="label">D. コーポレート</div>
+                            </div>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="E_Elegant">
+                            <div class="template-card">
+                                <img src="assets/template_e_1781050800955.png" alt="E">
+                                <div class="label">E. エレガント</div>
+                            </div>
+                        </label>
+                        
+                        <!-- 機能型 -->
+                        <label class="template-option">
+                            <input type="radio" name="template" value="F_Reservation">
+                            <div class="template-card">
+                                <img src="assets/template_f.png" alt="F">
+                                <div class="label">F. 予約特化</div>
+                            </div>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="G_LeadGen">
+                            <div class="template-card">
+                                <img src="assets/template_g.png" alt="G">
+                                <div class="label">G. リード獲得</div>
+                            </div>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="H_Recruit">
+                            <div class="template-card">
+                                <img src="assets/template_h.png" alt="H">
+                                <div class="label">H. 採用・求人</div>
+                            </div>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="I_Event">
+                            <div class="template-card">
+                                <img src="assets/template_i.png" alt="I">
+                                <div class="label">I. セミナー</div>
+                            </div>
+                        </label>
+                        <label class="template-option">
+                            <input type="radio" name="template" value="J_Catalog">
+                            <div class="template-card">
+                                <img src="assets/template_j.png" alt="J">
+                                <div class="label">J. カタログ</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Section 3: ビジネス詳細 -->
+                <div class="form-section">
+                    <h2 style="color: #38bdf8; margin-bottom: 20px;">3. ビジネス詳細（AI学習データ）</h2>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;">AIが魅力的な文章を作成するためのヒントを教えてください。（箇条書きで構いません）</p>
+
+                    <div class="form-group">
+                        <label>コンセプト・キャッチフレーズ <span class="required">*</span></label>
+                        <input type="text" name="catchphrase" placeholder="例：地域で一番リラックスできる完全個室サロン" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>メインのターゲット層 <span class="required">*</span></label>
+                        <input type="text" name="target_audience" placeholder="例：仕事帰りの30〜40代女性" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>主なメニューや商品、アピールポイント（強み） <span class="required">*</span></label>
+                        <textarea name="services" rows="5" placeholder="・全身リラックスコース 8,000円&#13;&#10;・完全個室で他のお客様と顔を合わせない&#13;&#10;・オーガニック素材を使用" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Section 4: オプション機能 -->
+                <div class="form-section">
+                    <h2 style="color: #38bdf8; margin-bottom: 20px;">4. 追加オプションの確認</h2>
+                    <p style="color: var(--text-gray); margin-bottom: 20px;">ご希望のマーケティングオプションを選択してください。（後日、初期費用と合わせてご請求となります）</p>
+
+                    <label class="option-checkbox">
+                        <input type="checkbox" name="option_blog" value="Yes">
+                        <div class="option-details">
+                            <div class="option-title">AI「ブログ・お知らせ」自動作成</div>
+                            <div style="color: var(--text-gray); font-size: 0.9rem;">業界ニュースやお店の宣伝を毎日AIが投稿します。</div>
+                        </div>
+                        <div class="option-price">+ ¥5,000 / 月</div>
+                    </label>
+
+                    <label class="option-checkbox">
+                        <input type="checkbox" name="option_seo" value="Yes">
+                        <div class="option-details">
+                            <div class="option-title">AI・SEO（検索順位）自動チューニング</div>
+                            <div style="color: var(--text-gray); font-size: 0.9rem;">Google検索順位を上げるための裏側設定を毎日最適化します。</div>
+                        </div>
+                        <div class="option-price">+ ¥3,000 / 月</div>
+                    </label>
+                </div>
+
+                <div style="text-align: center; margin-top: 50px;">
+                    <button type="submit" class="btn btn-primary btn-large" style="width: 100%; max-width: 400px; border: none; cursor: pointer; font-family: inherit;">
+                        AIに情報を送信し、構築を開始する
+                    </button>
+                    <p style="color: var(--text-gray); font-size: 0.85rem; margin-top: 15px;">
+                        送信後、担当者より1営業日以内に今後の流れについてご連絡いたします。
+                    </p>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <footer style="text-align: center; padding: 40px 20px; margin-top: 50px;">
+        <p style="color: var(--text-gray); font-size: 0.9rem;">&copy; 2026 AI WebAuto. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
