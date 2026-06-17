@@ -38,6 +38,10 @@
         .hero {
             background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(34, 197, 94, 0.1));
         }
+        /* 2026年06月17日の更新：セクションタイトルをより目立たせる色に変更 */
+        .changelog-section .section-title {
+            color: #dc2626;
+        }
     </style>
 </head>
 <body>
@@ -63,7 +67,22 @@
         
         <!-- 更新履歴 1 (最新) -->
         <div class="glass-panel changelog-card">
-            <div class="changelog-date" id="changelog-date-1">📅 2026年06月16日の更新</div>
+            <div class="changelog-date" id="changelog-date-1">📅 2026年06月17日の更新</div>
+            <div class="changelog-grid">
+                <div class="log-box request">
+                    <div class="log-title">📩 クライアント（あなた）の要望</div>
+                    <p>「更新履歴のセクションタイトル『AIによる自動更新の履歴』をもっと目立たせたいな。赤系の色にして、より注目されるようにしてくれない？」</p>
+                </div>
+                <div class="log-box result">
+                    <div class="log-title">✨ AIの対応結果</div>
+                    <p>承知いたしました。<br>更新履歴セクションのタイトル色を鮮やかな赤（#dc2626）に変更しました。これにより、AIの自動更新機能についてのセクションがより視覚的に目立つようになり、訪問者の注目度が向上するはずです。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 更新履歴 2 (過去分サンプル) -->
+        <div class="glass-panel changelog-card" style="opacity: 0.8;">
+            <div class="changelog-date">📅 2026年06月16日の更新</div>
             <div class="changelog-grid">
                 <div class="log-box request">
                     <div class="log-title">📩 クライアント（あなた）の要望</div>
@@ -76,7 +95,7 @@
             </div>
         </div>
 
-        <!-- 更新履歴 2 (過去分サンプル) -->
+        <!-- 更新履歴 3 (過去分サンプル) -->
         <div class="glass-panel changelog-card" style="opacity: 0.8;">
             <div class="changelog-date">📅 2026年06月15日の更新</div>
             <div class="changelog-grid">
