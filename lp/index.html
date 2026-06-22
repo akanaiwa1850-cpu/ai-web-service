@@ -29,6 +29,15 @@
     </nav>
 
     <section class="hero">
+        <!-- キャンペーン告知バナー -->
+        <div style="background: linear-gradient(135deg, #f43f5e, #f97316); color: white; padding: 15px; border-radius: 16px; margin-bottom: 30px; text-align: center; box-shadow: 0 10px 30px rgba(244,63,94,0.4); border: 2px solid rgba(255,255,255,0.2);">
+            <div style="font-size: 0.9rem; margin-bottom: 5px; opacity: 0.9; font-weight: bold;">＼ 実績作りのための特別モニター募集 ／</div>
+            <div style="font-size: 1.3rem; font-weight: 800; letter-spacing: 1px;">【先着5社様限定】初月完全無料キャンペーン！</div>
+            <div style="font-size: 0.85rem; margin-top: 8px; background: rgba(0,0,0,0.3); display: inline-block; padding: 6px 15px; border-radius: 20px; font-weight: 600;">
+                🎁 さらに【上位3社様限定】でVIP専用「プラチナ紹介チケット」を付与
+            </div>
+        </div>
+
         <div class="hero-content">
             <div class="badge">🚀 業界初・次世代SaaSプラットフォーム</div>
             <h1 class="hero-title">自律駆動する、<br><span class="gradient-text">AI搭載型Webプラットフォーム</span></h1>
@@ -197,19 +206,27 @@
         </div>
         
         <!-- 基本プラン -->
-        <div class="glass-card pricing-card" style="margin-bottom: 40px; position: relative;">
-            <div style="position: absolute; top: -15px; right: -15px; background: linear-gradient(135deg, #f97316, #f43f5e); padding: 5px 15px; border-radius: 20px; font-weight: bold; font-size: 0.9rem; box-shadow: 0 4px 15px rgba(244,63,94,0.4);">
-                人気No.1 基本セット
+        <div class="glass-card pricing-card" style="margin-bottom: 40px; position: relative; border: 2px solid #f43f5e;">
+            <div style="position: absolute; top: -20px; right: -15px; background: linear-gradient(135deg, #f97316, #f43f5e); padding: 8px 20px; border-radius: 25px; font-weight: bold; font-size: 1rem; box-shadow: 0 5px 20px rgba(244,63,94,0.5); color: white;">
+                🔥 限定キャンペーン適用中
             </div>
             <div class="pricing-header">
                 <h2>All-in-One プラン</h2>
-                <div class="price"><span class="currency">¥</span>10,000<span class="period">/月</span></div>
+                <div style="font-size: 1rem; color: #f43f5e; font-weight: bold; margin-bottom: 5px;"><s>通常価格 ¥10,000/月</s></div>
+                <div class="price" style="font-size: 3rem; color: #fff;">
+                    <span style="font-size: 1.2rem; margin-right: 5px;">初月</span>¥0
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-gray); margin-top: 5px;">（2ヶ月目以降は ¥10,000/月）</div>
             </div>
             <ul class="pricing-features">
                 <li>✓ 高品質なデザインテンプレート（5種から選択）</li>
                 <li>✓ 意見・要望の無制限入力（LINE/メール連携）</li>
                 <li>✓ AIによる毎朝の自動サイト更新</li>
                 <li>✓ サーバー管理・保守費用 すべて込み</li>
+                <li style="color: #fca5a5; margin-top: 15px; font-weight: bold; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
+                    ⭐ 【1〜3社目限定】プラチナ紹介チケット5枚配布<br>
+                    <span style="font-size: 0.8rem; color: var(--text-gray); font-weight: normal;">※紹介していただいた方（ご紹介者様）限定で、将来の動画編集等で使える1000円分クーポンを進呈します。</span>
+                </li>
             </ul>
             <div class="terms-agreement" style="margin: 24px 0; text-align: center;">
                 <label style="display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; color: var(--text-gray); font-size: 0.95rem;">
@@ -289,7 +306,7 @@
             agreeCheckbox.addEventListener('change', function() {
                 if (this.checked) {
                     checkoutBtn.style.opacity = '1';
-                    checkoutBtn.textContent = '決済画面へ進む';
+                    checkoutBtn.textContent = '無料モニター枠に申し込む（相談画面へ）';
                 } else {
                     checkoutBtn.style.opacity = '0.5';
                     checkoutBtn.textContent = '利用規約に同意してください';
@@ -302,7 +319,7 @@
                 if (!agreeCheckbox.checked) {
                     alert('先に「利用規約に同意する」のチェックボックスにチェックを入れてください。');
                 } else {
-                    window.location.href = stripeUrl; // JavaScriptで確実に画面遷移
+                    window.location.href = '#contact'; // 決済画面ではなく、無料モニターなのでお問い合わせセクションへ誘導
                 }
             });
         }
