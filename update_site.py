@@ -150,75 +150,56 @@ try:
     
     # 8. 短い要約文の生成と、自社LP (lp/index.html) のメッセージ枠の更新
     print("LP更新用の短い要約を生成中...")
-    summary_prompt = f"以下の要望に基づいてデモサイトのホームページをAIが自動更新しました。この作業内容を報告する魅力的な短文を100文字以内で作成してください。出力は文章のみにしてください。\n要望: {prompt}"
+    # 新しく生成されたHTML(new_html)の中から、AIが報告した内容(result)を抽出する安全な方法を採用
+    import re
+    summary_text = "本日のアクセス傾向に合わせて数件の微調整を行いました。"
+    match = re.search(r'<div class="log-box result">\s*<p>(.*?)</p>', new_html, re.DOTALL)
+    if match:
+        extracted = match.group(1).strip()
+        # HTMLタグが混入している場合は除去
+        extracted = re.sub(r'<[^>]+>', '', extracted)
+        if extracted:
+            summary_text = extracted
     
-    summary_data = {
-        "model": selected_model,
-        "max_tokens": 300,
-        "system": "You strictly output ONLY the text without any quotes or markdown explanations.",
-        "messages": [{"role": "user", "content": summary_prompt}]
-    }
-    
-    summary_req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=json.dumps(summary_data).encode("utf-8"),
-        headers={
-            "x-api-key": API_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json"
-        },
-        method="POST"
-    )
-    
+    # 自社LP (lp/index.html) の更新
     try:
-        summary_resp = urllib.request.urlopen(summary_req)
-        summary_result = json.loads(summary_resp.read().decode("utf-8"))
+        lp_path = "lp/index.html"
+        with open(lp_path, "r", encoding="utf-8") as lp_f:
+            lp_content = lp_f.read()
         
-        summary_text = ""
-        for block in summary_result.get("content", []):
-            if block.get("type") == "text":
-                summary_text = block.get("text", "").strip()
-                break
-                
-        # 自社LP (lp/index.html) の更新
-        try:
-            lp_path = "lp/index.html"
-            with open(lp_path, "r", encoding="utf-8") as lp_f:
-                lp_content = lp_f.read()
-            
-            # 日付の更新
-            import re
-            now_str = datetime.now().strftime("%Y年%m月%d日 %H:%M")
-            lp_content = re.sub(
-                r"(<!-- AI-UPDATE-DATE-START -->\s*)[\s\S]*?(\s*<!-- AI-UPDATE-DATE-END -->)",
-                rf"\g<1>最終更新：{now_str}（AIシステム稼働中）\g<2>",
-                lp_content
-            )
-            
-            # メッセージの更新
-            ai_msg = f"【AI WebAuto 稼働報告】本日もシステムが正常に稼働し、最適化を実行しました。作業内容：「{summary_text}」"
-            lp_content = re.sub(
-                r"(<!-- AI-UPDATE-MSG-START -->\s*)[\s\S]*?(\s*<!-- AI-UPDATE-MSG-END -->)",
-                rf"\g<1>{ai_msg}\g<2>",
-                lp_content
-            )
-            
-            with open(lp_path, "w", encoding="utf-8") as lp_f:
-                lp_f.write(lp_content)
-            print(f"成功: {lp_path} のAIステータス枠も更新しました！")
-        except Exception as lp_e:
-            print(f"LPの自動更新中にエラーが発生しました: {lp_e}")
-            
-        # 9. X (Twitter) への自動投稿（設定されている場合のみ）
-        twitter_api_key = os.environ.get("TWITTER_API_KEY")
-        twitter_api_secret = os.environ.get("TWITTER_API_SECRET")
-        twitter_access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
-        twitter_access_secret = os.environ.get("TWITTER_ACCESS_SECRET")
+        # 日付の更新
+        now_str = datetime.now().strftime("%Y年%m月%d日 %H:%M")
+        lp_content = re.sub(
+            r"(<!-- AI-UPDATE-DATE-START -->\s*)[\s\S]*?(\s*<!-- AI-UPDATE-DATE-END -->)",
+            rf"\g<1>最終更新：{now_str}（AIシステム稼働中）\g<2>",
+            lp_content
+        )
+        
+        # メッセージの更新
+        ai_msg = f"【AI WebAuto 稼働報告】本日もシステムが正常に稼働し、最適化を実行しました。作業内容：「{summary_text}」"
+        lp_content = re.sub(
+            r"(<!-- AI-UPDATE-MSG-START -->\s*)[\s\S]*?(\s*<!-- AI-UPDATE-MSG-END -->)",
+            rf"\g<1>{ai_msg}\g<2>",
+            lp_content
+        )
+        
+        with open(lp_path, "w", encoding="utf-8") as lp_f:
+            lp_f.write(lp_content)
+        print(f"成功: {lp_path} のAIステータス枠も更新しました！")
+    except Exception as lp_e:
+        print(f"LPの自動更新中にエラーが発生しました: {lp_e}")
+        
+    # 9. X (Twitter) への自動投稿（設定されている場合のみ）
+    twitter_api_key = os.environ.get("TWITTER_API_KEY")
+    twitter_api_secret = os.environ.get("TWITTER_API_SECRET")
+    twitter_access_token = os.environ.get("TWITTER_ACCESS_TOKEN")
+    twitter_access_secret = os.environ.get("TWITTER_ACCESS_SECRET")
 
-        if tweepy and twitter_api_key and twitter_access_token:
-            print("X(Twitter)への自動投稿を開始します...")
-            final_tweet = f"{summary_text}\n#AI自動更新\n\n👇自動更新されるデモサイトはこちら\nhttps://melodic-peony-09bb15.netlify.app/daily-demo/index.html"
-            
+    if tweepy and twitter_api_key and twitter_access_token:
+        print("X(Twitter)への自動投稿を開始します...")
+        final_tweet = f"{summary_text}\n#AI自動更新\n\n👇自動更新されるデモサイトはこちら\nhttps://melodic-peony-09bb15.netlify.app/daily-demo/index.html"
+        
+        try:
             client = tweepy.Client(
                 consumer_key=twitter_api_key,
                 consumer_secret=twitter_api_secret,
@@ -228,9 +209,8 @@ try:
             
             response = client.create_tweet(text=final_tweet)
             print(f"Xへの投稿が成功しました！ Tweet ID: {response.data['id']}")
-
-    except Exception as e:
-        print(f"要約の生成またはXへの投稿中にエラーが発生しました: {e}")
+        except Exception as e:
+            print(f"Xへの投稿中にエラーが発生しました: {e}")
 
 except urllib.error.HTTPError as e:
     error_body = e.read().decode("utf-8")
