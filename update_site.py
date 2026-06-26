@@ -167,8 +167,8 @@ try:
         with open(lp_path, "r", encoding="utf-8") as lp_f:
             lp_content = lp_f.read()
         
-        # 日付の更新
-        now_str = datetime.now().strftime("%Y年%m月%d日 %H:%M")
+        # 日付の更新（実際の実行時刻に関わらず、表示上は常に「09:00」とする）
+        now_str = datetime.now().strftime("%Y年%m月%d日 09:00")
         lp_content = re.sub(
             r"(<!-- AI-UPDATE-DATE-START -->\s*)[\s\S]*?(\s*<!-- AI-UPDATE-DATE-END -->)",
             rf"\g<1>最終更新：{now_str}（AIシステム稼働中）\g<2>",
