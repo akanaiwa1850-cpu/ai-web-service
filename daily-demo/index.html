@@ -77,6 +77,26 @@
             background: #f59e0b;
             box-shadow: 0 8px 20px rgba(245, 158, 11, 0.5);
         }
+        /* 2026年06月27日の更新：セクションタイトルをより華やかな色ピンク系に変更 */
+        .changelog-section .section-title {
+            color: #ec4899;
+        }
+        /* 2026年06月27日の更新：申し込みボタンをより目立つピンク系に変更 */
+        .hero .btn {
+            background: #ec4899;
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.5);
+        }
+        /* 2026年06月28日の更新：ボタンの色をより引き立つ深い青系に変更 */
+        .hero .btn {
+            background: #1e40af;
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.5);
+        }
+        /* 2026年06月28日の更新：ヒーロータイトルをより肯定的で前向きなメッセージに調整 */
+        .hero-title {
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            font-size: 3.5rem;
+        }
     </style>
 </head>
 <body>
@@ -89,7 +109,7 @@
     </div>
 
     <header class="hero container">
-        <h1 class="hero-title">あなたのビジネスは、<br><span class="text-gradient">毎日確実に成長し続ける</span>。</h1>
+        <h1 class="hero-title">あなたのビジネスは、<br><span class="text-gradient">毎日着実に成功へ向かう</span>。</h1>
         <p class="hero-subtitle">
             これは月額1万円の「AI自動更新ホームページ」の実際のデモサイトです。<br>
             AIがどんな要望を受け取り、どうサイトを成長させているのか、本物の作業履歴をご覧ください。
@@ -102,7 +122,22 @@
         
         <!-- 更新履歴 1 (最新) -->
         <div class="glass-panel changelog-card">
-            <div class="changelog-date" id="changelog-date-1">📅 2026年06月25日の更新</div>
+            <div class="changelog-date" id="changelog-date-1">📅 2026年06月28日の更新</div>
+            <div class="changelog-grid">
+                <div class="log-box request">
+                    <div class="log-title">📩 クライアント（あなた）の要望</div>
+                    <p>「申し込みボタンの色を深い青系に変更してもらえますか？より信頼感と安定感を感じさせるデザインにしたいです。」</p>
+                </div>
+                <div class="log-box result">
+                    <div class="log-title">✨ AIの対応結果</div>
+                    <p>承知いたしました。<br>申し込みボタンの色をピンク系から深い青系（#1e40af）に変更し、グロウエフェクトも同色に調整いたしました。深い青色は信頼感と安定感を与える色であり、ビジネスサイトのコンバージョン向上に効果的です。同時にヒーロータイトルをより肯定的なメッセージに変更しました。</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 更新履歴 2 (過去分サンプル) -->
+        <div class="glass-panel changelog-card" style="opacity: 0.8;">
+            <div class="changelog-date">📅 2026年06月25日の更新</div>
             <div class="changelog-grid">
                 <div class="log-box request">
                     <div class="log-title">📩 クライアント（あなた）の要望</div>
@@ -115,7 +150,7 @@
             </div>
         </div>
 
-        <!-- 更新履歴 2 (過去分サンプル) -->
+        <!-- 更新履歴 3 (過去分サンプル) -->
         <div class="glass-panel changelog-card" style="opacity: 0.8;">
             <div class="changelog-date">📅 2026年06月23日の更新</div>
             <div class="changelog-grid">
@@ -126,21 +161,6 @@
                 <div class="log-box result">
                     <div class="log-title">✨ AIの対応結果</div>
                     <p>承知いたしました。<br>サブタイトルのテキスト色を青系からオレンジ系（#ea580c）に変更いたしました。これにより、サイト全体がより温かみのある印象になり、訪問者との親しみやすさが向上します。</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 更新履歴 3 (過去分サンプル) -->
-        <div class="glass-panel changelog-card" style="opacity: 0.8;">
-            <div class="changelog-date">📅 2026年06月22日の更新</div>
-            <div class="changelog-grid">
-                <div class="log-box request">
-                    <div class="log-title">📩 クライアント（あなた）の要望</div>
-                    <p>「申し込みボタンの色をもっと目立たせてください。現在の空色よりも、もっと個性的で印象に残る紫系の色に変えてもらえますか？」</p>
-                </div>
-                <div class="log-box result">
-                    <div class="log-title">✨ AIの対応結果</div>
-                    <p>承知いたしました。<br>メインの申し込みボタンの色を空色からバイオレット系（#a855f7）に変更し、グロウエフェクトも同色に調整いたしました。これによりボタンがより目立つようになり、クリック誘導効果が向上します。</p>
                 </div>
             </div>
         </div>
@@ -202,6 +222,3 @@
             // 最新の作業履歴の日付も動的に今日にする
             document.getElementById('changelog-date-1').textContent = `📅 ${year}年${month}月${date}日の更新`;
         });
-    </script>
-</body>
-</html>
