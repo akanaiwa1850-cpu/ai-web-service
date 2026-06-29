@@ -32,10 +32,10 @@
 
         <div class="hero-content">
             <div class="badge">🚀 業界初・次世代SaaSプラットフォーム</div>
-            <h1 class="hero-title">自律駆動する、<br><span class="gradient-text">AI搭載型Webプラットフォーム</span></h1>
+            <h1 class="hero-title">「作って終わり」は過去のもの。<br><span class="gradient-text">AIが毎日育てる『生きた』Webサイト</span></h1>
             <p class="hero-subtitle">
-                インハウスWeb担当者を雇う1/100のコストで。<br>
-                ビジネスの成長に合わせて、システムが24時間体制でサイトを最適化し続けます。
+                サイト制作から日々の保守・集客・改善まで、すべてをAIに「丸投げ」。<br>
+                人件費ゼロで、専属のWeb担当者が24時間365日あなたのビジネスを支援します。
             </p>
             <div class="hero-cta">
                 <a href="#contact" class="btn btn-primary btn-large">無料で相談する</a>
@@ -61,21 +61,63 @@
         </div>
     </header>
 
-    <!-- AI自動更新ステータス枠（ここを毎朝AIが書き換えます） -->
-    <section id="ai-status" style="max-width: 800px; margin: -20px auto 60px; padding: 0 20px; position: relative; z-index: 10;">
-        <div class="glass-card" style="padding: 20px; border-left: 4px solid #06C755; background: rgba(0,0,0,0.6); display: flex; align-items: center; gap: 15px;">
-            <div style="font-size: 2rem; animation: pulse 2s infinite;">🟢</div>
-            <div>
-                <div style="font-size: 0.85rem; color: var(--text-gray); margin-bottom: 4px;">
-                    <!-- AI-UPDATE-DATE-START -->
-                    最終更新：2026年06月28日 09:00（AIシステム稼働中）
-                    <!-- AI-UPDATE-DATE-END -->
-                </div>
-                <div style="font-size: 1rem; color: #fff; font-weight: 500;">
-                    <!-- AI-UPDATE-MSG-START -->
-                    【AI WebAuto 稼働報告】本日もシステムが正常に稼働し、最適化を実行しました。作業内容：「本日のアクセス傾向に合わせて数件の微調整を行いました。」
-                    <!-- AI-UPDATE-MSG-END -->
-                </div>
+    <!-- AI稼働タイムライン（毎朝AIがここにログを追加します） -->
+    <section id="ai-status" style="max-width: 800px; margin: 0 auto 80px; padding: 0 20px; position: relative; z-index: 10;">
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="terminal-dot dot-r"></div>
+                <div class="terminal-dot dot-y"></div>
+                <div class="terminal-dot dot-g"></div>
+                <div class="terminal-title">ai-web-auto-core ~ [LIVE ACTIVITY LOG]</div>
+            </div>
+            <div class="terminal-body">
+                <ul class="log-list" id="ai-log-list">
+                    <!-- AI-LOG-LIST-START -->
+                    <li class="log-item new">
+                        <div class="log-marker"></div>
+                        <div class="log-date">2026-06-29 09:00:00 [SYSTEM]</div>
+                        <div class="log-content"><span class="highlight-ai">最適化完了:</span> LPのキャッチコピーを最新の市場トレンドに合わせて調整しました。</div>
+                    </li>
+                    <li class="log-item">
+                        <div class="log-marker"></div>
+                        <div class="log-date">2026-06-28 09:00:00 [SYSTEM]</div>
+                        <div class="log-content"><span class="highlight-ai">定期保守:</span> 全体システムの稼働チェックおよび不要なキャッシュのクリアを実行しました。</div>
+                    </li>
+                    <li class="log-item">
+                        <div class="log-marker"></div>
+                        <div class="log-date">2026-06-27 09:00:00 [SYSTEM]</div>
+                        <div class="log-content"><span class="highlight-ai">アクセス解析:</span> 週末のアクセス増加に備え、サーバーのレスポンス速度を最適化しました。</div>
+                    </li>
+                    <!-- AI-LOG-LIST-END -->
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 差別化・メリットセクション -->
+    <section id="merits" class="features" style="margin-top: 0;">
+        <div class="section-header">
+            <h2>一般的なAIツールとの<span class="gradient-text">圧倒的な違い</span></h2>
+            <p>自分で作るだけのAIツールではありません。システムが専属の担当者として働き続けます。</p>
+        </div>
+        <div class="feature-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <div class="glass-card feature-card" style="border-top: 3px solid var(--text-gray); text-align: left;">
+                <h3 style="color: var(--text-gray); margin-bottom: 20px; font-size: 1.2rem;">❌ 従来のAIサイト制作</h3>
+                <ul style="list-style: none; padding: 0; color: var(--text-gray);">
+                    <li style="margin-bottom: 10px;">・AIが最初の「枠組み」だけを作る</li>
+                    <li style="margin-bottom: 10px;">・その後のブログや文章更新は「人間」がやる</li>
+                    <li style="margin-bottom: 10px;">・放置すれば情報が古くなり検索順位も落ちる</li>
+                    <li style="margin-bottom: 10px;">・機能追加のたびに別料金がかかる</li>
+                </ul>
+            </div>
+            <div class="glass-card feature-card" style="border-top: 3px solid var(--primary); text-align: left; background: rgba(99, 102, 241, 0.05);">
+                <h3 style="color: #fff; margin-bottom: 20px; font-size: 1.2rem;">✨ AI WebAuto（当システム）</h3>
+                <ul style="list-style: none; padding: 0; color: #fff;">
+                    <li style="margin-bottom: 10px;">・AIがサイトを作り、<span class="highlight-ai">そのままサイト内に常駐</span></li>
+                    <li style="margin-bottom: 10px;">・毎日のアクセス解析とSEO対策を<span class="highlight-ai">全自動化</span></li>
+                    <li style="margin-bottom: 10px;">・常にトレンドに合わせてデザイン・文章が<span class="highlight-ai">進化する</span></li>
+                    <li style="margin-bottom: 10px;">・インハウス担当者を雇う<span class="highlight-ai">1/100のコスト</span>で丸投げ可能</li>
+                </ul>
             </div>
         </div>
     </section>

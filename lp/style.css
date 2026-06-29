@@ -417,3 +417,106 @@ body {
     .hero-cta { flex-direction: column; width: 100%; }
     .hero-cta .btn { width: 100%; text-align: center; }
 }
+/* AI Activity Log Timeline */
+.terminal-window {
+    background: #0d1117;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+.terminal-header {
+    background: #161b22;
+    padding: 10px 15px;
+    border-bottom: 1px solid #30363d;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.terminal-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+}
+.dot-r { background: #ff5f56; }
+.dot-y { background: #ffbd2e; }
+.dot-g { background: #27c93f; }
+
+.terminal-title {
+    color: #8b949e;
+    font-size: 0.85rem;
+    font-family: monospace;
+    margin-left: 10px;
+}
+
+.terminal-body {
+    padding: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.log-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.log-list::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 7px;
+    width: 2px;
+    background: #30363d;
+}
+
+.log-item {
+    position: relative;
+    padding-left: 30px;
+    margin-bottom: 20px;
+}
+.log-item:last-child {
+    margin-bottom: 0;
+}
+
+.log-marker {
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #0d1117;
+    border: 2px solid #238636;
+    z-index: 1;
+}
+
+.log-item.new .log-marker {
+    background: #238636;
+    box-shadow: 0 0 10px rgba(35, 134, 54, 0.5);
+    animation: pulse-green 2s infinite;
+}
+
+@keyframes pulse-green {
+    0% { box-shadow: 0 0 0 0 rgba(35, 134, 54, 0.4); }
+    70% { box-shadow: 0 0 0 6px rgba(35, 134, 54, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(35, 134, 54, 0); }
+}
+
+.log-date {
+    font-family: monospace;
+    color: #8b949e;
+    font-size: 0.85rem;
+    margin-bottom: 4px;
+}
+
+.log-content {
+    color: #c9d1d9;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.highlight-ai {
+    color: #58a6ff;
+    font-weight: bold;
+}

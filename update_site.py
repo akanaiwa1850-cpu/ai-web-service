@@ -166,20 +166,22 @@ try:
         lp_path = "lp/index.html"
         with open(lp_path, "r", encoding="utf-8") as lp_f:
             lp_content = lp_f.read()
+        # ログの「new」バッジを古いものから消す
+        lp_content = lp_content.replace('<li class="log-item new">', '<li class="log-item">')
         
-        # 日付の更新（実際の実行時刻に関わらず、表示上は常に「09:00」とする）
-        now_str = datetime.now().strftime("%Y年%m月%d日 09:00")
-        lp_content = re.sub(
-            r"(<!-- AI-UPDATE-DATE-START -->\s*)[\s\S]*?(\s*<!-- AI-UPDATE-DATE-END -->)",
-            rf"\g<1>最終更新：{now_str}（AIシステム稼働中）\g<2>",
-            lp_content
-        )
+        # 新しいログアイテムを作成
+        now_date_str = datetime.now().strftime("%Y-%m-%d 09:00:00")
+        new_log_html = f"""
+                    <li class="log-item new">
+                        <div class="log-marker"></div>
+                        <div class="log-date">{now_date_str} [SYSTEM]</div>
+                        <div class="log-content"><span class="highlight-ai">自動更新完了:</span> {summary_text}</div>
+                    </li>"""
         
-        # メッセージの更新
-        ai_msg = f"【AI WebAuto 稼働報告】本日もシステムが正常に稼働し、最適化を実行しました。作業内容：「{summary_text}」"
+        # タイムラインの先頭に追加
         lp_content = re.sub(
-            r"(<!-- AI-UPDATE-MSG-START -->\s*)[\s\S]*?(\s*<!-- AI-UPDATE-MSG-END -->)",
-            rf"\g<1>{ai_msg}\g<2>",
+            r"(<!-- AI-LOG-LIST-START -->)",
+            rf"\g<1>{new_log_html}",
             lp_content
         )
         
