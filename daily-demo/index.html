@@ -104,6 +104,18 @@
             transform: translateY(-2px);
             transition: all 0.3s ease;
         }
+        /* 2026年06月30日の更新：申し込みボタンの色をより鮮やかで目立つ赤紫系に変更 */
+        .hero .btn {
+            background: #e91e63;
+            box-shadow: 0 8px 20px rgba(233, 30, 99, 0.5);
+        }
+        /* 2026年06月30日の更新：ヒーロータイトルをより肯定的で前向きなメッセージに調整 */
+        .hero-title {
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            font-size: 3.5rem;
+            color: #1f2937;
+        }
     </style>
 </head>
 <body>
@@ -116,7 +128,7 @@
     </div>
 
     <header class="hero container">
-        <h1 class="hero-title">あなたのビジネスは、<br><span class="text-gradient">毎日確実に成長して輝く</span>。</h1>
+        <h1 class="hero-title">あなたのビジネスは、<br><span class="text-gradient">毎日着実に成功へ加速していく</span>。</h1>
         <p class="hero-subtitle">
             これは月額1万円の「AI自動更新ホームページ」の実際のデモサイトです。<br>
             AIがどんな要望を受け取り、どうサイトを成長させているのか、本物の作業履歴をご覧ください。
@@ -129,15 +141,15 @@
         
         <!-- 更新履歴 1 (最新) -->
         <div class="glass-panel changelog-card">
-            <div class="changelog-date" id="changelog-date-1">📅 2026年06月29日の更新</div>
+            <div class="changelog-date" id="changelog-date-1">📅 2026年06月30日の更新</div>
             <div class="changelog-grid">
                 <div class="log-box request">
                     <div class="log-title">📩 クライアント（あなた）の要望</div>
-                    <p>「申し込みボタンのホバー時の色を、もっと目立つオレンジ系に変更してもらえますか？クリックしたくなるような視覚的インタラクションを強化したいです。」</p>
+                    <p>「申し込みボタンの色をもっと鮮やかで目立つ赤紫系に変えてもらえませんか？訪問者の行動を促す視覚的インパクトを強めたいです。」</p>
                 </div>
                 <div class="log-box result">
                     <div class="log-title">✨ AIの対応結果</div>
-                    <p>承知いたしました。申し込みボタンのホバー時の色をオレンジ系（#ea580c）に変更し、グロウエフェクトを同色に調整いたしました。同時にヒーロータイトルをより成長と輝きをイメージさせる前向きなメッセージに変更しました。これにより、ユーザーのクリック欲求が大幅に向上します。</p>
+                    <p>承知いたしました。申し込みボタンの色を深い青系から赤紫系（#e91e63）に変更し、グロウエフェクトを同色で調整いたしました。同時にヒーロータイトルを「毎日着実に成功へ加速していく」という、さらに前向きで行動的なメッセージに変更いたしました。</p>
                 </div>
             </div>
         </div>
@@ -207,17 +219,3 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 AI WebAuto. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // 本日の日付を取得し、常に「今日の09:00」を最終更新時刻として表示する
-        document.addEventListener('DOMContentLoaded', function() {
-            const now = new Date();
-            // 現在時刻が9時前の場合は「昨日の9時」を最終更新とする
-            if (now.getHours() < 9) {
-                now.setDate(now.getDate() - 1);
-            }
-            
-            const year = now.getFullYear();
-            const month = now.getMonth() + 1
