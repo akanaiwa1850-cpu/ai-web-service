@@ -3,31 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{BusinessName}} | 予約特化型</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>予約特化型テンプレート（クリニック・サロン向け）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #ff6b6b; --bg: #fff5f5; --text: #333; }
-        body { margin: 0; font-family: 'Noto Sans JP', sans-serif; color: var(--text); padding-bottom: 80px; }
-        header { background: #fff; padding: 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .hero { background: var(--bg); padding: 60px 20px; text-align: center; }
-        h1 { margin: 0; font-size: 2rem; color: var(--primary); }
-        .menu-list { max-width: 600px; margin: 40px auto; padding: 0 20px; }
-        .menu-item { display: flex; justify-content: space-between; padding: 15px 0; border-bottom: 1px dashed #ccc; }
-        .sticky-btn { position: fixed; bottom: 0; left: 0; width: 100%; background: var(--primary); color: white; text-align: center; padding: 20px 0; font-size: 1.2rem; font-weight: bold; text-decoration: none; box-shadow: 0 -4px 15px rgba(255,107,107,0.4); z-index: 100; }
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .hero-pattern { background-color: #fcf9f8; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='#e8e3e1' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
+        .floating-btn { box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.4); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
     </style>
 </head>
-<body>
-    <header><h1>{{BusinessName}}</h1></header>
-    <div class="hero">
-        <h2>{{Catchphrase}}</h2>
-        <p>心と身体を癒す特別なプライベート空間</p>
-    </div>
-    <div class="menu-list">
-        <h3>おすすめメニュー</h3>
-        <div class="menu-item"><span>リラックス全身コース</span><span>¥8,000</span></div>
-        <div class="menu-item"><span>フェイシャル特別ケア</span><span>¥6,500</span></div>
-        <div class="menu-item"><span>ショート体験コース</span><span>¥3,000</span></div>
-    </div>
-    <a href="#" class="sticky-btn">📅 今すぐ予約する（空き状況を見る）</a>
+<body class="text-gray-800 bg-white">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md border-b border-gray-100 z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex justify-between items-center h-20">
+                <div class="text-2xl font-bold tracking-tighter text-gray-800">Clinic<span class="text-pink-500">.</span></div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#services" class="text-sm font-medium text-gray-600 hover:text-pink-500 transition">診療内容</a>
+                    <a href="#doctors" class="text-sm font-medium text-gray-600 hover:text-pink-500 transition">医師紹介</a>
+                    <a href="#access" class="text-sm font-medium text-gray-600 hover:text-pink-500 transition">アクセス</a>
+                </div>
+                <a href="#reserve" class="bg-gray-900 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition">WEB予約</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-pattern pt-32 pb-20 md:pt-48 md:pb-32 px-4 relative overflow-hidden">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 md:pr-12 z-10">
+                <span class="inline-block py-1 px-3 rounded-full bg-pink-100 text-pink-600 text-xs font-bold tracking-wider mb-6">初診予約受付中</span>
+                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 text-gray-900">
+                    あなたの美しさを<br>最短で引き出す。
+                </h1>
+                <p class="text-gray-600 mb-8 text-lg leading-relaxed">
+                    最新の医療機器と経験豊富な専門医が、あなたに最適なパーソナルケアをご提案します。土日祝も診療可能。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#reserve" class="bg-pink-500 text-white text-center px-8 py-4 rounded-full font-bold text-lg hover:bg-pink-600 transition shadow-lg shadow-pink-500/30">今すぐ予約する (24h)</a>
+                    <a href="tel:0000000000" class="bg-white border border-gray-200 text-gray-800 text-center px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-50 transition">📞 0120-XXX-XXX</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-12 md:mt-0 relative">
+                <!-- Image Placeholder -->
+                <div class="w-full h-80 md:h-[500px] bg-gray-200 rounded-3xl overflow-hidden relative shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" alt="Clinic Interior" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
+                </div>
+                <!-- Floating Info Card -->
+                <div class="absolute -bottom-6 -left-6 md:-left-12 bg-white p-6 rounded-2xl shadow-xl floating-btn">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl">✓</div>
+                        <div>
+                            <p class="text-xs text-gray-500 font-bold">最短で明日予約可能</p>
+                            <p class="text-lg font-bold text-gray-900">待ち時間 ほぼ0分</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section (The Core Function) -->
+    <section id="reserve" class="py-20 bg-white px-4">
+        <div class="max-w-4xl mx-auto bg-gray-50 rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-4">簡単WEB予約</h2>
+                <p class="text-gray-600">空き状況をご確認の上、ご希望の日時を選択してください。</p>
+            </div>
+            
+            <!-- Mock Calendar/Booking UI -->
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex justify-between items-center mb-6">
+                    <button class="text-gray-400 hover:text-gray-800">&lt; 前の週</button>
+                    <span class="font-bold text-lg">2026年 7月</span>
+                    <button class="text-pink-500 font-bold hover:text-pink-600">次の週 &gt;</button>
+                </div>
+                <div class="grid grid-cols-7 gap-2 text-center text-sm">
+                    <div class="font-bold text-gray-400 pb-2 border-b">月</div>
+                    <div class="font-bold text-gray-400 pb-2 border-b">火</div>
+                    <div class="font-bold text-gray-400 pb-2 border-b">水</div>
+                    <div class="font-bold text-gray-400 pb-2 border-b">木</div>
+                    <div class="font-bold text-gray-400 pb-2 border-b">金</div>
+                    <div class="font-bold text-blue-400 pb-2 border-b">土</div>
+                    <div class="font-bold text-red-400 pb-2 border-b">日</div>
+                    
+                    <!-- Mock Days -->
+                    <div class="py-3 text-gray-300">1<br>-</div>
+                    <div class="py-3 text-gray-300">2<br>-</div>
+                    <div class="py-3 text-gray-300">3<br>-</div>
+                    <div class="py-3 text-gray-300">4<br>-</div>
+                    <div class="py-3 text-gray-300">5<br>-</div>
+                    <div class="py-3 cursor-pointer rounded-lg hover:bg-pink-50 group">
+                        <span class="text-gray-800">6</span><br>
+                        <span class="text-pink-500 font-bold text-xs group-hover:text-pink-600">◎</span>
+                    </div>
+                    <div class="py-3 cursor-pointer rounded-lg hover:bg-pink-50 group">
+                        <span class="text-gray-800">7</span><br>
+                        <span class="text-pink-500 font-bold text-xs group-hover:text-pink-600">△</span>
+                    </div>
+                </div>
+                
+                <form class="mt-8 pt-8 border-t border-gray-100">
+                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">お名前</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition" placeholder="山田 花子">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">電話番号</label>
+                            <input type="tel" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition" placeholder="090-1234-5678">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ご希望のメニュー</label>
+                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition">
+                                <option>無料カウンセリング</option>
+                                <option>初回診察（一般）</option>
+                                <option>オンライン診療</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="button" class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition">予約を確定する</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-sm">
+        <p>&copy; 2026 Clinic Template by AI WebAuto. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>

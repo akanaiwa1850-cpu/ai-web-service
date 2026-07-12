@@ -520,3 +520,61 @@ body {
     color: #58a6ff;
     font-weight: bold;
 }
+/ *  
+ E x t r a  
+ S t y l e s  
+ f o r  
+ R e v a m p  
+ * /  
+ /* Revamp Styles */
+.btn-glow {
+    position: relative;
+}
+.btn-glow::before {
+    content: '';
+    position: absolute;
+    top: -2px; left: -2px; right: -2px; bottom: -2px;
+    background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+    z-index: -1;
+    border-radius: 32px;
+    filter: blur(8px);
+    opacity: 0.6;
+    animation: pulse-glow 3s infinite alternate;
+}
+@keyframes pulse-glow {
+    0% { filter: blur(8px); opacity: 0.6; }
+    100% { filter: blur(12px); opacity: 1; }
+}
+
+.premium-glow {
+    border: 1px solid rgba(168, 85, 247, 0.5);
+    box-shadow: 0 10px 40px rgba(168, 85, 247, 0.2);
+}
+
+.glow-effect {
+    box-shadow: 0 0 30px rgba(99, 102, 241, 0.2);
+    border: 1px solid rgba(99, 102, 241, 0.3);
+}
+
+.glow-icon {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.premium-card {
+    position: relative;
+    overflow: hidden;
+}
+.premium-card::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transform: skewX(-20deg);
+    animation: shine 4s infinite;
+}
+@keyframes shine {
+    0% { left: -100%; }
+    20% { left: 200%; }
+    100% { left: 200%; }
+}

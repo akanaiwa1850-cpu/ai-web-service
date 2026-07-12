@@ -3,39 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{BusinessName}} | BtoBリード獲得型</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>リード獲得型テンプレート（SaaS・B2B向け）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #0284c7; --bg: #f0f9ff; --text: #1e293b; }
-        body { margin: 0; font-family: 'Inter', 'Noto Sans JP', sans-serif; color: var(--text); background: #f8fafc; }
-        .hero { background: var(--primary); color: white; padding: 80px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; }
-        h1 { margin: 0 0 20px 0; font-size: 2.5rem; font-weight: 800; }
-        .hero p { font-size: 1.2rem; max-width: 600px; margin-bottom: 40px; opacity: 0.9; }
-        .lead-form { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); max-width: 400px; width: 100%; margin-top: -60px; position: relative; z-index: 10; margin-left: auto; margin-right: auto; }
-        .lead-form h3 { margin-top: 0; color: var(--primary); text-align: center; }
-        input { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; }
-        .btn { display: block; width: 100%; padding: 15px; background: #ea580c; color: white; border: none; border-radius: 6px; font-weight: bold; font-size: 1.1rem; cursor: pointer; text-align: center; text-decoration: none; }
-        .trust-badges { display: flex; justify-content: center; gap: 30px; padding: 60px 20px; flex-wrap: wrap; }
-        .badge { display: flex; flex-direction: column; align-items: center; gap: 10px; color: #64748b; font-weight: bold; }
+        body { font-family: 'Noto Sans JP', sans-serif; }
+        .en-font { font-family: 'Inter', sans-serif; }
+        .bg-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px); }
+        .clip-diagonal { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%); }
     </style>
 </head>
-<body>
-    <div class="hero">
-        <h1>{{Catchphrase}}</h1>
-        <p>{{BusinessName}}の画期的なソリューションで、御社のビジネス課題を今すぐ解決します。</p>
-    </div>
-    
-    <div class="lead-form">
-        <h3>無料ホワイトペーパーをダウンロード</h3>
-        <input type="text" placeholder="会社名">
-        <input type="email" placeholder="メールアドレス">
-        <a href="#" class="btn">今すぐ無料でダウンロード</a>
-    </div>
+<body class="text-slate-800 bg-white">
 
-    <div class="trust-badges">
-        <div class="badge"><span style="font-size: 2rem;">🏢</span>導入企業 500社突破</div>
-        <div class="badge"><span style="font-size: 2rem;">⭐</span>顧客満足度 98%</div>
-        <div class="badge"><span style="font-size: 2rem;">🔒</span>強固なセキュリティ</div>
-    </div>
+    <!-- Navigation -->
+    <nav class="fixed w-full bg-white/80 backdrop-blur-lg border-b border-slate-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight text-slate-900 en-font">SaaSConnect</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#features" class="text-sm font-medium text-slate-600 hover:text-indigo-600">機能</a>
+                    <a href="#benefits" class="text-sm font-medium text-slate-600 hover:text-indigo-600">導入メリット</a>
+                    <a href="#pricing" class="text-sm font-medium text-slate-600 hover:text-indigo-600">料金プラン</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <a href="#" class="hidden md:block text-sm font-medium text-slate-600 hover:text-indigo-600">ログイン</a>
+                    <a href="#download" class="bg-indigo-600 text-white px-5 py-2.5 rounded-md text-sm font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">無料資料をダウンロード</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-32 pb-20 bg-grid relative overflow-hidden clip-diagonal bg-slate-50">
+        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-indigo-100 blur-3xl opacity-50"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-sm font-semibold mb-8">
+                    <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span></span>
+                    最新アップデート v2.0 リリース
+                </div>
+                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
+                    営業のムダをゼロに。<br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">次世代の顧客管理プラットフォーム</span>
+                </h1>
+                <p class="mt-4 text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
+                    見込み顧客の獲得から商談成立まで、あらゆるデータを一元管理。AIが成約確度の高い顧客を自動でリストアップし、営業チームの生産性を劇的に向上させます。
+                </p>
+                
+                <!-- Lead Capture Form in Hero -->
+                <div class="bg-white p-2 rounded-lg shadow-xl border border-slate-100 max-w-2xl mx-auto flex flex-col sm:flex-row gap-2">
+                    <input type="email" placeholder="会社メールアドレスを入力" class="flex-1 px-4 py-3 rounded-md bg-slate-50 border-transparent focus:bg-white focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none">
+                    <button class="bg-indigo-600 text-white px-8 py-3 rounded-md font-bold hover:bg-indigo-700 transition whitespace-nowrap">
+                        無料で試してみる
+                    </button>
+                </div>
+                <p class="text-xs text-slate-400 mt-4">※クレジットカード登録不要。14日間の無料トライアルが可能です。</p>
+            </div>
+            
+            <!-- Dashboard Mockup -->
+            <div class="mt-20 relative max-w-5xl mx-auto">
+                <div class="rounded-xl shadow-2xl overflow-hidden border border-slate-200 bg-white">
+                    <div class="h-8 bg-slate-100 border-b border-slate-200 flex items-center px-4 gap-2">
+                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="Dashboard Dashboard" class="w-full h-auto opacity-90">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Logo Cloud -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <p class="text-center text-sm font-semibold text-slate-500 tracking-wide uppercase mb-8">導入企業5,000社突破。業界トップ企業に選ばれています。</p>
+            <div class="flex justify-center gap-12 opacity-50 grayscale flex-wrap">
+                <div class="text-2xl font-bold en-font">ACME Corp</div>
+                <div class="text-2xl font-bold en-font">GlobalTech</div>
+                <div class="text-2xl font-bold en-font">Innovate</div>
+                <div class="text-2xl font-bold en-font">Nexus</div>
+                <div class="text-2xl font-bold en-font">Stark Ind.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Whitepaper Download CTA -->
+    <section id="download" class="py-20 bg-slate-900 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-12">
+                <div class="lg:w-1/2">
+                    <span class="text-indigo-400 font-bold tracking-wider text-sm mb-2 block">無料お役立ち資料</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6 leading-tight">【2026年最新版】<br>成約率を3倍にするB2B営業戦略ガイド</h2>
+                    <p class="text-slate-400 mb-8 leading-relaxed">
+                        トップセールスマンのノウハウをAIで言語化・体系化した全50ページの完全マニュアル。明日からの営業活動ですぐに使える具体的なテクニックを無料で公開しています。
+                    </p>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3"><svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-slate-300">見込み顧客を「優良顧客」に育てるステップメールの書き方</span></li>
+                        <li class="flex items-center gap-3"><svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-slate-300">失注を防ぐ、AIを用いたタイミング分析</span></li>
+                        <li class="flex items-center gap-3"><svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-slate-300">SaaSConnect 導入企業の成功事例5選</span></li>
+                    </ul>
+                </div>
+                
+                <!-- Lead Form -->
+                <div class="lg:w-1/2 w-full max-w-md bg-white text-slate-800 rounded-2xl p-8 shadow-2xl">
+                    <h3 class="text-xl font-bold mb-6 text-center">資料ダウンロードフォーム</h3>
+                    <form class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">会社名 <span class="text-red-500">*</span></label>
+                            <input type="text" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">お名前 <span class="text-red-500">*</span></label>
+                            <input type="text" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">メールアドレス（会社用） <span class="text-red-500">*</span></label>
+                            <input type="email" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">電話番号</label>
+                            <input type="tel" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none">
+                        </div>
+                        <button type="button" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-md hover:bg-indigo-700 transition mt-4">
+                            PDFを無料でダウンロード
+                        </button>
+                    </form>
+                    <p class="text-xs text-slate-500 mt-4 text-center">送信することで、プライバシーポリシーに同意したものとみなされます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-slate-50 border-t border-slate-200 py-12 text-center text-slate-500 text-sm">
+        <p>&copy; 2026 SaaSConnect Template by AI WebAuto. All rights reserved.</p>
+    </footer>
+
 </body>
 </html>

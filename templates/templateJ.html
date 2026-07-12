@@ -3,49 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{BusinessName}} | カタログ・物販型</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Noto+Serif+JP:wght@400;700&display=swap" rel="stylesheet">
+    <title>カタログ・EC特化型テンプレート（小売・飲食店向け）</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Noto+Serif+JP:wght@400;600;900&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #9d8189; --bg: #fdfbf7; --text: #3d3b3c; }
-        body { margin: 0; font-family: 'Noto Serif JP', serif; color: var(--text); background: var(--bg); }
-        header { padding: 40px 20px; text-align: center; border-bottom: 1px solid #eaeaea; }
-        h1 { font-family: 'Cormorant Garamond', serif; font-size: 3rem; margin: 0; letter-spacing: 2px; }
-        .catchphrase { font-size: 1.1rem; color: #7f7f7f; margin-top: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-        .product-card { text-align: center; }
-        .product-card img { width: 100%; height: 350px; object-fit: cover; border-radius: 4px; transition: transform 0.5s; }
-        .product-card:hover img { transform: scale(1.03); }
-        .product-title { font-size: 1.2rem; margin: 20px 0 5px 0; }
-        .product-price { color: var(--primary); font-weight: bold; font-size: 1.1rem; }
-        .btn-buy { display: inline-block; margin-top: 15px; padding: 10px 30px; border: 1px solid var(--text); color: var(--text); text-decoration: none; transition: all 0.3s; }
-        .btn-buy:hover { background: var(--text); color: white; }
+        body { font-family: 'Noto Serif JP', serif; }
+        .en-font { font-family: 'Playfair Display', serif; }
+        .bg-cream { background-color: #FDFBF7; }
+        .hover-img-zoom:hover img { transform: scale(1.05); }
+        .img-zoom-transition img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
     </style>
 </head>
-<body>
-    <header>
-        <h1>{{BusinessName}}</h1>
-        <div class="catchphrase">{{Catchphrase}}</div>
-    </header>
-    
-    <div class="grid">
-        <div class="product-card">
-            <img src="https://source.unsplash.com/random/400x500/?product,minimal" alt="Product 1">
-            <h3 class="product-title">シグネチャーアイテム A</h3>
-            <div class="product-price">¥ 12,000</div>
-            <a href="#" class="btn-buy">カートに入れる</a>
-        </div>
-        <div class="product-card">
-            <img src="https://source.unsplash.com/random/400x500/?product,lifestyle" alt="Product 2">
-            <h3 class="product-title">エッセンシャルアイテム B</h3>
-            <div class="product-price">¥ 8,500</div>
-            <a href="#" class="btn-buy">カートに入れる</a>
-        </div>
-        <div class="product-card">
-            <img src="https://source.unsplash.com/random/400x500/?product,design" alt="Product 3">
-            <h3 class="product-title">リミテッドアイテム C</h3>
-            <div class="product-price">¥ 24,000</div>
-            <a href="#" class="btn-buy">カートに入れる</a>
-        </div>
+<body class="bg-cream text-stone-800">
+
+    <!-- Top Banner -->
+    <div class="bg-stone-900 text-white text-center py-2 text-xs tracking-widest font-sans">
+        新規会員登録で全品送料無料キャンペーン実施中
     </div>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 w-full bg-cream/90 backdrop-blur-md border-b border-stone-200 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="hidden md:flex space-x-8 font-sans text-sm tracking-widest">
+                    <a href="#new" class="text-stone-500 hover:text-stone-900 transition">NEW ARRIVALS</a>
+                    <a href="#collection" class="text-stone-500 hover:text-stone-900 transition">COLLECTION</a>
+                    <a href="#about" class="text-stone-500 hover:text-stone-900 transition">ABOUT</a>
+                </div>
+                <div class="text-3xl font-bold tracking-tighter en-font text-stone-900">
+                    Maison d'Art
+                </div>
+                <div class="flex items-center space-x-6">
+                    <button class="text-stone-500 hover:text-stone-900 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </button>
+                    <button class="text-stone-500 hover:text-stone-900 transition">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </button>
+                    <button class="text-stone-500 hover:text-stone-900 transition relative">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <span class="absolute -top-1 -right-2 bg-stone-900 text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-sans">2</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative">
+        <div class="w-full h-[70vh] md:h-[85vh] relative overflow-hidden">
+            <img src="https://images.unsplash.com/photo-1600607686527-6fb886090705?q=80&w=2000&auto=format&fit=crop" alt="Hero Image" class="w-full h-full object-cover">
+            <div class="absolute inset-0 bg-stone-900/20"></div>
+            
+            <div class="absolute inset-0 flex items-center justify-center text-center p-4">
+                <div class="max-w-3xl">
+                    <p class="text-white text-sm md:text-base tracking-[0.3em] mb-4 uppercase en-font font-bold drop-shadow-md">Autumn / Winter 2026</p>
+                    <h1 class="text-5xl md:text-7xl font-bold text-white mb-8 en-font italic drop-shadow-lg leading-tight">
+                        Timeless Elegance
+                    </h1>
+                    <a href="#collection" class="inline-block bg-white/90 backdrop-blur-sm text-stone-900 border border-transparent px-10 py-4 text-sm tracking-widest uppercase font-sans hover:bg-stone-900 hover:text-white transition duration-300">
+                        Shop the Collection
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals Grid -->
+    <section id="new" class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl md:text-4xl font-bold en-font mb-4">New Arrivals</h2>
+            <p class="text-stone-500 font-sans text-sm tracking-widest uppercase">新作コレクション</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Product 1 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden aspect-[3/4] mb-4 img-zoom-transition hover-img-zoom bg-stone-100">
+                    <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=800&auto=format&fit=crop" alt="Product" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                        <button class="bg-white text-stone-900 font-sans text-xs tracking-widest uppercase px-6 py-3 hover:bg-stone-900 hover:text-white transition w-3/4">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <span class="absolute top-4 left-4 bg-stone-900 text-white text-[10px] px-2 py-1 uppercase tracking-widest font-sans">New</span>
+                </div>
+                <div class="text-center font-sans">
+                    <h3 class="text-sm text-stone-900 mb-1">クラシック・リネンシャツ</h3>
+                    <p class="text-stone-500 text-sm">¥12,800</p>
+                </div>
+            </div>
+
+            <!-- Product 2 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden aspect-[3/4] mb-4 img-zoom-transition hover-img-zoom bg-stone-100">
+                    <img src="https://images.unsplash.com/photo-1591369822096-ffd140ec948f?q=80&w=800&auto=format&fit=crop" alt="Product" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                        <button class="bg-white text-stone-900 font-sans text-xs tracking-widest uppercase px-6 py-3 hover:bg-stone-900 hover:text-white transition w-3/4">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center font-sans">
+                    <h3 class="text-sm text-stone-900 mb-1">アロマセラピーキャンドル</h3>
+                    <p class="text-stone-500 text-sm">¥4,500</p>
+                </div>
+            </div>
+
+            <!-- Product 3 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden aspect-[3/4] mb-4 img-zoom-transition hover-img-zoom bg-stone-100">
+                    <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?q=80&w=800&auto=format&fit=crop" alt="Product" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                        <button class="bg-white text-stone-900 font-sans text-xs tracking-widest uppercase px-6 py-3 hover:bg-stone-900 hover:text-white transition w-3/4">
+                            Add to Cart
+                        </button>
+                    </div>
+                    <span class="absolute top-4 left-4 bg-red-800 text-white text-[10px] px-2 py-1 uppercase tracking-widest font-sans">Limited</span>
+                </div>
+                <div class="text-center font-sans">
+                    <h3 class="text-sm text-stone-900 mb-1">ヴィンテージウッドチェア</h3>
+                    <p class="text-stone-500 text-sm">¥35,000</p>
+                </div>
+            </div>
+
+            <!-- Product 4 -->
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden aspect-[3/4] mb-4 img-zoom-transition hover-img-zoom bg-stone-100">
+                    <img src="https://images.unsplash.com/photo-1549439602-43ebca2327af?q=80&w=800&auto=format&fit=crop" alt="Product" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-stone-900/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                        <button class="bg-white text-stone-900 font-sans text-xs tracking-widest uppercase px-6 py-3 hover:bg-stone-900 hover:text-white transition w-3/4">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+                <div class="text-center font-sans">
+                    <h3 class="text-sm text-stone-900 mb-1">オーガニック・ハンドソープ</h3>
+                    <p class="text-stone-500 text-sm">¥2,800</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-16 text-center">
+            <a href="#" class="inline-block border-b-2 border-stone-900 pb-1 text-sm tracking-widest uppercase font-sans hover:text-stone-500 hover:border-stone-500 transition">
+                View All Products
+            </a>
+        </div>
+    </section>
+
+    <!-- Feature Split Section -->
+    <section id="about" class="py-12 bg-white">
+        <div class="flex flex-col md:flex-row">
+            <div class="md:w-1/2 min-h-[400px] relative">
+                <img src="https://images.unsplash.com/photo-1445205170230-053b83016050?q=80&w=1500&auto=format&fit=crop" alt="Brand Story" class="absolute inset-0 w-full h-full object-cover">
+            </div>
+            <div class="md:w-1/2 p-12 md:p-24 flex flex-col justify-center bg-stone-900 text-white">
+                <h2 class="text-3xl md:text-5xl font-bold en-font italic mb-6">Our Philosophy</h2>
+                <p class="text-stone-400 leading-loose mb-8">
+                    私たちは、日常の何気ない瞬間に彩りを添える、高品質でタイムレスなプロダクトを世界中から厳選しています。大量生産・大量消費の時代だからこそ、一つひとつの素材にこだわり、長く愛されるものだけをあなたにお届けします。
+                </p>
+                <div>
+                    <a href="#" class="inline-block border border-white px-8 py-3 text-sm tracking-widest uppercase font-sans hover:bg-white hover:text-stone-900 transition">
+                        Read Our Story
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-cream pt-20 pb-10 border-t border-stone-200 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16 font-sans">
+                <div class="md:col-span-2">
+                    <div class="text-2xl font-bold tracking-tighter en-font text-stone-900 mb-6">
+                        Maison d'Art
+                    </div>
+                    <p class="text-stone-500 text-sm leading-relaxed max-w-sm mb-6">
+                        最新のコレクションや限定アイテムの情報を、ニュースレターでお届けします。
+                    </p>
+                    <div class="flex">
+                        <input type="email" placeholder="Email Address" class="bg-transparent border-b border-stone-300 py-2 px-0 w-full focus:outline-none focus:border-stone-900 transition">
+                        <button class="border-b border-stone-900 py-2 px-4 text-xs font-bold tracking-widest uppercase hover:text-stone-500 transition">Subscribe</button>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm tracking-widest uppercase mb-6 text-stone-900">Shop</h4>
+                    <ul class="space-y-4 text-sm text-stone-500">
+                        <li><a href="#" class="hover:text-stone-900 transition">All Products</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition">Best Sellers</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition">Sale</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm tracking-widest uppercase mb-6 text-stone-900">Support</h4>
+                    <ul class="space-y-4 text-sm text-stone-500">
+                        <li><a href="#" class="hover:text-stone-900 transition">FAQ</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition">Shipping & Returns</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-stone-900 transition">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center text-stone-400 text-xs font-sans border-t border-stone-200 pt-8">
+                &copy; 2026 Maison d'Art. Built with AI WebAuto.
+            </div>
+        </div>
+    </footer>
+
 </body>
 </html>

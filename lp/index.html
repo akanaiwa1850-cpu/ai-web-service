@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -28,21 +29,21 @@
         </div>
     </nav>
 
-    <section class="hero">
+    <section class="hero" data-aos="fade-up" data-aos-duration="1000">
 
         <div class="hero-content">
-            <div class="badge">🚀 業界初・次世代SaaSプラットフォーム</div>
-            <h1 class="hero-title">「作って終わり」は過去のもの。<br><span class="gradient-text">AIが毎日育てる『生きた』Webサイト</span></h1>
-            <p class="hero-subtitle">
+            <div class="badge" data-aos="zoom-in" data-aos-delay="200">🚀 業界初・次世代SaaSプラットフォーム</div>
+            <h1 class="hero-title" data-aos="fade-up" data-aos-delay="400">「作って終わり」は過去のもの。<br><span class="gradient-text">AIが毎日育てる『生きた』Webサイト</span></h1>
+            <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="600">
                 サイト制作から日々の保守・集客・改善まで、すべてをAIに「丸投げ」。<br>
                 人件費ゼロで、専属のWeb担当者が24時間365日あなたのビジネスを支援します。
             </p>
-            <div class="hero-cta">
-                <a href="#contact" class="btn btn-primary btn-large">無料で相談する</a>
+            <div class="hero-cta" data-aos="fade-up" data-aos-delay="800">
+                <a href="#contact" class="btn btn-primary btn-large btn-glow">無料で相談する</a>
                 <a href="#features" class="btn btn-secondary btn-large">詳細を見る</a>
             </div>
         </div>
-        <div class="hero-visual">
+        <div class="hero-visual" data-aos="fade-left" data-aos-delay="600" data-aos-duration="1200">
             <!-- 以前のチャット風モックアップは一旦非表示にしています -->
             <!--
             <div class="glass-card mockup-card">
@@ -62,8 +63,8 @@
     </header>
 
     <!-- AI稼働タイムライン（毎朝AIがここにログを追加します） -->
-    <section id="ai-status" style="max-width: 800px; margin: 0 auto 80px; padding: 0 20px; position: relative; z-index: 10;">
-        <div class="terminal-window">
+    <section id="ai-status" style="max-width: 800px; margin: 0 auto 80px; padding: 0 20px; position: relative; z-index: 10;" data-aos="fade-up" data-aos-duration="1000">
+        <div class="terminal-window glow-effect">
             <div class="terminal-header">
                 <div class="terminal-dot dot-r"></div>
                 <div class="terminal-dot dot-y"></div>
@@ -146,7 +147,7 @@
                     <li class="log-item">
                         <div class="log-marker"></div>
                         <div class="log-date">2026-06-29 09:00:00 [SYSTEM]</div>
-                        <div class="log-content"><span class="highlight-ai">最適化完了:</span> LPのキャッチコピーを最新の市場トレンドに合わせて調整しました。</div>
+                        <div class="log-content typewriter-effect" data-text="最適化完了: LPのキャッチコピーを最新の市場トレンドに合わせて調整しました。"><span class="highlight-ai">最適化完了:</span> LPのキャッチコピーを最新の市場トレンドに合わせて調整しました。</div>
                     </li>
                     <li class="log-item">
                         <div class="log-marker"></div>
@@ -166,12 +167,12 @@
 
     <!-- 差別化・メリットセクション -->
     <section id="merits" class="features" style="margin-top: 0;">
-        <div class="section-header">
+        <div class="section-header" data-aos="fade-up">
             <h2>一般的なAIツールとの<span class="gradient-text">圧倒的な違い</span></h2>
             <p>自分で作るだけのAIツールではありません。システムが専属の担当者として働き続けます。</p>
         </div>
         <div class="feature-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
-            <div class="glass-card feature-card" style="border-top: 3px solid var(--text-gray); text-align: left;">
+            <div class="glass-card feature-card" style="border-top: 3px solid var(--text-gray); text-align: left;" data-aos="fade-right" data-aos-delay="100">
                 <h3 style="color: var(--text-gray); margin-bottom: 20px; font-size: 1.2rem;">❌ 従来のAIサイト制作</h3>
                 <ul style="list-style: none; padding: 0; color: var(--text-gray);">
                     <li style="margin-bottom: 10px;">・AIが最初の「枠組み」だけを作る</li>
@@ -180,7 +181,7 @@
                     <li style="margin-bottom: 10px;">・機能追加のたびに別料金がかかる</li>
                 </ul>
             </div>
-            <div class="glass-card feature-card" style="border-top: 3px solid var(--primary); text-align: left; background: rgba(99, 102, 241, 0.05);">
+            <div class="glass-card feature-card premium-card" style="border-top: 3px solid var(--primary); text-align: left; background: rgba(99, 102, 241, 0.05);" data-aos="fade-left" data-aos-delay="200">
                 <h3 style="color: #fff; margin-bottom: 20px; font-size: 1.2rem;">✨ AI WebAuto（当システム）</h3>
                 <ul style="list-style: none; padding: 0; color: #fff;">
                     <li style="margin-bottom: 10px;">・AIがサイトを作り、<span class="highlight-ai">そのままサイト内に常駐</span></li>
@@ -193,23 +194,23 @@
     </section>
 
     <section id="features" class="features">
-        <div class="section-header">
+        <div class="section-header" data-aos="fade-up">
             <h2>選ばれる<span class="gradient-text">3つの優位性</span></h2>
             <p>制作会社への依存からの脱却と、圧倒的なROI（投資対効果）の実現。</p>
         </div>
         <div class="feature-grid">
-            <div class="glass-card feature-card">
-                <div class="feature-icon">🤖</div>
+            <div class="glass-card feature-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="feature-icon glow-icon">🤖</div>
                 <h3>チャットベースのスマート運用</h3>
                 <p>直感的な指示のみで、AIがビジネスの意図を正確に汲み取り、瞬時に最適なコードやコンテンツへと反映します。</p>
             </div>
-            <div class="glass-card feature-card">
-                <div class="feature-icon">⏱️</div>
+            <div class="glass-card feature-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="feature-icon glow-icon">⏱️</div>
                 <h3>日次ベースの自律アップデート</h3>
                 <p>「毎朝9時」のスケジュールでAIがシステムを自動最適化。常に最新のトレンドと情報を顧客へ提供し続けます。</p>
             </div>
-            <div class="glass-card feature-card">
-                <div class="feature-icon">💎</div>
+            <div class="glass-card feature-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="feature-icon glow-icon">💎</div>
                 <h3>コンバージョン最適化デザイン</h3>
                 <p>洗練された世界観と、人間心理に基づいたUI/UX設計を両立。目的別に設計されたプレミアムテンプレート群。</p>
             </div>
@@ -323,13 +324,13 @@
     </section>
 
     <section id="pricing" class="pricing">
-        <div class="section-header" style="margin-bottom: 40px;">
+        <div class="section-header" style="margin-bottom: 40px;" data-aos="fade-up">
             <h2>持続可能な<span class="gradient-text">サブスクリプション</span></h2>
             <p>初期開発の巨額な負債をゼロに。月額定額でシステムが常に最新へ。</p>
         </div>
         
         <!-- 基本プラン -->
-        <div class="glass-card pricing-card" style="margin-bottom: 40px; position: relative;">
+        <div class="glass-card pricing-card premium-glow" style="margin-bottom: 40px; position: relative;" data-aos="zoom-in" data-aos-delay="100">
             <div class="pricing-header">
                 <h2>All-in-One プラン</h2>
                 <div class="price" style="font-size: 3rem; color: #fff;">
@@ -409,8 +410,42 @@
         <a href="terms.html" style="color: var(--text-gray); text-decoration: none; font-size: 0.8rem; transition: color 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--text-gray)'">利用規約</a>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="script.js"></script>
     <script>
+        // AOS Animation Initialization
+        AOS.init({
+            once: true,
+            offset: 50,
+            easing: 'ease-out-cubic',
+        });
+
+        // Typewriter Effect for AI Terminal
+        document.addEventListener('DOMContentLoaded', () => {
+            const typewriterElement = document.querySelector('.typewriter-effect');
+            if (typewriterElement) {
+                const fullText = typewriterElement.getAttribute('data-text');
+                typewriterElement.innerHTML = '';
+                
+                let i = 0;
+                function typeWriter() {
+                    if (i < fullText.length) {
+                        // Apply highlight to the "最適化完了:" part manually for styling
+                        if (i === 6) {
+                            typewriterElement.innerHTML = '<span class="highlight-ai">最適化完了:</span>';
+                        } else if (i > 6) {
+                            typewriterElement.innerHTML += fullText.charAt(i);
+                        }
+                        i++;
+                        setTimeout(typeWriter, 40 + Math.random() * 40);
+                    }
+                }
+                
+                // Start typing after a short delay
+                setTimeout(typeWriter, 1000);
+            }
+        });
+
         // 利用規約の同意チェックボックスと決済ボタンの制御
         const agreeCheckbox = document.getElementById('agree-terms');
         const checkoutBtn = document.getElementById('checkout-btn');
