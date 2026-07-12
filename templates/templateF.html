@@ -1,64 +1,137 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>予約特化型テンプレート（クリニック・サロン向け）</title>
+    <title>予約・コンバージョン特化型テンプレート（クリニック・サロン向け）</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans JP', sans-serif; }
-        .hero-pattern { background-color: #fcf9f8; background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='#e8e3e1' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"); }
-        .floating-btn { box-shadow: 0 10px 25px -5px rgba(236, 72, 153, 0.4); animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-10px); } 100% { transform: translateY(0px); } }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #fdfbfb; color: #333333; overflow-x: hidden; }
+        
+        /* Premium Soft UI */
+        .soft-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(236, 72, 153, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .soft-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(236, 72, 153, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Gradient Text for Headlines */
+        .text-gradient {
+            background: linear-gradient(135deg, #ec4899 0%, #f43f5e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Pulsing CTA Button */
+        .btn-pulse {
+            position: relative;
+            animation: pulse-shadow 2s infinite;
+        }
+        @keyframes pulse-shadow {
+            0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); }
+            70% { box-shadow: 0 0 0 15px rgba(236, 72, 153, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+        }
+
+        /* Sticky Bottom CTA for Mobile (CRITICAL FOR CONVERSION) */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid #fce7f3;
+            padding: 16px 20px;
+            z-index: 100;
+            box-shadow: 0 -10px 30px rgba(236, 72, 153, 0.08);
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .sticky-cta.show {
+            transform: translateY(0);
+        }
+
+        /* Micro Interaction on Form Inputs */
+        .input-field {
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            background: #f3f4f6;
+        }
+        .input-field:focus {
+            background: #ffffff;
+            border-color: #f472b6;
+            box-shadow: 0 0 0 4px rgba(244, 114, 182, 0.1);
+            outline: none;
+        }
     </style>
 </head>
-<body class="text-gray-800 bg-white">
+<body class="antialiased pb-24 md:pb-0">
 
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white/90 backdrop-blur-md border-b border-gray-100 z-50 transition-all duration-300">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex justify-between items-center h-20">
-                <div class="text-2xl font-bold tracking-tighter text-gray-800">Clinic<span class="text-pink-500">.</span></div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#services" class="text-sm font-medium text-gray-600 hover:text-pink-500 transition">診療内容</a>
-                    <a href="#doctors" class="text-sm font-medium text-gray-600 hover:text-pink-500 transition">医師紹介</a>
-                    <a href="#access" class="text-sm font-medium text-gray-600 hover:text-pink-500 transition">アクセス</a>
-                </div>
-                <a href="#reserve" class="bg-gray-900 text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition">WEB予約</a>
+    <nav class="w-full bg-white/80 backdrop-blur-md sticky top-0 z-40 border-b border-pink-50">
+        <div class="max-w-6xl mx-auto px-4 h-20 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tighter text-gray-800">
+                Lumiere<span class="text-pink-500">.</span>Clinic
             </div>
+            <div class="hidden md:flex space-x-8">
+                <a href="#features" class="text-sm font-bold text-gray-600 hover:text-pink-500 transition">選ばれる理由</a>
+                <a href="#doctors" class="text-sm font-bold text-gray-600 hover:text-pink-500 transition">医師紹介</a>
+            </div>
+            <a href="#reserve" class="hidden md:inline-flex bg-gradient-to-r from-pink-500 to-rose-500 text-white px-8 py-3 rounded-full text-sm font-bold shadow-[0_4px_15px_rgba(236,72,153,0.3)] hover:scale-105 transition btn-pulse">
+                無料カウンセリング予約
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero-pattern pt-32 pb-20 md:pt-48 md:pb-32 px-4 relative overflow-hidden">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 md:pr-12 z-10">
-                <span class="inline-block py-1 px-3 rounded-full bg-pink-100 text-pink-600 text-xs font-bold tracking-wider mb-6">初診予約受付中</span>
-                <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 text-gray-900">
-                    あなたの美しさを<br>最短で引き出す。
+    <section class="relative pt-12 pb-20 md:pt-24 md:pb-32 px-4 overflow-hidden">
+        <!-- Abstract Background Shapes -->
+        <div class="absolute top-0 right-0 w-full md:w-1/2 h-full bg-pink-50 rounded-bl-[100px] z-[-1] opacity-60"></div>
+        
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+            <div class="md:w-1/2" data-aos="fade-right">
+                <div class="inline-flex items-center gap-2 bg-pink-100 text-pink-600 px-4 py-1.5 rounded-full text-xs font-bold mb-6">
+                    <span class="relative flex h-2 w-2"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-pink-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-pink-500"></span></span>
+                    初診枠・残りわずか
+                </div>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight mb-6 text-gray-900">
+                    あなたの<span class="text-gradient">理想の美しさ</span>へ、<br>最短ルートで導く。
                 </h1>
-                <p class="text-gray-600 mb-8 text-lg leading-relaxed">
-                    最新の医療機器と経験豊富な専門医が、あなたに最適なパーソナルケアをご提案します。土日祝も診療可能。
+                <p class="text-gray-600 text-lg mb-8 leading-relaxed font-medium">
+                    最新の医療機器と経験豊富な専門医が、あなたに最適なパーソナルケアをご提案します。まずは無料の肌診断から。
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#reserve" class="bg-pink-500 text-white text-center px-8 py-4 rounded-full font-bold text-lg hover:bg-pink-600 transition shadow-lg shadow-pink-500/30">今すぐ予約する (24h)</a>
-                    <a href="tel:0000000000" class="bg-white border border-gray-200 text-gray-800 text-center px-8 py-4 rounded-full font-bold text-lg hover:bg-gray-50 transition">📞 0120-XXX-XXX</a>
+                    <a href="#reserve" class="bg-gradient-to-r from-pink-500 to-rose-500 text-white text-center px-8 py-4 rounded-full font-bold text-lg shadow-[0_10px_25px_rgba(236,72,153,0.3)] hover:-translate-y-1 transition btn-pulse">
+                        今すぐWEB予約する
+                    </a>
+                </div>
+                <div class="mt-6 flex items-center gap-4 text-sm text-gray-500 font-bold">
+                    <div class="flex -space-x-2">
+                        <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=100&auto=format&fit=crop">
+                        <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=100&auto=format&fit=crop">
+                        <img class="w-8 h-8 rounded-full border-2 border-white object-cover" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=100&auto=format&fit=crop">
+                    </div>
+                    <p>満足度 <span class="text-yellow-400 text-lg">★★★★★</span> 4.9</p>
                 </div>
             </div>
-            <div class="md:w-1/2 mt-12 md:mt-0 relative">
-                <!-- Image Placeholder -->
-                <div class="w-full h-80 md:h-[500px] bg-gray-200 rounded-3xl overflow-hidden relative shadow-2xl">
+            
+            <div class="md:w-1/2 relative" data-aos="fade-left" data-aos-delay="200">
+                <div class="w-full aspect-[4/5] md:aspect-square rounded-[40px] overflow-hidden shadow-2xl relative">
                     <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?q=80&w=2053&auto=format&fit=crop" alt="Clinic Interior" class="w-full h-full object-cover">
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
                 </div>
-                <!-- Floating Info Card -->
-                <div class="absolute -bottom-6 -left-6 md:-left-12 bg-white p-6 rounded-2xl shadow-xl floating-btn">
+                <!-- Trust Badge (Floats over image) -->
+                <div class="absolute -bottom-6 -left-6 bg-white p-5 rounded-2xl shadow-xl border border-pink-50 animate-[bounce_3s_infinite]">
                     <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl">✓</div>
+                        <div class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-xl font-black">✓</div>
                         <div>
-                            <p class="text-xs text-gray-500 font-bold">最短で明日予約可能</p>
-                            <p class="text-lg font-bold text-gray-900">待ち時間 ほぼ0分</p>
+                            <p class="text-xs text-gray-500 font-bold mb-1">土日祝も診療OK</p>
+                            <p class="text-lg font-black text-gray-900">待ち時間 ほぼ0分</p>
                         </div>
                     </div>
                 </div>
@@ -66,75 +139,126 @@
         </div>
     </section>
 
-    <!-- Reservation Section (The Core Function) -->
-    <section id="reserve" class="py-20 bg-white px-4">
-        <div class="max-w-4xl mx-auto bg-gray-50 rounded-3xl p-8 md:p-12 shadow-sm border border-gray-100">
-            <div class="text-center mb-10">
-                <h2 class="text-3xl font-bold mb-4">簡単WEB予約</h2>
-                <p class="text-gray-600">空き状況をご確認の上、ご希望の日時を選択してください。</p>
+    <!-- Trust/Features Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-3xl md:text-4xl font-black mb-4">当院が選ばれる<span class="text-gradient">3つの理由</span></h2>
+                <div class="w-16 h-1 bg-pink-500 mx-auto rounded-full"></div>
             </div>
             
-            <!-- Mock Calendar/Booking UI -->
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
-                <div class="flex justify-between items-center mb-6">
-                    <button class="text-gray-400 hover:text-gray-800">&lt; 前の週</button>
-                    <span class="font-bold text-lg">2026年 7月</span>
-                    <button class="text-pink-500 font-bold hover:text-pink-600">次の週 &gt;</button>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="soft-card p-8 text-center" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-20 h-20 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">👨‍⚕️</div>
+                    <h3 class="text-xl font-bold mb-4">専門医による<br>パーソナル診断</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">肌質や骨格をAI機器を用いて緻密に分析。一人ひとりに合わせた完全オーダーメイドの治療計画を作成します。</p>
                 </div>
-                <div class="grid grid-cols-7 gap-2 text-center text-sm">
-                    <div class="font-bold text-gray-400 pb-2 border-b">月</div>
-                    <div class="font-bold text-gray-400 pb-2 border-b">火</div>
-                    <div class="font-bold text-gray-400 pb-2 border-b">水</div>
-                    <div class="font-bold text-gray-400 pb-2 border-b">木</div>
-                    <div class="font-bold text-gray-400 pb-2 border-b">金</div>
-                    <div class="font-bold text-blue-400 pb-2 border-b">土</div>
-                    <div class="font-bold text-red-400 pb-2 border-b">日</div>
-                    
-                    <!-- Mock Days -->
-                    <div class="py-3 text-gray-300">1<br>-</div>
-                    <div class="py-3 text-gray-300">2<br>-</div>
-                    <div class="py-3 text-gray-300">3<br>-</div>
-                    <div class="py-3 text-gray-300">4<br>-</div>
-                    <div class="py-3 text-gray-300">5<br>-</div>
-                    <div class="py-3 cursor-pointer rounded-lg hover:bg-pink-50 group">
-                        <span class="text-gray-800">6</span><br>
-                        <span class="text-pink-500 font-bold text-xs group-hover:text-pink-600">◎</span>
-                    </div>
-                    <div class="py-3 cursor-pointer rounded-lg hover:bg-pink-50 group">
-                        <span class="text-gray-800">7</span><br>
-                        <span class="text-pink-500 font-bold text-xs group-hover:text-pink-600">△</span>
-                    </div>
+                <div class="soft-card p-8 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">✨</div>
+                    <h3 class="text-xl font-bold mb-4">最新鋭の<br>医療機器を完備</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">痛みを最小限に抑え、ダウンタイムを短縮する最新のレーザー機器や超音波機器を全院に導入しています。</p>
+                </div>
+                <div class="soft-card p-8 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-pink-50 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">💎</div>
+                    <h3 class="text-xl font-bold mb-4">完全個室の<br>プライベート空間</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">他のお客様と顔を合わせることなく、リラックスして施術を受けられる高級ホテルのような空間を提供します。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Super Optimized Reservation Form -->
+    <section id="reserve" class="py-24 bg-pink-50/50 relative">
+        <div class="max-w-3xl mx-auto px-4 relative z-10">
+            <div class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-pink-100" data-aos="zoom-in">
+                <div class="text-center mb-10">
+                    <span class="text-pink-500 font-bold text-sm tracking-widest mb-2 block">RESERVATION</span>
+                    <h2 class="text-3xl font-black mb-2">無料カウンセリング予約</h2>
+                    <p class="text-gray-500 text-sm font-medium">最短1分で完了します。希望日を選択してください。</p>
                 </div>
                 
-                <form class="mt-8 pt-8 border-t border-gray-100">
-                    <div class="grid md:grid-cols-2 gap-6 mb-6">
+                <form class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">お名前</label>
-                            <input type="text" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition" placeholder="山田 花子">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">お名前 <span class="text-red-500">*</span></label>
+                            <input type="text" class="input-field w-full px-4 py-4 rounded-xl" placeholder="山田 花子" required>
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">電話番号</label>
-                            <input type="tel" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition" placeholder="090-1234-5678">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">ご希望のメニュー</label>
-                            <select class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-pink-500 focus:border-pink-500 outline-none transition">
-                                <option>無料カウンセリング</option>
-                                <option>初回診察（一般）</option>
-                                <option>オンライン診療</option>
-                            </select>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">ふりがな <span class="text-red-500">*</span></label>
+                            <input type="text" class="input-field w-full px-4 py-4 rounded-xl" placeholder="やまだ はなこ" required>
                         </div>
                     </div>
-                    <button type="button" class="w-full bg-gray-900 text-white font-bold py-4 rounded-xl hover:bg-gray-800 transition">予約を確定する</button>
+                    
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">電話番号 <span class="text-red-500">*</span></label>
+                        <input type="tel" class="input-field w-full px-4 py-4 rounded-xl" placeholder="090-1234-5678" required>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-2">ご相談内容（複数選択可）</label>
+                        <div class="grid grid-cols-2 gap-3 mt-2">
+                            <label class="flex items-center p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-pink-50 hover:border-pink-300 transition">
+                                <input type="checkbox" class="w-5 h-5 text-pink-500 rounded focus:ring-pink-500 border-gray-300">
+                                <span class="ml-3 text-sm font-bold text-gray-700">医療脱毛</span>
+                            </label>
+                            <label class="flex items-center p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-pink-50 hover:border-pink-300 transition">
+                                <input type="checkbox" class="w-5 h-5 text-pink-500 rounded focus:ring-pink-500 border-gray-300">
+                                <span class="ml-3 text-sm font-bold text-gray-700">美肌・シミ治療</span>
+                            </label>
+                            <label class="flex items-center p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-pink-50 hover:border-pink-300 transition">
+                                <input type="checkbox" class="w-5 h-5 text-pink-500 rounded focus:ring-pink-500 border-gray-300">
+                                <span class="ml-3 text-sm font-bold text-gray-700">エイジングケア</span>
+                            </label>
+                            <label class="flex items-center p-4 border border-gray-200 rounded-xl cursor-pointer hover:bg-pink-50 hover:border-pink-300 transition">
+                                <input type="checkbox" class="w-5 h-5 text-pink-500 rounded focus:ring-pink-500 border-gray-300">
+                                <span class="ml-3 text-sm font-bold text-gray-700">その他相談</span>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="pt-6">
+                        <button type="button" class="w-full bg-gradient-to-r from-pink-500 to-rose-500 text-white font-black text-lg py-5 rounded-xl hover:-translate-y-1 transition shadow-[0_10px_25px_rgba(236,72,153,0.3)] btn-pulse">
+                            希望日時を選択して予約を確定する →
+                        </button>
+                        <p class="text-center text-xs text-gray-400 mt-4 font-medium">※無理な勧誘は一切行いません。安心してご相談ください。</p>
+                    </div>
                 </form>
             </div>
         </div>
     </section>
 
+    <!-- Mobile Sticky CTA (Appears when scrolling past hero) -->
+    <div id="sticky-cta" class="sticky-cta md:hidden flex gap-2">
+        <a href="tel:0120000000" class="flex-1 bg-white border-2 border-gray-200 text-gray-800 text-center py-3 rounded-xl font-bold text-sm flex items-center justify-center gap-2">
+            📞 電話
+        </a>
+        <a href="#reserve" class="flex-[2] bg-gradient-to-r from-pink-500 to-rose-500 text-white text-center py-3 rounded-xl font-bold text-sm shadow-[0_4px_15px_rgba(236,72,153,0.3)] flex items-center justify-center btn-pulse">
+            WEBで予約する
+        </a>
+    </div>
+
     <!-- Footer -->
-    <footer class="bg-gray-900 text-gray-400 py-12 text-center text-sm">
-        <p>&copy; 2026 Clinic Template by AI WebAuto. All rights reserved.</p>
+    <footer class="bg-gray-900 text-white py-12 text-center text-sm">
+        <h2 class="text-2xl font-black mb-6">Lumiere<span class="text-pink-500">.</span>Clinic</h2>
+        <p class="text-gray-400 mb-8">〒100-0000 東京都千代田区1-1-1 ビルディング1F<br>診療時間 10:00 - 20:00 (休診日なし)</p>
+        <p class="text-gray-600 font-bold">&copy; 2026 Lumiere Clinic. All rights reserved.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 800 });
+
+        // Show/Hide Sticky CTA on scroll
+        const stickyCta = document.getElementById('sticky-cta');
+        const heroSection = document.querySelector('section');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > heroSection.offsetHeight / 2) {
+                stickyCta.classList.add('show');
+            } else {
+                stickyCta.classList.remove('show');
+            }
+        });
+    </script>
 </body>
 </html>

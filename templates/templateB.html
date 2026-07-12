@@ -5,144 +5,157 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>シンプル特化型テンプレート（個人事業主・ミニマリスト向け）</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+Antique:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Noto+Sans+JP:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Zen Kaku Gothic Antique', sans-serif; background-color: #ffffff; color: #333333; }
-        .text-balance { text-wrap: balance; }
-        .fade-in-up { animation: fadeInUp 1s ease-out forwards; opacity: 0; transform: translateY(20px); }
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        /* Very subtle grid background */
-        .bg-subtle-grid { background-image: radial-gradient(#e5e7eb 1px, transparent 1px); background-size: 40px 40px; }
+        body { font-family: 'Inter', 'Noto Sans JP', sans-serif; background-color: #fafafa; color: #171717; overflow-x: hidden; }
+        
+        /* Premium Typography Animation */
+        .reveal-text {
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        }
+        .reveal-text span {
+            display: block;
+            transform: translateY(100%);
+            opacity: 0;
+            transition: transform 1s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 1s ease;
+        }
+        .reveal-text.aos-animate span {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        .delay-100 span { transition-delay: 100ms; }
+        .delay-200 span { transition-delay: 200ms; }
+        
+        /* Ultra Clean Glassmorphism */
+        .frosted-glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .card-glass {
+            background: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.03);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-glass:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(0, 0, 0, 0.08);
+        }
+
+        /* Subtle Image Reveal */
+        .img-reveal {
+            position: relative;
+            overflow: hidden;
+        }
+        .img-reveal::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #fafafa;
+            transform-origin: right;
+            transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+        }
+        .img-reveal.aos-animate::after {
+            transform: scaleX(0);
+        }
     </style>
 </head>
-<body class="antialiased bg-subtle-grid selection:bg-gray-900 selection:text-white">
+<body class="antialiased">
 
-    <!-- Minimal Navigation -->
-    <nav class="fixed w-full z-50 bg-white/80 backdrop-blur-sm">
-        <div class="max-w-5xl mx-auto px-6 py-6 flex justify-between items-center">
-            <div class="text-xl font-bold tracking-widest text-gray-900">
-                Studio Blanc.
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 frosted-glass">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="text-xl font-semibold tracking-tight text-black">
+                Minimal<span class="text-gray-400">.</span>
             </div>
-            <div class="hidden md:flex space-x-8 text-sm tracking-widest font-medium text-gray-500">
-                <a href="#about" class="hover:text-gray-900 transition-colors">ABOUT</a>
-                <a href="#works" class="hover:text-gray-900 transition-colors">WORKS</a>
-                <a href="#contact" class="hover:text-gray-900 transition-colors">CONTACT</a>
+            <div class="hidden md:flex space-x-10 text-sm font-medium tracking-wide text-gray-500">
+                <a href="#about" class="hover:text-black transition">About</a>
+                <a href="#work" class="hover:text-black transition">Work</a>
+                <a href="#services" class="hover:text-black transition">Services</a>
             </div>
-            <!-- Mobile Menu Button -->
-            <button class="md:hidden text-gray-900">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
+            <a href="#contact" class="hidden md:block bg-black text-white px-6 py-2.5 rounded-full text-sm font-medium hover:bg-gray-800 transition shadow-lg shadow-black/10">
+                Contact
+            </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="min-h-screen flex items-center justify-center px-6 pt-20">
-        <div class="max-w-4xl mx-auto text-center">
-            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 leading-tight mb-8 text-balance fade-in-up">
-                本質だけを、<br class="hidden md:block">美しく残す。
-            </h1>
-            <p class="text-lg md:text-xl text-gray-500 font-light mb-12 max-w-2xl mx-auto leading-relaxed text-balance fade-in-up delay-100">
-                ノイズを取り除き、あなたのブランドが持つ本来の価値を<br class="hidden md:block">最も純粋な形でお客様へ届けます。
-            </p>
-            <div class="fade-in-up delay-200">
-                <a href="#contact" class="inline-block px-8 py-4 bg-gray-900 text-white text-sm font-bold tracking-widest rounded-none hover:bg-gray-800 transition-colors">
-                    ご相談はこちら
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Concept / About -->
-    <section id="about" class="py-32 px-6 bg-gray-50">
-        <div class="max-w-5xl mx-auto">
-            <div class="flex flex-col md:flex-row gap-16 items-center">
-                <div class="md:w-1/2">
-                    <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=2067&auto=format&fit=crop" alt="Minimal Workspace" class="w-full aspect-[4/5] object-cover grayscale hover:grayscale-0 transition duration-700">
-                </div>
-                <div class="md:w-1/2">
-                    <h2 class="text-sm font-bold tracking-[0.3em] text-gray-400 mb-6">OUR CONCEPT</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8 leading-tight">
-                        「引き算」から生まれる<br>豊かなデザイン。
-                    </h3>
-                    <p class="text-gray-600 font-light leading-loose mb-6">
-                        情報を詰め込むのではなく、あえて「余白」を大切にすること。それが私たちのデザイン哲学です。余白があるからこそ、本当に伝えたいメッセージが際立ち、人々の心に深く届きます。
-                    </p>
-                    <p class="text-gray-600 font-light leading-loose">
-                        個人サロンからフリーランスのポートフォリオまで。あなたの世界観を体現する、シンプルで上質なWebサイトをご提案します。
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services List -->
-    <section class="py-32 px-6">
-        <div class="max-w-3xl mx-auto">
-            <h2 class="text-sm font-bold tracking-[0.3em] text-gray-400 mb-16 text-center">SERVICES</h2>
-            
-            <div class="space-y-12">
-                <!-- Item -->
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-200 pb-8 hover:border-gray-900 transition-colors group cursor-pointer">
-                    <div class="mb-4 md:mb-0">
-                        <div class="text-2xl font-bold text-gray-900 mb-2 group-hover:translate-x-2 transition-transform">01. Web Site Design</div>
-                        <p class="text-gray-500 font-light">コーポレートサイト / LP制作 / ブログ構築</p>
-                    </div>
-                    <div class="text-gray-400 group-hover:text-gray-900 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </div>
+    <section class="min-h-screen flex items-center pt-20 px-6">
+        <div class="max-w-6xl mx-auto w-full grid md:grid-cols-2 gap-12 items-center">
+            <div class="order-2 md:order-1">
+                <div class="reveal-text mb-2">
+                    <span class="text-gray-500 font-medium tracking-widest text-sm uppercase">Freelance Designer</span>
                 </div>
                 
-                <!-- Item -->
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-200 pb-8 hover:border-gray-900 transition-colors group cursor-pointer">
-                    <div class="mb-4 md:mb-0">
-                        <div class="text-2xl font-bold text-gray-900 mb-2 group-hover:translate-x-2 transition-transform">02. Branding & Logo</div>
-                        <p class="text-gray-500 font-light">ロゴデザイン / 名刺 / ブランドガイドライン</p>
-                    </div>
-                    <div class="text-gray-400 group-hover:text-gray-900 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </div>
+                <h1 class="text-5xl md:text-7xl font-semibold leading-[1.1] tracking-tight mb-8 text-black">
+                    <div class="reveal-text delay-100"><span>Less is</span></div>
+                    <div class="reveal-text delay-200"><span>More.</span></div>
+                </h1>
+                
+                <p class="text-lg md:text-xl text-gray-500 font-light mb-12 max-w-lg leading-relaxed" data-aos="fade-up" data-aos-delay="400">
+                    本質だけを残し、無駄を削ぎ落とす。<br>
+                    美しさと機能性が完全に調和した、洗練されたデジタル体験を設計します。
+                </p>
+                
+                <div data-aos="fade-up" data-aos-delay="600">
+                    <a href="#work" class="inline-flex items-center gap-3 text-black font-semibold text-sm tracking-wide group pb-1 border-b-2 border-black hover:border-gray-400 transition">
+                        EXPLORE WORKS
+                        <svg class="w-4 h-4 group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="order-1 md:order-2 img-reveal rounded-2xl overflow-hidden shadow-2xl" data-aos="fade-left">
+                <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=2067&auto=format&fit=crop" alt="Minimal desk" class="w-full h-auto aspect-[4/5] object-cover scale-105 hover:scale-100 transition duration-1000">
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-32 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-20">
+                <div class="reveal-text mb-4"><span class="text-gray-400 text-sm tracking-widest uppercase">What I do</span></div>
+                <h2 class="text-4xl md:text-5xl font-semibold tracking-tight text-black reveal-text delay-100"><span>Services</span></h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="card-glass p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-3xl mb-6">🖋</div>
+                    <h3 class="text-xl font-semibold mb-4 text-black">Branding</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm">企業の想いや価値観を視覚化し、一貫性のあるブランドアイデンティティを構築します。ロゴから世界観までトータルで設計します。</p>
                 </div>
                 
-                <!-- Item -->
-                <div class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-gray-200 pb-8 hover:border-gray-900 transition-colors group cursor-pointer">
-                    <div class="mb-4 md:mb-0">
-                        <div class="text-2xl font-bold text-gray-900 mb-2 group-hover:translate-x-2 transition-transform">03. Photo & Video</div>
-                        <p class="text-gray-500 font-light">商品撮影 / プロフィール写真 / 映像制作</p>
-                    </div>
-                    <div class="text-gray-400 group-hover:text-gray-900 transition-colors">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </div>
+                <div class="card-glass p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="text-3xl mb-6">💻</div>
+                    <h3 class="text-xl font-semibold mb-4 text-black">Web Design</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm">余白の美しさとタイポグラフィにこだわった、ミニマルで洗練されたウェブサイトをデザイン・開発します。</p>
+                </div>
+                
+                <div class="card-glass p-10 rounded-2xl" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-3xl mb-6">📱</div>
+                    <h3 class="text-xl font-semibold mb-4 text-black">UI/UX</h3>
+                    <p class="text-gray-500 font-light leading-relaxed text-sm">ユーザーの直感に働きかける、シンプルで迷いのないインターフェース設計。美しさと使いやすさを両立させます。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Minimal Contact / Footer -->
-    <section id="contact" class="py-32 px-6 bg-gray-900 text-white text-center">
-        <div class="max-w-2xl mx-auto">
-            <h2 class="text-3xl md:text-5xl font-bold mb-12">Start a conversation.</h2>
-            <p class="text-gray-400 font-light mb-12">
-                新しいプロジェクトについて、まずはお気軽にお話ししませんか。<br>
-                以下のメールアドレスまでお問い合わせください。
-            </p>
-            <a href="mailto:hello@studioblanc.com" class="text-xl md:text-2xl font-light border-b border-white pb-2 hover:text-gray-300 hover:border-gray-300 transition-colors tracking-wider">
-                hello@studioblanc.com
-            </a>
-            
-            <div class="mt-32 flex justify-center space-x-8 text-sm font-light tracking-widest">
-                <a href="#" class="hover:text-gray-400 transition-colors">INSTAGRAM</a>
-                <a href="#" class="hover:text-gray-400 transition-colors">TWITTER</a>
-                <a href="#" class="hover:text-gray-400 transition-colors">NOTE</a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="bg-gray-900 text-gray-600 text-center py-8 text-xs tracking-widest font-light">
-        <p>&copy; 2026 STUDIO BLANC. BUILT WITH AI WEBAUTO.</p>
+    <!-- Footer -->
+    <footer class="py-16 bg-black text-white text-center">
+        <h2 class="text-3xl font-semibold mb-8">Let's work together.</h2>
+        <a href="mailto:hello@example.com" class="inline-block px-8 py-3 bg-white text-black rounded-full text-sm font-semibold hover:scale-105 transition">Start a Project</a>
+        <p class="mt-16 text-xs text-gray-500 tracking-widest">&copy; 2026 MINIMAL DESIGN.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 100, duration: 1000 });
+    </script>
 </body>
 </html>

@@ -3,231 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>エレガント特化型テンプレート（美容・サロン・ウェディング向け）</title>
+    <title>エレガント特化型テンプレート（エステ・高級サロン向け）</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Shippori+Mincho:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Shippori Mincho', serif; color: #4a4a4a; background-color: #faf9f7; }
+        body { font-family: 'Shippori Mincho', serif; background-color: #fcfbf9; color: #3b3734; overflow-x: hidden; }
         .en-font { font-family: 'Cormorant Garamond', serif; }
-        .gold-text { color: #d4af37; }
-        .gold-bg { background-color: #d4af37; }
-        .gold-border { border-color: #d4af37; }
         
-        .fade-in { opacity: 0; animation: fadeIn 1.5s ease-in-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Gold Accent Color */
+        .text-gold { color: #bda274; }
+        .bg-gold { background-color: #bda274; }
+        .border-gold { border-color: #bda274; }
         
-        .slide-up { opacity: 0; transform: translateY(30px); animation: slideUp 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-        @keyframes slideUp { to { opacity: 1; transform: translateY(0); } }
-        
-        .delay-100 { animation-delay: 100ms; }
-        .delay-300 { animation-delay: 300ms; }
-        .delay-500 { animation-delay: 500ms; }
-        
-        .image-mask { clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #c5a977 0%, #e6d3a8 50%, #c5a977 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Parallax Image Container */
+        .parallax-wrapper {
+            position: relative;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .parallax-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 120%;
+            background-image: url('https://images.unsplash.com/photo-1600334129128-685054110de4?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            /* Using CSS for smooth parallax on scroll (handled via JS for better control) */
+            will-change: transform;
+        }
+
+        /* Elegant Thin Borders */
+        .elegant-card {
+            background: #ffffff;
+            border: 1px solid #f0ebe1;
+            padding: 3rem;
+            position: relative;
+            transition: all 0.5s ease;
+        }
+        .elegant-card::after {
+            content: '';
+            position: absolute;
+            top: 10px; left: 10px; right: 10px; bottom: 10px;
+            border: 1px solid rgba(189, 162, 116, 0.2);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .elegant-card:hover::after { opacity: 1; }
+        .elegant-card:hover { box-shadow: 0 20px 40px rgba(59, 55, 52, 0.05); transform: translateY(-5px); }
+
+        /* Gentle fade overlay */
+        .fade-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(252, 251, 249, 0.2), rgba(252, 251, 249, 0.9));
+            z-index: 0;
+        }
     </style>
 </head>
-<body class="antialiased selection:bg-[#d4af37] selection:text-white">
+<body class="antialiased">
 
-    <!-- Navbar -->
-    <nav class="absolute w-full z-50 top-0 py-6 px-4 md:px-12 flex justify-between items-center fade-in">
-        <div class="hidden md:flex space-x-8 text-sm tracking-[0.2em] en-font uppercase">
-            <a href="#philosophy" class="text-white/80 hover:text-white transition">Philosophy</a>
-            <a href="#menu" class="text-white/80 hover:text-white transition">Menu</a>
-        </div>
-        
-        <div class="text-3xl md:text-4xl font-light tracking-widest text-white text-center w-full md:w-auto en-font italic">
-            L'Éternité
-        </div>
-        
-        <div class="hidden md:flex space-x-8 text-sm tracking-[0.2em] en-font uppercase items-center">
-            <a href="#gallery" class="text-white/80 hover:text-white transition">Gallery</a>
-            <a href="#reservation" class="border border-white/50 px-6 py-2 text-white hover:bg-white hover:text-gray-900 transition duration-500">
-                Reservation
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-[#fcfbf9]/80 backdrop-blur-md border-b border-[#f0ebe1] transition-all duration-500">
+        <div class="max-w-7xl mx-auto px-6 h-24 flex justify-between items-center">
+            <div class="text-2xl tracking-[0.2em] en-font text-[#3b3734]">
+                E L E G A N C E
+            </div>
+            <div class="hidden md:flex space-x-12 text-sm tracking-[0.1em]">
+                <a href="#concept" class="hover:text-gold transition duration-300">Concept</a>
+                <a href="#menu" class="hover:text-gold transition duration-300">Menu</a>
+                <a href="#salon" class="hover:text-gold transition duration-300">Salon</a>
+            </div>
+            <a href="#reserve" class="hidden md:block border border-[#3b3734] px-8 py-3 text-xs tracking-[0.15em] hover:bg-[#3b3734] hover:text-white transition duration-500">
+                RESERVATION
             </a>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <header class="relative w-full h-screen overflow-hidden">
-        <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover transform scale-105" style="animation: slowZoom 20s ease-out forwards;">
-        <div class="absolute inset-0 bg-black/30"></div>
+    <!-- Parallax Hero Section -->
+    <section class="parallax-wrapper">
+        <div class="parallax-bg" id="hero-parallax"></div>
+        <div class="fade-overlay"></div>
         
-        <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-10">
-            <p class="text-white/80 tracking-[0.4em] en-font text-sm md:text-base uppercase mb-6 slide-up">Beauty & Relaxation Salon</p>
-            <h1 class="text-5xl md:text-7xl lg:text-8xl text-white font-light tracking-wider leading-tight mb-8 slide-up delay-100" style="text-shadow: 0 4px 12px rgba(0,0,0,0.1);">
-                あなただけの、<br>
-                <span class="en-font italic font-normal gold-text">Timeless Beauty</span>
+        <div class="relative z-10 text-center max-w-4xl px-6 pt-20">
+            <p class="en-font italic text-gold text-2xl md:text-3xl mb-6" data-aos="fade-up" data-aos-duration="1500">Awaken your true beauty</p>
+            <h1 class="text-4xl md:text-6xl lg:text-7xl leading-[1.3] tracking-[0.1em] font-medium mb-10" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="200">
+                内なる美を呼び覚ます、<br>至福のプライベートサロン。
             </h1>
-            <p class="text-white/90 text-sm md:text-base leading-loose max-w-lg mx-auto slide-up delay-300 font-light">
-                日常の喧騒から離れ、心と身体を解き放つ至福のひととき。<br>
-                上質な空間で、永遠の美しさを引き出します。
-            </p>
+            <div class="w-[1px] h-24 bg-gold mx-auto" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="400"></div>
         </div>
-        
-        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center slide-up delay-500">
-            <span class="text-white/50 text-xs tracking-[0.3em] en-font mb-4">SCROLL</span>
-            <div class="w-[1px] h-16 bg-white/30 relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-full bg-white" style="animation: scrollDrop 2s infinite;"></div>
-            </div>
-        </div>
-        
-        <style>
-            @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
-            @keyframes scrollDrop { 0% { transform: translateY(-100%); } 100% { transform: translateY(100%); } }
-        </style>
-    </header>
+    </section>
 
-    <!-- Philosophy -->
-    <section id="philosophy" class="py-32 px-4 md:px-0 relative">
-        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-            <div class="md:w-1/2 relative w-full h-[600px]">
-                <div class="absolute inset-0 bg-[#f0eee9] translate-x-4 translate-y-4 md:translate-x-8 md:translate-y-8 image-mask"></div>
-                <img src="https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?q=80&w=1500&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover image-mask shadow-xl z-10" alt="Salon interior">
-            </div>
-            
-            <div class="md:w-1/2 md:pl-12 text-center md:text-left">
-                <p class="gold-text tracking-[0.3em] en-font text-sm uppercase mb-4">Philosophy</p>
-                <h2 class="text-3xl md:text-5xl font-normal leading-tight mb-10 text-gray-800">
-                    美しさは、<br>
-                    内なる調和から生まれる。
-                </h2>
-                <div class="w-12 h-[1px] gold-bg mx-auto md:mx-0 mb-10"></div>
-                <p class="text-gray-500 leading-loose font-light mb-6 text-sm md:text-base">
-                    私たちは、表面的な美しさだけでなく、心と身体の深い部分からの癒やしを大切にしています。厳選されたオーガニックオイルと、熟練のセラピストによるオールハンドのトリートメント。
-                </p>
-                <p class="text-gray-500 leading-loose font-light mb-12 text-sm md:text-base">
-                    五感を満たす優雅な空間で、本来の自分を取り戻す特別な体験をお約束いたします。
-                </p>
-                
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Signature_placeholder.svg" alt="Signature" class="h-12 mx-auto md:mx-0 opacity-40">
+    <!-- Concept Section -->
+    <section id="concept" class="py-32 px-6 relative bg-[#fcfbf9]">
+        <div class="max-w-5xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2" data-aos="fade-right" data-aos-duration="1200">
+                    <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?q=80&w=2070&auto=format&fit=crop" alt="Spa Treatment" class="w-full h-auto object-cover rounded-t-full shadow-2xl">
+                </div>
+                <div class="md:w-1/2 text-center md:text-left" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
+                    <p class="en-font tracking-[0.2em] text-gold text-sm mb-4">CONCEPT</p>
+                    <h2 class="text-3xl md:text-4xl leading-relaxed mb-8">日常の喧騒から離れ、<br>本来の自分に還る場所。</h2>
+                    <p class="text-[#6a6561] leading-[2.2] tracking-wide mb-10">
+                        厳選された最高級のオーガニックオイルと、熟練のセラピストによるオールハンドの施術。完全個室の洗練された空間で、心と身体のバランスを整え、あなただけの真の美しさを引き出します。五感を満たす極上のひとときをお約束します。
+                    </p>
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Signature_of_John_Hancock.svg" class="h-12 opacity-50 mx-auto md:mx-0" alt="Signature">
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Menu -->
-    <section id="menu" class="py-32 bg-[#f9f8f6]">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6">
-            <div class="text-center mb-20">
-                <h2 class="text-4xl md:text-5xl font-light en-font italic text-gray-800 mb-4">Salon Menu</h2>
-                <p class="gold-text tracking-[0.3em] text-xs uppercase">ご提供する特別なメニュー</p>
+    <!-- Menu Section -->
+    <section id="menu" class="py-32 px-6 bg-[#f7f5f0]">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-24" data-aos="fade-up" data-aos-duration="1000">
+                <p class="en-font tracking-[0.2em] text-gold text-sm mb-4">TREATMENT MENU</p>
+                <h2 class="text-3xl md:text-4xl">メニュー・料金</h2>
+                <div class="w-12 h-[1px] bg-gold mx-auto mt-8"></div>
             </div>
             
-            <div class="grid md:grid-cols-2 gap-12 md:gap-24">
-                <!-- Menu Category 1 -->
-                <div>
-                    <h3 class="text-xl border-b border-gray-300 pb-4 mb-8 flex justify-between items-end">
-                        <span>Facial Treatment</span>
-                        <span class="en-font text-gray-400 text-sm">01</span>
-                    </h3>
-                    <ul class="space-y-8">
-                        <li>
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-medium text-lg">ベーシック・フェイシャル</h4>
-                                <span class="en-font text-gray-600">¥12,000</span>
-                            </div>
-                            <p class="text-xs text-gray-500 leading-relaxed">クレンジング・毛穴ケア・保湿パック（60分）</p>
-                        </li>
-                        <li>
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-medium text-lg">エイジングケア・プレミアム</h4>
-                                <span class="en-font text-gray-600">¥18,000</span>
-                            </div>
-                            <p class="text-xs text-gray-500 leading-relaxed">リフトアップマッサージ・高濃度美容液導入（90分）</p>
-                        </li>
-                        <li>
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-medium text-lg gold-text">ブライダル・スペシャルコース</h4>
-                                <span class="en-font text-gray-600">¥35,000</span>
-                            </div>
-                            <p class="text-xs text-gray-500 leading-relaxed">最高の1日のための、デコルテ〜フェイシャル集中ケア（120分）</p>
-                        </li>
-                    </ul>
+            <div class="grid md:grid-cols-2 gap-10">
+                <!-- Menu Item 1 -->
+                <div class="elegant-card" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="0">
+                    <div class="flex justify-between items-end mb-4 border-b border-[#f0ebe1] pb-4">
+                        <h3 class="text-2xl tracking-widest">シグネチャー・フェイシャル</h3>
+                        <p class="text-xl text-gold en-font italic">¥22,000</p>
+                    </div>
+                    <p class="text-sm text-gold tracking-widest mb-4">90 MIN</p>
+                    <p class="text-[#6a6561] leading-[2] text-sm">希少なローズエッセンスを贅沢に使用した、エイジングケア特化のフェイシャルトリートメント。肌の奥深くから輝くような透明感とハリを取り戻します。</p>
                 </div>
                 
-                <!-- Menu Category 2 -->
-                <div>
-                    <h3 class="text-xl border-b border-gray-300 pb-4 mb-8 flex justify-between items-end">
-                        <span>Body Treatment</span>
-                        <span class="en-font text-gray-400 text-sm">02</span>
-                    </h3>
-                    <ul class="space-y-8">
-                        <li>
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-medium text-lg">アロマ・リラクゼーション</h4>
-                                <span class="en-font text-gray-600">¥14,000</span>
-                            </div>
-                            <p class="text-xs text-gray-500 leading-relaxed">全身のリンパを流す、極上のオイルマッサージ（60分）</p>
-                        </li>
-                        <li>
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-medium text-lg">ホットストーン・セラピー</h4>
-                                <span class="en-font text-gray-600">¥16,000</span>
-                            </div>
-                            <p class="text-xs text-gray-500 leading-relaxed">温めた玄武岩を使用し、芯から疲れを癒やします（90分）</p>
-                        </li>
-                        <li>
-                            <div class="flex justify-between items-baseline mb-2">
-                                <h4 class="font-medium text-lg">デトックス・スリミング</h4>
-                                <span class="en-font text-gray-600">¥22,000</span>
-                            </div>
-                            <p class="text-xs text-gray-500 leading-relaxed">気になる部分を集中ケアし、理想のボディラインへ（100分）</p>
-                        </li>
-                    </ul>
+                <!-- Menu Item 2 -->
+                <div class="elegant-card" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="100">
+                    <div class="flex justify-between items-end mb-4 border-b border-[#f0ebe1] pb-4">
+                        <h3 class="text-2xl tracking-widest">ディープリラックス・ボディ</h3>
+                        <p class="text-xl text-gold en-font italic">¥28,000</p>
+                    </div>
+                    <p class="text-sm text-gold tracking-widest mb-4">120 MIN</p>
+                    <p class="text-[#6a6561] leading-[2] text-sm">温めた玄武岩とアロマオイルを組み合わせた極上のボディトリートメント。筋肉の深部の緊張を解きほぐし、深いリラクゼーションへと導きます。</p>
+                </div>
+                
+                <!-- Menu Item 3 -->
+                <div class="elegant-card md:col-span-2 text-center" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
+                    <h3 class="text-2xl tracking-widest mb-4">プレミアム・リトリート・コース</h3>
+                    <p class="text-sm text-gold tracking-widest mb-6">180 MIN <span class="mx-2">|</span> <span class="en-font italic text-xl">¥45,000</span></p>
+                    <p class="text-[#6a6561] leading-[2] text-sm max-w-2xl mx-auto">フェイシャル、ボディ、ヘッドスパを網羅した当サロン最高峰のフルコース。一日をかけてご自身の身体と対話する、完全オーダーメイドの特別なプログラムです。</p>
                 </div>
             </div>
-            
-            <div class="text-center mt-20">
-                <a href="#" class="inline-block border border-gray-400 text-gray-600 px-10 py-4 text-xs tracking-[0.2em] uppercase hover:bg-gray-800 hover:text-white transition duration-500">
-                    View All Menu
+        </div>
+    </section>
+
+    <!-- Reservation/Footer CTA -->
+    <section id="reserve" class="py-32 px-6 bg-[#3b3734] text-white text-center relative overflow-hidden">
+        <!-- Minimal gold decoration -->
+        <div class="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent opacity-50"></div>
+        <div class="absolute bottom-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-gold to-transparent opacity-50"></div>
+        
+        <div class="max-w-3xl mx-auto relative z-10" data-aos="fade-up" data-aos-duration="1500">
+            <h2 class="en-font text-4xl md:text-6xl tracking-[0.1em] mb-8 gold-gradient-text">Reservation</h2>
+            <p class="text-[#dcd6d1] leading-[2.2] tracking-widest mb-12 font-light">
+                ご予約はWEBまたはお電話にて承ります。<br>特別な日を彩るお手伝いができることを、心よりお待ち申し上げております。
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-6">
+                <a href="#" class="bg-gold text-white px-10 py-4 text-sm tracking-[0.2em] hover:bg-white hover:text-gold transition duration-500">
+                    WEBから予約する
+                </a>
+                <a href="tel:0300000000" class="border border-gold text-gold px-10 py-4 text-sm tracking-[0.2em] hover:bg-[#bda274]/20 transition duration-500">
+                    03-0000-0000
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Information / Booking -->
-    <section id="reservation" class="py-0 relative flex flex-col md:flex-row min-h-[600px]">
-        <div class="md:w-1/2 bg-[#2a2a2a] text-white p-12 md:p-24 flex flex-col justify-center">
-            <h2 class="text-3xl md:text-4xl font-light mb-12">Reservation</h2>
-            
-            <div class="space-y-8 font-light text-sm tracking-wide text-gray-300">
-                <div>
-                    <h3 class="gold-text text-xs tracking-[0.2em] uppercase mb-2">Address</h3>
-                    <p>〒107-0062<br>東京都港区南青山5-X-X<br>レテルニテ青山 3F</p>
-                </div>
-                <div>
-                    <h3 class="gold-text text-xs tracking-[0.2em] uppercase mb-2">Open Hours</h3>
-                    <p>10:00 - 21:00<br>（最終受付 19:30 / 火曜定休）</p>
-                </div>
-                <div>
-                    <h3 class="gold-text text-xs tracking-[0.2em] uppercase mb-2">Contact</h3>
-                    <p class="en-font text-lg tracking-widest">03-XXXX-XXXX</p>
-                </div>
-            </div>
-            
-            <a href="#" class="mt-12 w-full md:w-auto text-center bg-[#d4af37] text-white px-8 py-4 text-sm tracking-[0.2em] uppercase hover:bg-[#b5952f] transition duration-300 shadow-lg">
-                Book an Appointment
-            </a>
-        </div>
-        
-        <div class="md:w-1/2 h-[400px] md:h-auto relative">
-            <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=2000&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover grayscale-[30%]">
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer class="bg-[#1a1a1a] py-16 text-center border-t border-gray-800">
-        <div class="text-2xl font-light tracking-widest text-white mb-8 en-font italic">
-            L'Éternité
-        </div>
-        <div class="flex justify-center space-x-6 mb-12 text-gray-400 text-xs tracking-[0.2em] uppercase en-font">
-            <a href="#" class="hover:text-[#d4af37] transition">Instagram</a>
-            <a href="#" class="hover:text-[#d4af37] transition">Facebook</a>
-            <a href="#" class="hover:text-[#d4af37] transition">Line</a>
-        </div>
-        <p class="text-gray-600 text-[10px] tracking-[0.2em] en-font uppercase">
-            &copy; 2026 L'Éternité Salon. Built with AI WebAuto.
-        </p>
+    <footer class="py-12 bg-[#2a2725] text-center">
+        <p class="en-font text-[#8c8885] tracking-[0.3em] text-xs">&copy; 2026 ELEGANCE SALON. ALL RIGHTS RESERVED.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true });
+
+        // Parallax Effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.scrollY;
+            const parallaxBg = document.getElementById('hero-parallax');
+            if (parallaxBg && scrolled < window.innerHeight) {
+                parallaxBg.style.transform = `translateY(${scrolled * 0.4}px)`;
+            }
+        });
+    </script>
 </body>
 </html>

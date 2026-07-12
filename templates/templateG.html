@@ -1,148 +1,204 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>リード獲得型テンプレート（SaaS・B2B向け）</title>
+    <title>リード獲得・資料請求特化型テンプレート</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans JP', sans-serif; }
-        .en-font { font-family: 'Inter', sans-serif; }
-        .bg-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px); }
-        .clip-diagonal { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 90%); }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #ffffff; color: #1f2937; overflow-x: hidden; }
+        
+        .bg-primary { background-color: #2563eb; }
+        .text-primary { color: #2563eb; }
+        .border-primary { border-color: #2563eb; }
+        
+        /* High Conversion Form Shadow */
+        .form-shadow {
+            box-shadow: 0 25px 50px -12px rgba(37, 99, 235, 0.25);
+        }
+
+        /* Pulsing Arrow */
+        .animate-bounce-right {
+            animation: bounce-right 1s infinite;
+        }
+        @keyframes bounce-right {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(5px); }
+        }
+
+        /* Toast Notification (Conversion Trigger) */
+        .toast-notification {
+            position: fixed;
+            bottom: -100px; /* Hidden initially */
+            right: 20px;
+            background: #ffffff;
+            border-left: 4px solid #f59e0b;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            padding: 16px 20px;
+            border-radius: 8px;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: bottom 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .toast-notification.show {
+            bottom: 20px;
+        }
+
+        /* Attention Grabbing Button */
+        .btn-attention {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            box-shadow: 0 4px 14px 0 rgba(245, 158, 11, 0.39);
+            transition: all 0.3s ease;
+        }
+        .btn-attention:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+        }
     </style>
 </head>
-<body class="text-slate-800 bg-white">
+<body class="antialiased">
 
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white/80 backdrop-blur-lg border-b border-slate-200 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 items-center">
-                <div class="flex-shrink-0 flex items-center gap-2">
-                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    </div>
-                    <span class="font-bold text-xl tracking-tight text-slate-900 en-font">SaaSConnect</span>
-                </div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#features" class="text-sm font-medium text-slate-600 hover:text-indigo-600">機能</a>
-                    <a href="#benefits" class="text-sm font-medium text-slate-600 hover:text-indigo-600">導入メリット</a>
-                    <a href="#pricing" class="text-sm font-medium text-slate-600 hover:text-indigo-600">料金プラン</a>
-                </div>
-                <div class="flex items-center gap-4">
-                    <a href="#" class="hidden md:block text-sm font-medium text-slate-600 hover:text-indigo-600">ログイン</a>
-                    <a href="#download" class="bg-indigo-600 text-white px-5 py-2.5 rounded-md text-sm font-bold hover:bg-indigo-700 transition shadow-lg shadow-indigo-200">無料資料をダウンロード</a>
-                </div>
-            </div>
+    <!-- Header (Minimal to avoid distractions) -->
+    <header class="w-full py-4 px-6 md:px-12 flex justify-between items-center absolute top-0 z-50">
+        <div class="text-2xl font-black tracking-tighter text-gray-900">
+            Growth<span class="text-primary">LP</span>
         </div>
-    </nav>
+        <!-- No navigation links to keep focus on the form -->
+    </header>
 
-    <!-- Hero Section -->
-    <section class="pt-32 pb-20 bg-grid relative overflow-hidden clip-diagonal bg-slate-50">
-        <div class="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 rounded-full bg-indigo-100 blur-3xl opacity-50"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center max-w-4xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-50 border border-indigo-100 text-indigo-600 text-sm font-semibold mb-8">
-                    <span class="flex h-2 w-2 relative"><span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span><span class="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span></span>
-                    最新アップデート v2.0 リリース
+    <!-- Hero Section with Form Above the Fold -->
+    <section class="pt-24 pb-20 md:pt-32 md:pb-32 px-6 bg-slate-50 relative overflow-hidden">
+        <!-- Abstract Background -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-blue-50/50 rounded-bl-full z-0 transform translate-x-1/4 -translate-y-1/4"></div>
+        
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12 relative z-10">
+            <!-- Copywriting Side -->
+            <div class="lg:w-[55%] pt-8" data-aos="fade-right">
+                <div class="inline-block bg-amber-100 text-amber-700 font-bold px-4 py-1 rounded-full text-sm mb-6 shadow-sm border border-amber-200">
+                    🔥 累計ダウンロード数 10,000件突破
                 </div>
-                <h1 class="text-5xl md:text-7xl font-extrabold text-slate-900 tracking-tight leading-tight mb-8">
-                    営業のムダをゼロに。<br>
-                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-blue-500">次世代の顧客管理プラットフォーム</span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-[1.2] mb-6 text-gray-900">
+                    売上を<span class="text-primary">3倍</span>にする、<br>
+                    <span class="bg-yellow-200 px-2 py-1">最強の営業マニュアル</span>
                 </h1>
-                <p class="mt-4 text-xl text-slate-600 mb-10 max-w-2xl mx-auto leading-relaxed">
-                    見込み顧客の獲得から商談成立まで、あらゆるデータを一元管理。AIが成約確度の高い顧客を自動でリストアップし、営業チームの生産性を劇的に向上させます。
+                <p class="text-lg md:text-xl text-gray-600 mb-8 leading-relaxed font-medium">
+                    100社以上のコンサルティング実績から導き出した、明日から即使える実践的なノウハウを75ページの図解PDFにまとめました。
                 </p>
-                
-                <!-- Lead Capture Form in Hero -->
-                <div class="bg-white p-2 rounded-lg shadow-xl border border-slate-100 max-w-2xl mx-auto flex flex-col sm:flex-row gap-2">
-                    <input type="email" placeholder="会社メールアドレスを入力" class="flex-1 px-4 py-3 rounded-md bg-slate-50 border-transparent focus:bg-white focus:ring-2 focus:ring-indigo-600 focus:border-transparent outline-none">
-                    <button class="bg-indigo-600 text-white px-8 py-3 rounded-md font-bold hover:bg-indigo-700 transition whitespace-nowrap">
-                        無料で試してみる
-                    </button>
-                </div>
-                <p class="text-xs text-slate-400 mt-4">※クレジットカード登録不要。14日間の無料トライアルが可能です。</p>
-            </div>
-            
-            <!-- Dashboard Mockup -->
-            <div class="mt-20 relative max-w-5xl mx-auto">
-                <div class="rounded-xl shadow-2xl overflow-hidden border border-slate-200 bg-white">
-                    <div class="h-8 bg-slate-100 border-b border-slate-200 flex items-center px-4 gap-2">
-                        <div class="w-3 h-3 rounded-full bg-red-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-400"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-400"></div>
-                    </div>
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" alt="Dashboard Dashboard" class="w-full h-auto opacity-90">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Logo Cloud -->
-    <section class="py-12 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <p class="text-center text-sm font-semibold text-slate-500 tracking-wide uppercase mb-8">導入企業5,000社突破。業界トップ企業に選ばれています。</p>
-            <div class="flex justify-center gap-12 opacity-50 grayscale flex-wrap">
-                <div class="text-2xl font-bold en-font">ACME Corp</div>
-                <div class="text-2xl font-bold en-font">GlobalTech</div>
-                <div class="text-2xl font-bold en-font">Innovate</div>
-                <div class="text-2xl font-bold en-font">Nexus</div>
-                <div class="text-2xl font-bold en-font">Stark Ind.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Whitepaper Download CTA -->
-    <section id="download" class="py-20 bg-slate-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row items-center gap-12">
-                <div class="lg:w-1/2">
-                    <span class="text-indigo-400 font-bold tracking-wider text-sm mb-2 block">無料お役立ち資料</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-6 leading-tight">【2026年最新版】<br>成約率を3倍にするB2B営業戦略ガイド</h2>
-                    <p class="text-slate-400 mb-8 leading-relaxed">
-                        トップセールスマンのノウハウをAIで言語化・体系化した全50ページの完全マニュアル。明日からの営業活動ですぐに使える具体的なテクニックを無料で公開しています。
-                    </p>
-                    <ul class="space-y-4 mb-8">
-                        <li class="flex items-center gap-3"><svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-slate-300">見込み顧客を「優良顧客」に育てるステップメールの書き方</span></li>
-                        <li class="flex items-center gap-3"><svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-slate-300">失注を防ぐ、AIを用いたタイミング分析</span></li>
-                        <li class="flex items-center gap-3"><svg class="w-6 h-6 text-indigo-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg><span class="text-slate-300">SaaSConnect 導入企業の成功事例5選</span></li>
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm mb-8">
+                    <h3 class="font-bold text-lg mb-4 text-gray-800">✅ この資料でわかること</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-3 text-gray-600 font-medium"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 失敗しない商談の進め方とトークスクリプト</li>
+                        <li class="flex items-center gap-3 text-gray-600 font-medium"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 顧客の心理的ハードルを下げる魔法の質問</li>
+                        <li class="flex items-center gap-3 text-gray-600 font-medium"><svg class="w-5 h-5 text-green-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 競合に負けない「クロージング」の黄金法則</li>
                     </ul>
                 </div>
-                
-                <!-- Lead Form -->
-                <div class="lg:w-1/2 w-full max-w-md bg-white text-slate-800 rounded-2xl p-8 shadow-2xl">
-                    <h3 class="text-xl font-bold mb-6 text-center">資料ダウンロードフォーム</h3>
+            </div>
+            
+            <!-- Lead Generation Form (The Core) -->
+            <div class="lg:w-[45%] w-full max-w-md mx-auto" data-aos="fade-left" data-aos-delay="200">
+                <div class="bg-white p-8 rounded-[32px] form-shadow border-4 border-white relative">
+                    <!-- Form Ribbon -->
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white font-bold text-sm px-6 py-1.5 rounded-full shadow-md whitespace-nowrap">
+                        無料ダウンロードはこちら
+                    </div>
+                    
+                    <div class="text-center mt-2 mb-8">
+                        <p class="text-sm text-gray-500 font-bold mb-1">たった30秒で完了！</p>
+                        <h2 class="text-2xl font-black text-gray-900">PDF資料を無料で受け取る</h2>
+                    </div>
+                    
                     <form class="space-y-5">
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">会社名 <span class="text-red-500">*</span></label>
-                            <input type="text" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none" required>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">会社名 <span class="text-red-500 text-xs ml-1">必須</span></label>
+                            <input type="text" class="w-full bg-gray-50 px-4 py-3 rounded-lg border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="株式会社○○">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">お名前 <span class="text-red-500">*</span></label>
-                            <input type="text" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none" required>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">お名前 <span class="text-red-500 text-xs ml-1">必須</span></label>
+                            <input type="text" class="w-full bg-gray-50 px-4 py-3 rounded-lg border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="山田 太郎">
                         </div>
                         <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">メールアドレス（会社用） <span class="text-red-500">*</span></label>
-                            <input type="email" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none" required>
+                            <label class="block text-sm font-bold text-gray-700 mb-1">メールアドレス <span class="text-red-500 text-xs ml-1">必須</span></label>
+                            <input type="email" class="w-full bg-gray-50 px-4 py-3 rounded-lg border border-gray-200 focus:bg-white focus:ring-2 focus:ring-primary focus:border-primary outline-none transition" placeholder="info@example.com">
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">電話番号</label>
-                            <input type="tel" class="w-full px-4 py-2 border border-slate-300 rounded-md focus:ring-2 focus:ring-indigo-600 outline-none">
+                        
+                        <div class="pt-4">
+                            <button type="button" class="w-full btn-attention text-white font-black text-lg py-4 rounded-xl flex justify-center items-center gap-2">
+                                今すぐ無料でダウンロード <span class="animate-bounce-right">→</span>
+                            </button>
                         </div>
-                        <button type="button" class="w-full bg-indigo-600 text-white font-bold py-3 rounded-md hover:bg-indigo-700 transition mt-4">
-                            PDFを無料でダウンロード
-                        </button>
+                        <p class="text-center text-xs text-gray-400 mt-2">※ご入力いただいたメールアドレスにPDFをお送りします。<br>※同業他社様のお申し込みはお断りしております。</p>
                     </form>
-                    <p class="text-xs text-slate-500 mt-4 text-center">送信することで、プライバシーポリシーに同意したものとみなされます。</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="bg-slate-50 border-t border-slate-200 py-12 text-center text-slate-500 text-sm">
-        <p>&copy; 2026 SaaSConnect Template by AI WebAuto. All rights reserved.</p>
+    <!-- Social Proof (Logos) -->
+    <section class="py-12 border-b border-gray-100 bg-white">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-sm font-bold text-gray-400 mb-6 tracking-widest">多数のメディア・大手企業様で導入されています</p>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-50 grayscale">
+                <!-- Placeholder text as logos -->
+                <div class="text-2xl font-black font-serif">COMPANY</div>
+                <div class="text-2xl font-black tracking-tighter">BRAND.inc</div>
+                <div class="text-2xl font-black italic">Enterprise</div>
+                <div class="text-2xl font-black">STARTUP</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toast Notification (Popup for FOMO) -->
+    <div id="toast" class="toast-notification">
+        <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+            <svg class="w-5 h-5 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+        </div>
+        <div>
+            <p class="text-sm text-gray-500 font-bold">たった今</p>
+            <p class="text-sm font-bold text-gray-900">東京都のA社様が資料をダウンロードしました</p>
+        </div>
+        <button id="close-toast" class="ml-4 text-gray-400 hover:text-gray-600">×</button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-50 py-8 text-center text-sm">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center text-gray-500 font-medium">
+            <p>&copy; 2026 GrowthLP. All rights reserved.</p>
+            <div class="flex gap-6 mt-4 md:mt-0">
+                <a href="#" class="hover:text-primary transition">会社概要</a>
+                <a href="#" class="hover:text-primary transition">プライバシーポリシー</a>
+                <a href="#" class="hover:text-primary transition">特定商取引法に基づく表記</a>
+            </div>
+        </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50, duration: 800 });
+
+        // Toast Notification Logic (Triggered after a delay to create FOMO)
+        document.addEventListener('DOMContentLoaded', () => {
+            const toast = document.getElementById('toast');
+            const closeBtn = document.getElementById('close-toast');
+            
+            // Show toast after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 3000);
+            
+            // Hide toast after 8 seconds
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 8000);
+            
+            // Close button logic
+            closeBtn.addEventListener('click', () => {
+                toast.classList.remove('show');
+            });
+        });
+    </script>
 </body>
 </html>

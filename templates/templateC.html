@@ -1,203 +1,225 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ポップ特化型テンプレート（エンタメ・若年層向け）</title>
+    <title>ポップ・エンタメ特化型テンプレート（マイクロインタラクション重視）</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #fdf2f8; overflow-x: hidden; }
+        body { font-family: 'M PLUS Rounded 1c', sans-serif; background-color: #f4f0ff; color: #2d1b4e; overflow-x: hidden; }
         .en-font { font-family: 'Fredoka One', cursive; }
-        .brutal-shadow { box-shadow: 6px 6px 0px 0px rgba(0,0,0,1); }
-        .brutal-shadow-hover:hover { box-shadow: 2px 2px 0px 0px rgba(0,0,0,1); transform: translate(4px, 4px); }
-        .brutal-border { border: 3px solid #000; }
         
-        /* Wavy Background Animation */
-        .wave-bg { background: linear-gradient(45deg, #fce7f3 25%, transparent 25%, transparent 75%, #fce7f3 75%, #fce7f3), linear-gradient(45deg, #fce7f3 25%, transparent 25%, transparent 75%, #fce7f3 75%, #fce7f3); background-color: #fdf2f8; background-size: 40px 40px; background-position: 0 0, 20px 20px; animation: moveBg 5s linear infinite; }
-        @keyframes moveBg { 0% { background-position: 0 0, 20px 20px; } 100% { background-position: 40px 40px, 60px 60px; } }
+        /* Vibrant Colors */
+        .bg-vibrant-purple { background-color: #8b5cf6; }
+        .text-vibrant-purple { color: #8b5cf6; }
+        .bg-vibrant-yellow { background-color: #fcd34d; }
+        .bg-vibrant-pink { background-color: #ec4899; }
+        .bg-vibrant-cyan { background-color: #06b6d4; }
+
+        /* Floating Blob Backgrounds */
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(40px);
+            z-index: -1;
+            opacity: 0.6;
+            animation: float-blob 10s infinite alternate ease-in-out;
+        }
+        @keyframes float-blob {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(30px, 50px) scale(1.2); }
+        }
+
+        /* 3D Neumorphism / Pop UI */
+        .pop-card {
+            background: #ffffff;
+            border-radius: 30px;
+            border: 4px solid #2d1b4e;
+            box-shadow: 8px 8px 0px #2d1b4e;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .pop-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 12px 12px 0px #8b5cf6;
+        }
+        .pop-card:active {
+            transform: translate(4px, 4px);
+            box-shadow: 4px 4px 0px #8b5cf6;
+        }
+
+        /* 3D Button */
+        .pop-btn {
+            background: #fcd34d;
+            border: 3px solid #2d1b4e;
+            border-radius: 9999px;
+            color: #2d1b4e;
+            font-weight: 900;
+            box-shadow: 4px 4px 0px #2d1b4e;
+            transition: all 0.1s ease;
+        }
+        .pop-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #2d1b4e;
+        }
+        .pop-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px #2d1b4e;
+        }
+
+        /* 3D Hover Tilt Effect (Perspective) */
+        .tilt-container {
+            perspective: 1000px;
+        }
+        .tilt-card {
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+        }
+        .tilt-container:hover .tilt-card {
+            transform: rotateX(10deg) rotateY(-10deg);
+        }
+
+        /* Wavy Text Animation */
+        .wavy-text span {
+            display: inline-block;
+            animation: wave 1.5s infinite ease-in-out;
+        }
+        .wavy-text span:nth-child(1) { animation-delay: 0.0s; }
+        .wavy-text span:nth-child(2) { animation-delay: 0.1s; }
+        .wavy-text span:nth-child(3) { animation-delay: 0.2s; }
+        .wavy-text span:nth-child(4) { animation-delay: 0.3s; }
+        .wavy-text span:nth-child(5) { animation-delay: 0.4s; }
         
-        .floating { animation: float 3s ease-in-out infinite; }
-        @keyframes float { 0% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-15px) rotate(5deg); } 100% { transform: translateY(0px) rotate(0deg); } }
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
     </style>
 </head>
-<body class="text-black antialiased selection:bg-pink-400 selection:text-white">
+<body class="antialiased font-bold">
 
-    <!-- Navbar -->
-    <nav class="fixed w-full z-50 top-4 px-4 pointer-events-none">
-        <div class="max-w-6xl mx-auto flex justify-between items-center bg-white brutal-border brutal-shadow rounded-full px-6 py-3 pointer-events-auto">
-            <div class="text-3xl en-font text-pink-500 tracking-wider">POP<span class="text-yellow-400">STAR</span></div>
-            <div class="hidden md:flex gap-6 font-black text-sm tracking-widest">
-                <a href="#about" class="hover:text-pink-500 transition-colors uppercase">About Us</a>
-                <a href="#events" class="hover:text-purple-500 transition-colors uppercase">Events</a>
-                <a href="#merch" class="hover:text-blue-500 transition-colors uppercase">Merch</a>
+    <!-- Background Blobs -->
+    <div class="blob bg-vibrant-purple w-96 h-96 top-0 left-0 -ml-20 -mt-20"></div>
+    <div class="blob bg-vibrant-yellow w-80 h-80 top-1/4 right-0" style="animation-delay: -3s;"></div>
+    <div class="blob bg-vibrant-pink w-96 h-96 bottom-0 left-1/3" style="animation-delay: -6s;"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 p-4 transition-all duration-300">
+        <div class="max-w-6xl mx-auto bg-white/90 backdrop-blur-md border-4 border-[#2d1b4e] shadow-[4px_4px_0_#2d1b4e] rounded-full px-6 py-3 flex justify-between items-center">
+            <div class="text-2xl en-font text-vibrant-purple tracking-widest" style="-webkit-text-stroke: 1px #2d1b4e;">
+                FUN<span class="text-[#fcd34d]">POP</span>
             </div>
-            <a href="#join" class="bg-yellow-400 brutal-border px-6 py-2 rounded-full font-black text-sm brutal-shadow-hover transition-all uppercase">
-                Join Now!
+            <div class="hidden md:flex space-x-6 text-sm">
+                <a href="#about" class="hover:text-vibrant-purple hover:-translate-y-1 transition transform inline-block">ABOUT</a>
+                <a href="#characters" class="hover:text-vibrant-pink hover:-translate-y-1 transition transform inline-block">GAMES</a>
+                <a href="#news" class="hover:text-vibrant-cyan hover:-translate-y-1 transition transform inline-block">NEWS</a>
+            </div>
+            <a href="#play" class="hidden md:block pop-btn px-6 py-2 text-sm">
+                PLAY NOW!
             </a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden wave-bg">
-        <div class="max-w-6xl mx-auto px-6 relative z-10 text-center">
+    <section class="min-h-screen flex items-center justify-center pt-24 pb-12 px-4 relative">
+        <div class="max-w-5xl mx-auto text-center z-10 w-full">
             
-            <div class="inline-block bg-blue-400 text-white font-black px-6 py-2 rounded-full brutal-border brutal-shadow transform -rotate-3 mb-8 text-sm md:text-base">
-                ✨ THE MOST FUN EVENT EXPERIENCES ✨
+            <div class="tilt-container inline-block mb-8" data-aos="zoom-in" data-aos-duration="800">
+                <div class="tilt-card bg-white border-4 border-[#2d1b4e] shadow-[8px_8px_0_#ec4899] rounded-3xl p-4 inline-flex items-center gap-4 transform rotate-[-2deg]">
+                    <span class="text-4xl">🎮</span>
+                    <span class="text-lg font-black tracking-widest">NEW UPDATE OUT NOW!</span>
+                </div>
             </div>
             
-            <h1 class="text-6xl md:text-8xl lg:text-[150px] font-black leading-none mb-6 en-font text-white" style="-webkit-text-stroke: 4px black; text-shadow: 8px 8px 0px #ec4899;">
-                LET'S GO<br>CRAZY!
+            <h1 class="text-6xl md:text-8xl lg:text-9xl en-font text-white mb-8" style="-webkit-text-stroke: 3px #2d1b4e; text-shadow: 6px 6px 0px #8b5cf6;" data-aos="fade-up" data-aos-delay="200">
+                READY TO<br>
+                <span class="text-[#fcd34d] wavy-text">
+                    <span>P</span><span>L</span><span>A</span><span>Y</span><span>?</span>
+                </span>
             </h1>
             
-            <p class="text-xl md:text-2xl font-bold max-w-2xl mx-auto mb-12 bg-white inline-block px-6 py-3 brutal-border rounded-xl transform rotate-1">
-                最高にハッピーでクレイジーなエンターテインメント体験を、あなたにお届けします。
+            <p class="text-xl md:text-2xl mb-12 max-w-2xl mx-auto bg-white/80 backdrop-blur-sm p-4 rounded-xl border-4 border-[#2d1b4e] shadow-[4px_4px_0_#2d1b4e]" data-aos="fade-up" data-aos-delay="400">
+                世界中が熱狂する最新のパーティーゲームが登場！<br>友達と一緒に最高のハチャメチャ体験を楽しもう！
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <a href="#events" class="bg-pink-500 text-white text-xl font-black px-10 py-5 rounded-2xl brutal-border brutal-shadow brutal-shadow-hover transition-all w-full sm:w-auto transform -rotate-2">
-                    🎟️ GET TICKETS
+            <div class="flex flex-col sm:flex-row justify-center gap-6" data-aos="fade-up" data-aos-delay="600">
+                <a href="#download" class="pop-btn px-10 py-5 text-xl tracking-widest bg-[#fcd34d]">
+                    DOWNLOAD FREE
                 </a>
-                <a href="#video" class="bg-purple-500 text-white text-xl font-black px-10 py-5 rounded-2xl brutal-border brutal-shadow brutal-shadow-hover transition-all w-full sm:w-auto transform rotate-2">
-                    ▶️ WATCH VIDEO
+                <a href="#trailer" class="pop-btn px-10 py-5 text-xl tracking-widest bg-white !text-vibrant-purple flex items-center justify-center gap-2">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"></path></svg>
+                    WATCH TRAILER
                 </a>
             </div>
         </div>
-
-        <!-- Floating Decorations -->
-        <img src="https://api.iconify.design/twemoji:star.svg" alt="Star" class="absolute top-32 left-10 w-16 h-16 floating" style="animation-delay: 0s;">
-        <img src="https://api.iconify.design/twemoji:sparkles.svg" alt="Sparkles" class="absolute top-1/4 right-20 w-20 h-20 floating" style="animation-delay: 1s;">
-        <img src="https://api.iconify.design/twemoji:headphone.svg" alt="Music" class="absolute bottom-32 left-1/4 w-24 h-24 floating transform -rotate-12" style="animation-delay: 2s;">
-        <img src="https://api.iconify.design/twemoji:party-popper.svg" alt="Party" class="absolute bottom-40 right-1/4 w-24 h-24 floating transform rotate-12" style="animation-delay: 0.5s;">
     </section>
 
-    <!-- Marquee Banner -->
-    <div class="bg-yellow-400 brutal-border border-l-0 border-r-0 py-4 overflow-hidden relative z-20 flex whitespace-nowrap transform -rotate-2 scale-105 my-8 shadow-xl">
-        <div class="animate-[marquee_15s_linear_infinite] flex items-center gap-8 font-black text-2xl en-font uppercase">
-            <span>🎉 NEXT EVENT IS COMING SOON!</span>
-            <span>⭐ DON'T MISS IT!</span>
-            <span>🎵 MUSIC & DANCE & FUN!</span>
-            <span>🎉 NEXT EVENT IS COMING SOON!</span>
-            <span>⭐ DON'T MISS IT!</span>
-            <span>🎵 MUSIC & DANCE & FUN!</span>
-        </div>
-        <div class="animate-[marquee_15s_linear_infinite] flex items-center gap-8 font-black text-2xl en-font uppercase absolute top-4 ml-[100%]">
-            <span>🎉 NEXT EVENT IS COMING SOON!</span>
-            <span>⭐ DON'T MISS IT!</span>
-            <span>🎵 MUSIC & DANCE & FUN!</span>
-            <span>🎉 NEXT EVENT IS COMING SOON!</span>
-            <span>⭐ DON'T MISS IT!</span>
-            <span>🎵 MUSIC & DANCE & FUN!</span>
-        </div>
-        <style>
-            @keyframes marquee { 0% { transform: translateX(0%); } 100% { transform: translateX(-100%); } }
-        </style>
-    </div>
-
-    <!-- Features Section -->
-    <section id="about" class="py-24 px-6 bg-[#4ade80] relative z-10 overflow-hidden">
+    <!-- Features Section (Interactive Cards) -->
+    <section class="py-20 px-4" id="about">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-5xl md:text-7xl font-black en-font text-white mb-16 text-center transform rotate-2" style="-webkit-text-stroke: 2px black; text-shadow: 4px 4px 0px #000;">
-                WHY POPSTAR?
+            <h2 class="text-5xl md:text-7xl en-font text-center mb-16 text-white" style="-webkit-text-stroke: 2px #2d1b4e; text-shadow: 4px 4px 0px #06b6d4;" data-aos="fade-down">
+                AWESOME FEATURES
             </h2>
             
             <div class="grid md:grid-cols-3 gap-8">
                 <!-- Card 1 -->
-                <div class="bg-white p-8 rounded-3xl brutal-border brutal-shadow transform hover:-rotate-2 transition-transform duration-300 relative">
-                    <div class="w-20 h-20 bg-pink-400 rounded-full brutal-border flex items-center justify-center text-4xl mb-6 absolute -top-10 -right-6 transform rotate-12">
+                <div class="pop-card bg-[#e0e7ff] p-8 text-center" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-[#2d1b4e] shadow-[4px_4px_0_#2d1b4e] mx-auto mb-6 flex items-center justify-center text-5xl transform hover:rotate-12 transition">
+                        🏃‍♂️
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 text-[#4338ca]">CRAZY ACTION</h3>
+                    <p class="text-[#3730a3]">物理演算を駆使したハチャメチャなアクション！予測不可能な動きが笑いを誘います。</p>
+                </div>
+                
+                <!-- Card 2 -->
+                <div class="pop-card bg-[#fce7f3] p-8 text-center transform md:-translate-y-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-[#2d1b4e] shadow-[4px_4px_0_#2d1b4e] mx-auto mb-6 flex items-center justify-center text-5xl transform hover:-rotate-12 transition">
+                        🌍
+                    </div>
+                    <h3 class="text-2xl font-black mb-4 text-[#be185d]">ONLINE MULTI</h3>
+                    <p class="text-[#831843]">最大32人で同時プレイ可能！世界中のプレイヤーとハイスコアを競い合おう。</p>
+                </div>
+                
+                <!-- Card 3 -->
+                <div class="pop-card bg-[#fef3c7] p-8 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-24 h-24 bg-white rounded-full border-4 border-[#2d1b4e] shadow-[4px_4px_0_#2d1b4e] mx-auto mb-6 flex items-center justify-center text-5xl transform hover:scale-110 transition">
                         🎨
                     </div>
-                    <h3 class="text-3xl font-black mb-4">CRAZY ART</h3>
-                    <p class="font-bold text-gray-700 leading-relaxed">
-                        会場全体がアート作品！写真映え間違いなしのフォトスポットが盛りだくさん。どこを切り取っても可愛い空間で遊ぼう。
-                    </p>
-                </div>
-
-                <!-- Card 2 -->
-                <div class="bg-yellow-300 p-8 rounded-3xl brutal-border brutal-shadow transform translate-y-8 hover:rotate-2 transition-transform duration-300 relative">
-                    <div class="w-20 h-20 bg-blue-400 rounded-full brutal-border flex items-center justify-center text-4xl mb-6 absolute -top-10 -right-6 transform -rotate-12">
-                        🔊
-                    </div>
-                    <h3 class="text-3xl font-black mb-4">LOUD MUSIC</h3>
-                    <p class="font-bold text-gray-800 leading-relaxed">
-                        最高のDJとサウンドシステム。体が勝手に動き出すようなビートで、日々のストレスを全部吹き飛ばせ！
-                    </p>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="bg-purple-400 p-8 rounded-3xl brutal-border brutal-shadow transform hover:-rotate-2 transition-transform duration-300 relative">
-                    <div class="w-20 h-20 bg-yellow-400 rounded-full brutal-border flex items-center justify-center text-4xl mb-6 absolute -top-10 -right-6 transform rotate-12">
-                        🤝
-                    </div>
-                    <h3 class="text-3xl font-black mb-4 text-white">NEW FRIENDS</h3>
-                    <p class="font-bold text-white leading-relaxed">
-                        同じ趣味を持つ仲間が全国から大集合。一人で来ても帰る頃には100人の友達ができちゃうアットホームなコミュニティ！
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Photo Gallery -->
-    <section id="events" class="py-24 bg-white relative z-10 px-4">
-        <div class="max-w-7xl mx-auto">
-            <div class="inline-block bg-pink-500 text-white text-3xl font-black en-font px-8 py-3 brutal-border brutal-shadow transform -rotate-2 mb-12">
-                PAST EVENTS 📸
-            </div>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                <!-- Gallery Item -->
-                <div class="col-span-2 row-span-2 relative group overflow-hidden rounded-3xl brutal-border">
-                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?q=80&w=1500&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute bottom-6 left-6 bg-yellow-400 text-black font-black px-4 py-2 brutal-border transform -rotate-3 text-xl">
-                        NIGHT FES 2025
-                    </div>
-                </div>
-                <!-- Gallery Item -->
-                <div class="relative group overflow-hidden rounded-3xl brutal-border aspect-square">
-                    <img src="https://images.unsplash.com/photo-1541532713592-79a0317b6b77?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <!-- Gallery Item -->
-                <div class="relative group overflow-hidden rounded-3xl brutal-border aspect-square">
-                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                </div>
-                <!-- Gallery Item -->
-                <div class="col-span-2 relative group overflow-hidden rounded-3xl brutal-border aspect-[2/1]">
-                    <img src="https://images.unsplash.com/photo-1506157786151-b8491531f063?q=80&w=1500&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <div class="absolute bottom-6 right-6 bg-cyan-400 text-black font-black px-4 py-2 brutal-border transform rotate-3 text-xl">
-                        SUMMER BASH
-                    </div>
+                    <h3 class="text-2xl font-black mb-4 text-[#b45309]">CUSTOMIZE</h3>
+                    <p class="text-[#78350f]">100種類以上のスキンやアクセサリーで、自分だけのオリジナルキャラクターを作ろう！</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Footer CTA -->
-    <section id="join" class="py-32 bg-pink-500 px-6 relative overflow-hidden">
-        <div class="max-w-4xl mx-auto text-center relative z-10">
-            <h2 class="text-6xl md:text-8xl font-black en-font text-yellow-400 mb-8 transform -rotate-2" style="-webkit-text-stroke: 2px black; text-shadow: 4px 4px 0px #000;">
-                JOIN THE CLUB!
+    <section class="py-20 px-4 mt-20 bg-[#2d1b4e] border-t-8 border-[#fcd34d] relative overflow-hidden">
+        <div class="max-w-4xl mx-auto text-center relative z-10" data-aos="zoom-in">
+            <h2 class="text-5xl md:text-7xl en-font text-white mb-8" style="text-shadow: 4px 4px 0px #ec4899;">
+                JOIN THE FUN!
             </h2>
-            <p class="text-2xl font-bold text-white mb-12">
-                メルマガ登録で次回のイベントチケットを<br class="hidden md:block">最速＆特別価格でゲットしよう！
-            </p>
-            <form class="flex flex-col md:flex-row gap-4 justify-center items-center">
-                <input type="email" placeholder="YOUR EMAIL ADDRESS" class="w-full md:w-96 text-xl font-bold px-6 py-5 rounded-2xl brutal-border focus:outline-none focus:ring-4 ring-yellow-400 transition-all text-center md:text-left">
-                <button type="button" class="w-full md:w-auto bg-yellow-400 text-black text-2xl font-black px-10 py-5 rounded-2xl brutal-border brutal-shadow brutal-shadow-hover transition-all">
-                    SUBSCRIBE 🚀
-                </button>
-            </form>
+            <p class="text-[#e9d5ff] text-xl mb-10">今すぐ無料でダウンロードして、狂乱のパーティーに参加しよう！</p>
+            <a href="#download" class="inline-block pop-btn px-12 py-6 text-2xl tracking-widest bg-[#fcd34d] hover:bg-white animate-bounce">
+                GET IT NOW
+            </a>
         </div>
         
-        <!-- Big background text -->
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[20vw] en-font font-black text-white opacity-10 pointer-events-none whitespace-nowrap">
-            POPSTAR
-        </div>
+        <!-- Background floating icons -->
+        <div class="absolute text-6xl opacity-20 animate-pulse top-10 left-10">⭐</div>
+        <div class="absolute text-6xl opacity-20 animate-pulse bottom-10 right-10" style="animation-delay: 1s;">⚡</div>
     </section>
 
-    <footer class="bg-black py-10 text-center text-white font-bold tracking-widest text-sm">
-        <p>&copy; 2026 POPSTAR ENTERTAINMENT. BUILT WITH AI WEBAUTO.</p>
+    <footer class="bg-white py-8 border-t-4 border-[#2d1b4e] text-center">
+        <div class="text-3xl en-font text-vibrant-purple mb-4" style="-webkit-text-stroke: 1px #2d1b4e;">FUNPOP</div>
+        <p class="text-[#2d1b4e] text-sm">&copy; 2026 FUNPOP GAMES. ALL RIGHTS RESERVED.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 100 });
+    </script>
 </body>
 </html>

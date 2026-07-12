@@ -3,332 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>コーポレート特化型テンプレート（BtoB・企業向け）</title>
+    <title>コーポレート特化型テンプレート（BtoB・信頼性重視）</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Noto+Sans+JP:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Particles.js for geometric background -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <style>
-        body { font-family: 'Noto Sans JP', sans-serif; color: #1a202c; }
-        .en-font { font-family: 'Inter', sans-serif; }
-        .corp-gradient { background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); }
-        .section-padding { padding-top: 6rem; padding-bottom: 6rem; }
-        .hover-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .hover-lift:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04); }
-        .diagonal-bg { position: relative; overflow: hidden; }
-        .diagonal-bg::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: #f8fafc; transform: rotate(-5deg); z-index: -1; transform-origin: center; }
+        body { font-family: 'Noto Sans JP', 'Roboto', sans-serif; background-color: #f8fafc; color: #0f172a; overflow-x: hidden; }
+        
+        /* Deep Blue Trust Theme */
+        .bg-trust-dark { background-color: #0f172a; }
+        .text-trust-accent { color: #2563eb; }
+        .bg-trust-accent { background-color: #2563eb; }
+        
+        /* Geometric Particle Canvas */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        /* 3D Elevated Card UI */
+        .corp-card {
+            background: #ffffff;
+            border-radius: 12px;
+            border: 1px solid rgba(15, 23, 42, 0.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .corp-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: #2563eb;
+            transform: scaleY(0);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: bottom;
+        }
+        .corp-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+        .corp-card:hover::before {
+            transform: scaleY(1);
+            transform-origin: top;
+        }
+
+        /* Diagonal Cut Section */
+        .diagonal-section {
+            position: relative;
+            z-index: 1;
+        }
+        .diagonal-section::before {
+            content: '';
+            position: absolute;
+            top: -50px; left: 0; right: 0; height: 100px;
+            background: inherit;
+            transform: skewY(-3deg);
+            z-index: -1;
+        }
+
+        /* Data Animation Bar */
+        .stat-bar {
+            width: 0;
+            transition: width 1.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .stat-bar.aos-animate {
+            width: var(--target-width);
+        }
     </style>
 </head>
-<body class="antialiased bg-gray-50 selection:bg-blue-900 selection:text-white">
+<body class="antialiased">
 
-    <!-- Header -->
-    <header class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 transition-all duration-300 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-20 items-center">
-                <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 bg-blue-900 flex items-center justify-center text-white font-bold en-font rounded-sm">V</div>
-                    <div class="text-xl font-bold tracking-tight text-gray-900 en-font">
-                        VANGUARD <span class="font-normal text-gray-500 text-sm ml-1 hidden sm:inline">CORPORATION</span>
-                    </div>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tight text-slate-900 flex items-center gap-2">
+                <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-sm">C</div>
+                Corp<span class="text-blue-600">Trust</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-bold tracking-wide text-slate-600">
+                <a href="#about" class="hover:text-blue-600 transition">企業情報</a>
+                <a href="#services" class="hover:text-blue-600 transition">事業内容</a>
+                <a href="#news" class="hover:text-blue-600 transition">ニュース</a>
+                <a href="#recruit" class="hover:text-blue-600 transition">採用情報</a>
+            </div>
+            <a href="#contact" class="hidden md:block bg-blue-600 text-white px-6 py-2.5 rounded text-sm font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-600/20">
+                お問い合わせ
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Particles -->
+    <section class="relative h-screen bg-trust-dark flex items-center pt-20 overflow-hidden">
+        <div id="particles-js"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10 w-full grid md:grid-cols-2 gap-12 items-center">
+            <div data-aos="fade-up" data-aos-duration="1000">
+                <div class="inline-flex items-center gap-2 border border-blue-500/30 bg-blue-500/10 text-blue-400 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest mb-6">
+                    <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                    INNOVATION FOR TOMORROW
                 </div>
-                
-                <nav class="hidden md:flex space-x-8 text-sm font-medium text-gray-700">
-                    <a href="#about" class="hover:text-blue-700 transition">企業情報</a>
-                    <a href="#services" class="hover:text-blue-700 transition">事業内容</a>
-                    <a href="#news" class="hover:text-blue-700 transition">ニュース</a>
-                    <a href="#sustainability" class="hover:text-blue-700 transition">サステナビリティ</a>
-                </nav>
-
-                <div class="hidden md:flex items-center space-x-4">
-                    <div class="en-font text-sm text-gray-500 font-medium">EN / <span class="text-gray-900">JP</span></div>
-                    <a href="#contact" class="bg-blue-900 text-white px-6 py-2.5 text-sm font-bold hover:bg-blue-800 transition rounded-sm">
-                        お問い合わせ
+                <h1 class="text-4xl md:text-6xl font-black leading-tight mb-6 text-white tracking-tight">
+                    確かな<span class="text-blue-400">技術力</span>で、<br>社会の基盤を創る。
+                </h1>
+                <p class="text-slate-400 text-lg mb-10 leading-relaxed font-medium max-w-lg">
+                    私たちは最新のテクノロジーと長年の知見を融合し、持続可能な未来に向けたソリューションを提供します。企業のデジタルトランスフォーメーションを強力に推進します。
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#contact" class="bg-blue-600 text-white text-center px-8 py-4 rounded font-bold text-sm hover:bg-blue-500 transition shadow-[0_0_20px_rgba(37,99,235,0.4)]">
+                        資料請求・ご相談
+                    </a>
+                    <a href="#services" class="border border-slate-600 text-white text-center px-8 py-4 rounded font-bold text-sm hover:bg-slate-800 transition">
+                        事業内容を見る
                     </a>
                 </div>
-
-                <!-- Mobile menu button -->
-                <button class="md:hidden p-2 text-gray-600">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                </button>
             </div>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="relative pt-20">
-        <div class="w-full h-[80vh] relative overflow-hidden bg-gray-900">
-            <!-- Modern corporate video/image placeholder -->
-            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover opacity-60">
-            <div class="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-transparent mix-blend-multiply"></div>
-            
-            <div class="absolute inset-0 flex items-center">
-                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                    <div class="max-w-2xl border-l-4 border-blue-500 pl-8">
-                        <p class="text-blue-300 font-bold tracking-widest text-sm mb-4 en-font uppercase">Innovating for the Future</p>
-                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-8">
-                            確かな技術で、<br>次代の社会基盤を創る。
-                        </h1>
-                        <p class="text-lg text-gray-300 mb-10 leading-relaxed font-light max-w-xl">
-                            デジタルトランスフォーメーションを通じて、持続可能な社会の実現と企業の持続的成長に貢献します。
-                        </p>
-                        <div class="flex flex-col sm:flex-row gap-4">
-                            <a href="#about" class="bg-blue-600 text-white text-center px-8 py-4 font-bold hover:bg-blue-500 transition rounded-sm">
-                                私たちについて
-                            </a>
-                            <a href="#services" class="bg-white text-gray-900 text-center px-8 py-4 font-bold hover:bg-gray-100 transition rounded-sm">
-                                事業内容を見る
-                            </a>
+            <div class="hidden md:block" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                <!-- Abstract Data Visualization Graphic -->
+                <div class="relative w-full aspect-square border border-slate-700 rounded-full flex items-center justify-center animate-[spin_60s_linear_infinite]">
+                    <div class="absolute w-[80%] h-[80%] border border-blue-900 rounded-full flex items-center justify-center animate-[spin_40s_linear_infinite_reverse]">
+                        <div class="w-4 h-4 bg-blue-500 rounded-full absolute top-0 -mt-2 shadow-[0_0_15px_#3b82f6]"></div>
+                    </div>
+                    <div class="w-[60%] h-[60%] bg-gradient-to-br from-blue-600/20 to-slate-800/20 border border-blue-500/30 rounded-full backdrop-blur-md flex items-center justify-center">
+                        <div class="text-center animate-[spin_60s_linear_infinite_reverse]">
+                            <p class="text-3xl font-black text-white">98.5<span class="text-blue-400">%</span></p>
+                            <p class="text-xs text-slate-400 font-bold tracking-widest mt-1">CLIENT RETENTION</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- Info Bar -->
-        <div class="bg-blue-900 text-white w-full py-4 relative z-10 -mt-1 shadow-lg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row justify-between items-center text-sm">
-                <div class="flex items-center gap-4 mb-2 sm:mb-0">
-                    <span class="bg-blue-700 px-2 py-1 text-xs font-bold rounded-sm">IR News</span>
-                    <a href="#" class="hover:underline text-gray-200">2026年3月期 第2四半期決算短信を発表しました</a>
+    </section>
+
+    <!-- Value/Stats Section -->
+    <section class="py-20 bg-white relative -mt-10 rounded-t-[40px] z-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 divide-x divide-slate-100 border-b border-slate-100 pb-20">
+                <div class="text-center" data-aos="fade-up" data-aos-delay="0">
+                    <p class="text-4xl font-black text-slate-900 mb-2">15<span class="text-blue-600">+</span></p>
+                    <p class="text-xs text-slate-500 font-bold tracking-widest">創業年数</p>
                 </div>
-                <a href="#" class="flex items-center gap-2 text-blue-300 hover:text-white transition en-font font-medium">
-                    View All News &rarr;
-                </a>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+                    <p class="text-4xl font-black text-slate-900 mb-2">500<span class="text-blue-600">+</span></p>
+                    <p class="text-xs text-slate-500 font-bold tracking-widest">導入企業数</p>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+                    <p class="text-4xl font-black text-slate-900 mb-2">99.9<span class="text-blue-600">%</span></p>
+                    <p class="text-xs text-slate-500 font-bold tracking-widest">システム稼働率</p>
+                </div>
+                <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+                    <p class="text-4xl font-black text-slate-900 mb-2">24<span class="text-blue-600">/7</span></p>
+                    <p class="text-xs text-slate-500 font-bold tracking-widest">サポート体制</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Vision / Mission -->
-    <section id="about" class="section-padding bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 gap-16 items-center">
+    <!-- Services (Corporate Cards) -->
+    <section id="services" class="py-20 bg-slate-50 diagonal-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
                 <div>
-                    <h2 class="text-sm font-bold tracking-[0.2em] text-blue-600 mb-2 en-font">OUR VISION</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
-                        テクノロジーの力で、<br>
-                        あらゆる産業をアップデートする。
-                    </h3>
-                    <p class="text-gray-600 leading-relaxed mb-6">
-                        ヴァンガード・コーポレーションは、創業以来培ってきた確かな技術力と、常に挑戦し続けるベンチャースピリットで、クライアントのビジネス課題を根本から解決します。
-                    </p>
-                    <p class="text-gray-600 leading-relaxed mb-8">
-                        私たちは単なるシステム開発会社ではありません。ビジネスモデルの変革から運用まで、共に歩むイノベーションパートナーです。
-                    </p>
-                    <a href="#" class="inline-flex items-center gap-2 text-blue-700 font-bold hover:text-blue-900 transition group">
-                        <span>企業理念・トップメッセージ</span>
-                        <svg class="w-5 h-5 transform group-hover:translate-x-1 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
-                    </a>
+                    <p class="text-blue-600 font-bold text-sm tracking-widest mb-2">OUR BUSINESS</p>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 tracking-tight">主要事業領域</h2>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?q=80&w=800&auto=format&fit=crop" class="w-full h-48 object-cover rounded-sm mt-8 shadow-md">
-                    <img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop" class="w-full h-64 object-cover rounded-sm shadow-md">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services -->
-    <section id="services" class="section-padding diagonal-bg z-0">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center mb-16">
-                <h2 class="text-sm font-bold tracking-[0.2em] text-blue-600 mb-2 en-font">BUSINESS DOMAIN</h2>
-                <h3 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">事業内容</h3>
-                <p class="text-gray-600 max-w-2xl mx-auto">3つのコア事業領域で、企業のデジタルトランスフォーメーションを総合的に支援します。</p>
+                <a href="#" class="text-sm font-bold text-slate-500 hover:text-blue-600 transition mt-4 md:mt-0 flex items-center gap-1">
+                    すべての事業を見る <span>→</span>
+                </a>
             </div>
             
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Service 1 -->
-                <div class="bg-white p-8 border border-gray-100 hover-lift rounded-sm">
-                    <div class="w-14 h-14 bg-blue-50 text-blue-700 rounded-sm flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                <!-- Card 1 -->
+                <div class="corp-card p-10 group" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-14 h-14 bg-blue-50 text-blue-600 flex items-center justify-center rounded-lg mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 002-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                     </div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-4 border-b border-gray-100 pb-4">クラウドインテグレーション</h4>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        セキュアで可用性の高いクラウド環境の設計・構築。レガシーシステムからのマイグレーションを安全かつ迅速に実現します。
-                    </p>
-                    <a href="#" class="text-sm font-bold text-blue-600 hover:text-blue-800 transition flex items-center gap-1">詳細を見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+                    <h3 class="text-xl font-bold mb-4 text-slate-900">エンタープライズ・システム開発</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">大規模な基幹システムの要件定義から開発、運用保守までを一気通貫で支援。高い堅牢性とスケーラビリティを確保します。</p>
+                    <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-1 group-hover:translate-x-2 transition">
+                        詳細はこちら <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
                 </div>
-                
-                <!-- Service 2 -->
-                <div class="bg-white p-8 border border-gray-100 hover-lift rounded-sm relative overflow-hidden">
-                    <div class="absolute top-0 inset-x-0 h-1 bg-blue-600"></div>
-                    <div class="w-14 h-14 bg-blue-50 text-blue-700 rounded-sm flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                <!-- Card 2 -->
+                <div class="corp-card p-10 group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-blue-50 text-blue-600 flex items-center justify-center rounded-lg mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-4 border-b border-gray-100 pb-4">システム開発・SaaS基盤</h4>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        ビジネスの成長に合わせたアジャイル開発。BtoB向けSaaSの基盤構築や、業務効率化のためのカスタムシステムを開発します。
-                    </p>
-                    <a href="#" class="text-sm font-bold text-blue-600 hover:text-blue-800 transition flex items-center gap-1">詳細を見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+                    <h3 class="text-xl font-bold mb-4 text-slate-900">セキュリティ・ソリューション</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">最新のサイバー脅威から企業の機密データを保護。ゼロトラストアーキテクチャの導入コンサルティングを実施します。</p>
+                    <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-1 group-hover:translate-x-2 transition">
+                        詳細はこちら <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
                 </div>
-                
-                <!-- Service 3 -->
-                <div class="bg-white p-8 border border-gray-100 hover-lift rounded-sm">
-                    <div class="w-14 h-14 bg-blue-50 text-blue-700 rounded-sm flex items-center justify-center mb-6">
-                        <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path></svg>
+                <!-- Card 3 -->
+                <div class="corp-card p-10 group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-blue-50 text-blue-600 flex items-center justify-center rounded-lg mb-6 group-hover:bg-blue-600 group-hover:text-white transition duration-300">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     </div>
-                    <h4 class="text-xl font-bold text-gray-900 mb-4 border-b border-gray-100 pb-4">AI・データ分析支援</h4>
-                    <p class="text-gray-600 text-sm leading-relaxed mb-6">
-                        蓄積された社内データの利活用戦略策定から、機械学習モデルの構築まで。データドリブンな経営意思決定をサポートします。
-                    </p>
-                    <a href="#" class="text-sm font-bold text-blue-600 hover:text-blue-800 transition flex items-center gap-1">詳細を見る <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg></a>
+                    <h3 class="text-xl font-bold mb-4 text-slate-900">AI・データ分析支援</h3>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-6">蓄積されたビッグデータを活用し、経営の意思決定を高度化。AIモデルの構築による業務の完全自動化を推進します。</p>
+                    <a href="#" class="text-blue-600 font-bold text-sm flex items-center gap-1 group-hover:translate-x-2 transition">
+                        詳細はこちら <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Corporate Profile Summary -->
-    <section class="py-20 bg-gray-900 text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-gray-700">
-                <div class="py-4">
-                    <div class="text-4xl font-bold en-font text-blue-400 mb-2">1998</div>
-                    <div class="text-sm text-gray-400 font-medium">設立年</div>
-                </div>
-                <div class="py-4">
-                    <div class="text-4xl font-bold en-font text-blue-400 mb-2">350<span class="text-2xl">+</span></div>
-                    <div class="text-sm text-gray-400 font-medium">従業員数</div>
-                </div>
-                <div class="py-4">
-                    <div class="text-4xl font-bold en-font text-blue-400 mb-2">1,200<span class="text-2xl">+</span></div>
-                    <div class="text-sm text-gray-400 font-medium">導入企業数</div>
-                </div>
-                <div class="py-4">
-                    <div class="text-4xl font-bold en-font text-blue-400 mb-2">3</div>
-                    <div class="text-sm text-gray-400 font-medium">国内拠点</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- News & Press -->
-    <section id="news" class="section-padding bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-end mb-12 border-b border-gray-200 pb-4">
-                <div>
-                    <h2 class="text-sm font-bold tracking-[0.2em] text-blue-600 mb-2 en-font">NEWS & PRESS</h2>
-                    <h3 class="text-2xl font-bold text-gray-900">お知らせ</h3>
-                </div>
-                <a href="#" class="text-sm font-bold text-gray-600 hover:text-blue-600 transition en-font flex items-center gap-1">VIEW ALL &rarr;</a>
+    <!-- Form Section -->
+    <section id="contact" class="py-24 bg-white relative border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <p class="text-blue-600 font-bold text-sm tracking-widest mb-2">CONTACT</p>
+                <h2 class="text-3xl font-black text-slate-900">資料請求・お問い合わせ</h2>
+                <p class="text-slate-500 mt-4 text-sm">システム導入のご相談、お見積りなどお気軽にご連絡ください。<br>担当者より1営業日以内にご返信いたします。</p>
             </div>
             
-            <div class="space-y-0 divide-y divide-gray-100">
-                <!-- News Item -->
-                <a href="#" class="block py-6 hover:bg-gray-50 transition px-4 group">
-                    <div class="flex flex-col md:flex-row md:items-center gap-4">
-                        <div class="flex items-center gap-4 md:w-1/4 shrink-0">
-                            <span class="text-gray-500 text-sm en-font">2026.10.15</span>
-                            <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded-sm w-fit">プレスリリース</span>
-                        </div>
-                        <h4 class="text-gray-900 font-medium group-hover:text-blue-700 transition">次世代AI搭載型のシフト管理SaaS「ShiftApp V2」のエンタープライズ版を提供開始</h4>
+            <form class="bg-slate-50 p-8 md:p-12 rounded-xl border border-slate-200" data-aos="fade-up" data-aos-delay="100">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">会社名 <span class="text-red-500">*</span></label>
+                        <input type="text" class="w-full px-4 py-3 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="株式会社サンプル">
                     </div>
-                </a>
-                <!-- News Item -->
-                <a href="#" class="block py-6 hover:bg-gray-50 transition px-4 group">
-                    <div class="flex flex-col md:flex-row md:items-center gap-4">
-                        <div class="flex items-center gap-4 md:w-1/4 shrink-0">
-                            <span class="text-gray-500 text-sm en-font">2026.09.30</span>
-                            <span class="bg-gray-100 text-gray-800 text-xs font-bold px-2 py-1 rounded-sm w-fit">IR情報</span>
-                        </div>
-                        <h4 class="text-gray-900 font-medium group-hover:text-blue-700 transition">「健康経営優良法人2026（大規模法人部門）」に認定されました</h4>
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-2">ご担当者名 <span class="text-red-500">*</span></label>
+                        <input type="text" class="w-full px-4 py-3 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="山田 太郎">
                     </div>
-                </a>
-                <!-- News Item -->
-                <a href="#" class="block py-6 hover:bg-gray-50 transition px-4 group">
-                    <div class="flex flex-col md:flex-row md:items-center gap-4">
-                        <div class="flex items-center gap-4 md:w-1/4 shrink-0">
-                            <span class="text-gray-500 text-sm en-font">2026.09.01</span>
-                            <span class="bg-green-100 text-green-800 text-xs font-bold px-2 py-1 rounded-sm w-fit">サステナビリティ</span>
-                        </div>
-                        <h4 class="text-gray-900 font-medium group-hover:text-blue-700 transition">使用電力の100%再生可能エネルギー化を達成</h4>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact CTA -->
-    <section id="contact" class="corp-gradient py-20 text-center">
-        <div class="max-w-4xl mx-auto px-4">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">ビジネスの課題を、技術で解決しませんか。</h2>
-            <p class="text-blue-100 mb-10 max-w-2xl mx-auto leading-relaxed text-sm">
-                システム開発のご相談、お見積り、弊社サービスに関する資料請求など、お気軽にお問い合わせください。専門のコンサルタントが対応いたします。
-            </p>
-            <div class="flex flex-col sm:flex-row justify-center gap-4">
-                <a href="#" class="bg-white text-blue-900 font-bold px-8 py-4 rounded-sm hover:bg-blue-50 transition shadow-lg">
-                    資料請求・お問い合わせ
-                </a>
-                <a href="#" class="border border-white text-white font-bold px-8 py-4 rounded-sm hover:bg-white/10 transition">
-                    採用情報を見る
-                </a>
-            </div>
+                </div>
+                <div class="mb-6">
+                    <label class="block text-sm font-bold text-slate-700 mb-2">メールアドレス <span class="text-red-500">*</span></label>
+                    <input type="email" class="w-full px-4 py-3 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="info@example.com">
+                </div>
+                <div class="mb-8">
+                    <label class="block text-sm font-bold text-slate-700 mb-2">お問い合わせ内容 <span class="text-red-500">*</span></label>
+                    <textarea rows="5" class="w-full px-4 py-3 rounded border border-slate-300 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" placeholder="ご相談内容をご記入ください"></textarea>
+                </div>
+                <div class="text-center">
+                    <button type="button" class="bg-blue-600 text-white px-12 py-4 rounded font-bold hover:bg-blue-700 transition w-full md:w-auto shadow-lg shadow-blue-600/30">
+                        入力内容を確認する
+                    </button>
+                    <p class="text-xs text-slate-500 mt-4"><a href="#" class="underline hover:text-blue-600">プライバシーポリシー</a>に同意の上、送信してください。</p>
+                </div>
+            </form>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#0f172a] pt-16 pb-8 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-5 gap-12 mb-16">
-                <div class="md:col-span-2">
-                    <div class="flex items-center gap-2 mb-6">
-                        <div class="w-6 h-6 bg-blue-600 flex items-center justify-center text-white font-bold text-xs en-font rounded-sm">V</div>
-                        <div class="text-lg font-bold tracking-tight text-white en-font">
-                            VANGUARD CORP.
-                        </div>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed mb-6">
-                        〒100-0005<br>
-                        東京都千代田区丸の内1-1-1<br>
-                        ヴァンガードタワー 35F<br>
-                        TEL: 03-XXXX-XXXX
-                    </p>
+    <footer class="bg-trust-dark text-slate-400 py-16 text-sm">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-8 mb-12 border-b border-slate-800 pb-12">
+            <div class="md:col-span-2">
+                <div class="text-2xl font-black tracking-tight text-white flex items-center gap-2 mb-6">
+                    <div class="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-sm">C</div>
+                    CorpTrust
                 </div>
-                
-                <div>
-                    <h4 class="text-white font-bold mb-4 text-sm tracking-widest">企業情報</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">会社概要</a></li>
-                        <li><a href="#" class="hover:text-white transition">トップメッセージ</a></li>
-                        <li><a href="#" class="hover:text-white transition">役員一覧</a></li>
-                        <li><a href="#" class="hover:text-white transition">アクセス</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-white font-bold mb-4 text-sm tracking-widest">事業内容</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">クラウドインテグレーション</a></li>
-                        <li><a href="#" class="hover:text-white transition">システム開発</a></li>
-                        <li><a href="#" class="hover:text-white transition">データ分析支援</a></li>
-                        <li><a href="#" class="hover:text-white transition">導入事例</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h4 class="text-white font-bold mb-4 text-sm tracking-widest">その他</h4>
-                    <ul class="space-y-3 text-sm text-gray-400">
-                        <li><a href="#" class="hover:text-white transition">採用情報</a></li>
-                        <li><a href="#" class="hover:text-white transition">ニュースリリース</a></li>
-                        <li><a href="#" class="hover:text-white transition">プライバシーポリシー</a></li>
-                        <li><a href="#" class="hover:text-white transition">情報セキュリティ基本方針</a></li>
-                    </ul>
-                </div>
+                <p class="mb-4 leading-relaxed">〒100-0000<br>東京都千代田区1-1-1 トラストタワー30F</p>
+                <p>TEL: 03-XXXX-XXXX<br>Email: info@corptrust.example.com</p>
             </div>
-            
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-gray-500 text-xs en-font">
-                    &copy; 2026 Vanguard Corporation. All Rights Reserved. Built with AI WebAuto.
-                </div>
-                <div class="flex space-x-4">
-                    <!-- Social icons placeholders -->
-                    <a href="#" class="text-gray-500 hover:text-white transition">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg>
-                    </a>
-                    <a href="#" class="text-gray-500 hover:text-white transition">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-                    </a>
-                </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 tracking-widest">企業情報</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-blue-400 transition">会社概要</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">代表挨拶</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">アクセス</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">採用情報</a></li>
+                </ul>
             </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 tracking-widest">ポリシー</h4>
+                <ul class="space-y-3">
+                    <li><a href="#" class="hover:text-blue-400 transition">利用規約</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">プライバシーポリシー</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">情報セキュリティ基本方針</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="max-w-7xl mx-auto px-6 text-center text-xs">
+            &copy; 2026 CorpTrust Co., Ltd. All Rights Reserved.
         </div>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 100, duration: 800 });
+
+        // Initialize particles.js
+        particlesJS('particles-js', {
+            "particles": {
+                "number": { "value": 80, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#2563eb" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": false },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#2563eb", "opacity": 0.2, "width": 1 },
+                "move": { "enable": true, "speed": 2, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true },
+                "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 0.5 } }, "push": { "particles_nb": 4 } }
+            },
+            "retina_detect": true
+        });
+    </script>
 </body>
 </html>

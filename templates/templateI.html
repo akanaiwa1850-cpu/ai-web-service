@@ -1,184 +1,311 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>セミナー・イベント特化型テンプレート（ウェビナー向け）</title>
+    <title>セミナー・イベント特化型テンプレート（集客・緊急性重視）</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <style>
-        body { font-family: 'Noto Sans JP', sans-serif; }
-        .en-font { font-family: 'Montserrat', sans-serif; }
-        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); }
-        .gradient-text { background: linear-gradient(135deg, #FF6B6B 0%, #4ECDC4 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .hero-bg { background-image: url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed; }
-        .countdown-box { font-variant-numeric: tabular-nums; }
+        body { font-family: 'Noto Sans JP', sans-serif; background-color: #000000; color: #ffffff; overflow-x: hidden; }
+        .en-font { font-family: 'Oswald', sans-serif; }
+        
+        .bg-accent { background-color: #ff3366; }
+        .text-accent { color: #ff3366; }
+        .border-accent { border-color: #ff3366; }
+
+        /* Dynamic Background */
+        .event-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.9)), url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2000&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        /* Countdown Timer UI */
+        .timer-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 51, 102, 0.3);
+            border-radius: 12px;
+            padding: 15px 20px;
+            text-align: center;
+            min-width: 90px;
+        }
+        .timer-value {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+            color: #ff3366;
+            text-shadow: 0 0 20px rgba(255, 51, 102, 0.5);
+        }
+        .timer-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: #aaaaaa;
+            margin-top: 5px;
+        }
+
+        /* Sticky Top Bar (Urgency) */
+        .sticky-urgency-bar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: #ff3366;
+            color: white;
+            z-index: 100;
+            padding: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.875rem;
+            box-shadow: 0 4px 20px rgba(255, 51, 102, 0.4);
+            transform: translateY(-100%);
+            transition: transform 0.4s ease;
+        }
+        .sticky-urgency-bar.show { transform: translateY(0); }
+
+        /* Glitch Effect on Hover */
+        .glitch-btn {
+            position: relative;
+            overflow: hidden;
+        }
+        .glitch-btn::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
+        }
+        .glitch-btn:hover::before { left: 150%; }
+
+        /* Diagonal Layout */
+        .clip-diagonal {
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="antialiased">
 
-    <!-- Floating CTA Bar (Mobile visible, Desktop hidden or simplified) -->
-    <div class="fixed bottom-0 w-full bg-gray-900 text-white z-50 p-4 flex justify-between items-center md:hidden">
-        <div class="text-sm font-bold">参加無料・残りわずか</div>
-        <a href="#register" class="bg-red-500 text-white px-6 py-2 rounded-full font-bold text-sm">席を確保する</a>
+    <!-- Sticky Urgency Bar -->
+    <div id="urgency-bar" class="sticky-urgency-bar flex flex-col md:flex-row justify-center items-center gap-4 px-4">
+        <span>⚠️ 【残り3席】早期割引チケットの販売はまもなく終了します！</span>
+        <a href="#ticket" class="bg-black text-white px-4 py-1.5 rounded text-xs font-black tracking-widest hover:bg-gray-800 transition">
+            今すぐ申し込む
+        </a>
     </div>
 
-    <!-- Hero Section -->
-    <header class="relative hero-bg min-h-screen flex items-center justify-center">
-        <!-- Overlay -->
-        <div class="absolute inset-0 bg-gray-900/80 mix-blend-multiply"></div>
-        
-        <div class="relative z-10 w-full max-w-5xl mx-auto px-4 sm:px-6 py-20 flex flex-col md:flex-row items-center gap-12">
-            <!-- Left Info -->
-            <div class="md:w-3/5 text-center md:text-left">
-                <div class="inline-block px-4 py-1 border-2 border-red-500 text-red-400 font-bold tracking-widest rounded-full text-sm mb-6 uppercase">
-                    Online Webinar 2026
-                </div>
-                <h1 class="text-4xl md:text-6xl font-black text-white leading-tight mb-6">
-                    AI時代を生き抜く<br>
-                    <span class="gradient-text">次世代マーケティング</span><br>
-                    完全攻略セミナー
-                </h1>
-                <p class="text-gray-300 text-lg md:text-xl mb-10 leading-relaxed font-medium">
-                    10,000人以上が受講した伝説の講義が待望のオンライン化。最新のAIツールを活用して、集客と売上を自動化する具体的なステップを2時間で全て公開します。
-                </p>
-                <div class="flex flex-col sm:flex-row items-center gap-6 mb-8 text-white font-bold text-lg">
-                    <div class="flex items-center gap-2">
-                        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-                        2026年8月15日(土) 14:00-16:00
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        Zoom（オンライン配信）
-                    </div>
+    <!-- Navigation -->
+    <nav class="absolute w-full z-50 pt-6">
+        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
+            <div class="text-3xl font-black en-font tracking-widest text-white">
+                IGNITE<span class="text-accent">2026</span>
+            </div>
+            <div class="hidden md:flex space-x-8 text-sm font-bold tracking-widest">
+                <a href="#about" class="hover:text-accent transition">ABOUT</a>
+                <a href="#speakers" class="hover:text-accent transition">SPEAKERS</a>
+                <a href="#schedule" class="hover:text-accent transition">SCHEDULE</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Event Section -->
+    <section class="relative min-h-screen event-bg flex flex-col justify-center items-center pt-20 pb-20 clip-diagonal">
+        <div class="max-w-5xl mx-auto px-6 text-center relative z-10 w-full">
+            
+            <div data-aos="fade-down" data-aos-duration="1000">
+                <div class="inline-block border border-accent text-accent px-6 py-2 rounded-full text-sm font-bold tracking-[0.2em] mb-8 bg-black/50 backdrop-blur-sm">
+                    ONLINE & OFFLINE HYBRID EVENT
                 </div>
             </div>
             
-            <!-- Right Registration Card -->
-            <div class="md:w-2/5 w-full">
-                <div class="glass-panel p-8 rounded-3xl shadow-2xl relative overflow-hidden">
-                    <div class="absolute top-0 inset-x-0 h-2 bg-gradient-to-r from-red-500 to-yellow-500"></div>
-                    <div class="text-center mb-6">
-                        <p class="text-gray-500 font-bold mb-2">＼ 参加費 10,000円 が今なら ／</p>
-                        <div class="text-4xl font-black text-gray-900 mb-1"><span class="text-red-500">完全無料</span> <span class="text-lg text-gray-500 font-medium">でご招待</span></div>
-                        <p class="text-sm text-red-500 font-bold mt-2">※先着100名様限定（残りわずか）</p>
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-black leading-tight mb-6 tracking-tighter" data-aos="zoom-in" data-aos-duration="1200" data-aos-delay="200">
+                限界を突破する、<br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-pink-500">圧倒的な1日。</span>
+            </h1>
+            
+            <p class="text-xl md:text-2xl text-gray-300 font-bold mb-12 tracking-widest en-font" data-aos="fade-up" data-aos-delay="400">
+                2026.08.15 (SAT) 10:00 - 18:00 @ TOKYO MIDTOWN
+            </p>
+
+            <!-- Countdown Timer -->
+            <div class="flex flex-wrap justify-center gap-4 mb-16" data-aos="fade-up" data-aos-delay="600">
+                <div class="timer-box">
+                    <div class="timer-value" id="days">00</div>
+                    <div class="timer-label">DAYS</div>
+                </div>
+                <div class="text-4xl text-accent font-black en-font self-center mb-5">:</div>
+                <div class="timer-box">
+                    <div class="timer-value" id="hours">00</div>
+                    <div class="timer-label">HOURS</div>
+                </div>
+                <div class="text-4xl text-accent font-black en-font self-center mb-5">:</div>
+                <div class="timer-box">
+                    <div class="timer-value" id="minutes">00</div>
+                    <div class="timer-label">MINS</div>
+                </div>
+                <div class="text-4xl text-accent font-black en-font self-center mb-5">:</div>
+                <div class="timer-box">
+                    <div class="timer-value" id="seconds">00</div>
+                    <div class="timer-label">SECS</div>
+                </div>
+            </div>
+
+            <div data-aos="fade-up" data-aos-delay="800">
+                <a href="#ticket" class="inline-block bg-accent text-white px-12 py-5 rounded text-lg font-black tracking-widest glitch-btn shadow-[0_0_30px_rgba(255,51,102,0.4)] hover:scale-105 transition duration-300">
+                    チケットを購入する
+                </a>
+                <p class="mt-4 text-sm text-gray-400 font-bold">※早期割引は定員に達し次第終了します。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Speakers Section -->
+    <section id="speakers" class="py-24 bg-black relative">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-20" data-aos="fade-up">
+                <h2 class="text-4xl md:text-6xl font-black en-font tracking-tighter mb-4 text-white">GUEST <span class="text-accent">SPEAKERS</span></h2>
+                <div class="w-16 h-1 bg-accent mx-auto"></div>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Speaker 1 -->
+                <div class="group relative overflow-hidden" data-aos="fade-up" data-aos-delay="0">
+                    <div class="aspect-[3/4] overflow-hidden rounded-xl grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-60 transition"></div>
                     </div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                        <p class="text-accent font-bold text-sm tracking-widest mb-1">KEYNOTE SPEAKER</p>
+                        <h3 class="text-3xl font-black text-white mb-2">Kenji Tanaka</h3>
+                        <p class="text-gray-300 text-sm font-medium">NextGen Corp / CEO</p>
+                    </div>
+                </div>
+                <!-- Speaker 2 -->
+                <div class="group relative overflow-hidden" data-aos="fade-up" data-aos-delay="150">
+                    <div class="aspect-[3/4] overflow-hidden rounded-xl grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                        <p class="text-accent font-bold text-sm tracking-widest mb-1">SPECIAL GUEST</p>
+                        <h3 class="text-3xl font-black text-white mb-2">Sarah Miller</h3>
+                        <p class="text-gray-300 text-sm font-medium">Global AI Research / Director</p>
+                    </div>
+                </div>
+                <!-- Speaker 3 -->
+                <div class="group relative overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="aspect-[3/4] overflow-hidden rounded-xl grayscale group-hover:grayscale-0 transition duration-500">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=2000&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80 group-hover:opacity-60 transition"></div>
+                    </div>
+                    <div class="absolute bottom-0 left-0 w-full p-8 transform translate-y-4 group-hover:translate-y-0 transition duration-500">
+                        <p class="text-accent font-bold text-sm tracking-widest mb-1">INNOVATOR</p>
+                        <h3 class="text-3xl font-black text-white mb-2">Hiroshi Sato</h3>
+                        <p class="text-gray-300 text-sm font-medium">Web3 Foundation / Founder</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ticket/Pricing Section (Conversion Focus) -->
+    <section id="ticket" class="py-24 bg-[#111111] relative border-t border-gray-800">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <h2 class="text-4xl md:text-5xl font-black text-white mb-4">TICKETS</h2>
+                <p class="text-gray-400 font-medium">目的に合わせてお選びください</p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Standard Ticket -->
+                <div class="bg-black border border-gray-800 p-8 rounded-2xl" data-aos="fade-right">
+                    <h3 class="text-2xl font-black text-white mb-2">ONLINE PASS</h3>
+                    <p class="text-gray-400 text-sm mb-6">オンライン視聴チケット</p>
+                    <div class="text-4xl font-black en-font text-white mb-8">¥5,000 <span class="text-sm text-gray-500 font-medium tracking-normal">/ 税込</span></div>
                     
-                    <!-- Countdown Mockup -->
-                    <div class="flex justify-center gap-3 mb-8">
-                        <div class="bg-gray-100 text-gray-800 rounded-lg w-14 h-14 flex flex-col items-center justify-center">
-                            <span class="text-xl font-bold countdown-box">12</span>
-                            <span class="text-[10px] text-gray-500">DAYS</span>
-                        </div>
-                        <div class="bg-gray-100 text-gray-800 rounded-lg w-14 h-14 flex flex-col items-center justify-center">
-                            <span class="text-xl font-bold countdown-box">08</span>
-                            <span class="text-[10px] text-gray-500">HOURS</span>
-                        </div>
-                        <div class="bg-gray-100 text-gray-800 rounded-lg w-14 h-14 flex flex-col items-center justify-center">
-                            <span class="text-xl font-bold countdown-box">45</span>
-                            <span class="text-[10px] text-gray-500">MINS</span>
-                        </div>
-                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-gray-300"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 全セッションのLIVE配信視聴</li>
+                        <li class="flex items-center gap-3 text-gray-300"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 2週間のアーカイブ視聴権</li>
+                        <li class="flex items-center gap-3 text-gray-600"><svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg> 登壇者とのネットワーキング</li>
+                    </ul>
+                    
+                    <button class="w-full bg-transparent border-2 border-white text-white py-4 rounded font-black tracking-widest hover:bg-white hover:text-black transition">
+                        オンライン枠を申し込む
+                    </button>
+                </div>
 
-                    <form>
-                        <div class="space-y-4 mb-6">
-                            <input type="text" placeholder="お名前" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none">
-                            <input type="email" placeholder="メールアドレス" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-red-500 outline-none">
-                        </div>
-                        <button type="button" class="w-full bg-gradient-to-r from-red-500 to-red-600 text-white font-bold text-lg py-4 rounded-xl hover:from-red-600 hover:to-red-700 transition shadow-lg shadow-red-500/30">
-                            今すぐ無料で申し込む
-                        </button>
-                    </form>
-                    <p class="text-xs text-center text-gray-400 mt-4">定員に達し次第、予告なく締め切らせていただきます。</p>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Target Audience Section -->
-    <section class="py-24 bg-white px-4">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-center text-3xl md:text-4xl font-black mb-16">こんな方のための<br>特別なセミナーです</h2>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-                    <div class="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center flex-shrink-0 text-xl font-bold">✓</div>
-                    <div>
-                        <h3 class="font-bold text-lg mb-2">集客のコストを下げたい</h3>
-                        <p class="text-gray-600 text-sm">広告費が高騰する中、お金をかけずに見込み客を集める仕組みを知りたい経営者様。</p>
+                <!-- VIP Ticket (Recommended) -->
+                <div class="bg-gradient-to-b from-[#2a0812] to-black border-2 border-accent p-8 rounded-2xl relative transform md:-translate-y-4 shadow-[0_0_40px_rgba(255,51,102,0.15)]" data-aos="fade-left">
+                    <div class="absolute top-0 right-0 bg-accent text-white font-black text-xs px-4 py-1 rounded-bl-lg">
+                        残り3席
                     </div>
-                </div>
-                <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-                    <div class="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center flex-shrink-0 text-xl font-bold">✓</div>
-                    <div>
-                        <h3 class="font-bold text-lg mb-2">AIに興味はあるが使い方が不明</h3>
-                        <p class="text-gray-600 text-sm">ChatGPTなどの名前は知っているが、自社のビジネスにどう活かせばいいか分からない方。</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-                    <div class="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center flex-shrink-0 text-xl font-bold">✓</div>
-                    <div>
-                        <h3 class="font-bold text-lg mb-2">労働時間を減らして売上を上げたい</h3>
-                        <p class="text-gray-600 text-sm">日々の雑務に追われ、本来やるべき経営や戦略の時間が取れない個人事業主様。</p>
-                    </div>
-                </div>
-                <div class="flex items-start gap-4 p-6 bg-gray-50 rounded-2xl border border-gray-100">
-                    <div class="w-12 h-12 bg-red-100 text-red-500 rounded-full flex items-center justify-center flex-shrink-0 text-xl font-bold">✓</div>
-                    <div>
-                        <h3 class="font-bold text-lg mb-2">最新のトレンドをキャッチしたい</h3>
-                        <p class="text-gray-600 text-sm">競合他社に遅れをとらないよう、2026年以降のWebマーケティングの正解を知りたい方。</p>
-                    </div>
+                    <h3 class="text-2xl font-black text-white mb-2">VIP VENUE PASS</h3>
+                    <p class="text-accent font-bold text-sm mb-6">会場参加＋VIP特典チケット</p>
+                    <div class="text-4xl font-black en-font text-white mb-8">¥30,000 <span class="text-sm text-gray-500 font-medium tracking-normal">/ 税込</span></div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-white font-bold"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 会場最前列のVIP席確保</li>
+                        <li class="flex items-center gap-3 text-white font-bold"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 全セッションのLIVE配信視聴</li>
+                        <li class="flex items-center gap-3 text-white font-bold"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> アフターパーティー参加権</li>
+                        <li class="flex items-center gap-3 text-white font-bold"><svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> 登壇者との名刺交換会</li>
+                    </ul>
+                    
+                    <button class="w-full bg-accent text-white py-4 rounded font-black tracking-widest hover:bg-red-600 transition glitch-btn shadow-[0_0_20px_rgba(255,51,102,0.4)]">
+                        VIP枠を申し込む
+                    </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Program Section -->
-    <section class="py-24 bg-gray-50 px-4">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-center text-3xl md:text-4xl font-black mb-16">プログラム内容</h2>
-            <div class="space-y-6">
-                <!-- Program Item -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6">
-                    <div class="md:w-1/4 text-center md:text-left border-b md:border-b-0 md:border-r border-gray-200 pb-4 md:pb-0 md:pr-6">
-                        <div class="text-red-500 font-black en-font text-2xl mb-1">SESSION 1</div>
-                        <div class="text-gray-400 font-bold">14:00 - 14:40</div>
-                    </div>
-                    <div class="md:w-3/4">
-                        <h3 class="text-2xl font-bold mb-3">AIが変えるWeb集客の常識と「やってはいけない」3つの間違い</h3>
-                        <p class="text-gray-600">なぜこれまでのSEOや広告が通用しなくなるのか。AI時代における新しいアルゴリズムの仕組みと、多くの企業が陥っている罠について解説します。</p>
-                    </div>
-                </div>
-
-                <!-- Program Item -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6">
-                    <div class="md:w-1/4 text-center md:text-left border-b md:border-b-0 md:border-r border-gray-200 pb-4 md:pb-0 md:pr-6">
-                        <div class="text-red-500 font-black en-font text-2xl mb-1">SESSION 2</div>
-                        <div class="text-gray-400 font-bold">14:40 - 15:30</div>
-                    </div>
-                    <div class="md:w-3/4">
-                        <h3 class="text-2xl font-bold mb-3">【実演】ゼロから10分で売れる仕組みを構築するAI実践ワーク</h3>
-                        <p class="text-gray-600">実際に画面を共有しながら、AIツールを駆使してターゲット設定からLP制作、ステップメールの構築までを全自動で行うプロセスをお見せします。</p>
-                    </div>
-                </div>
-
-                <!-- Program Item -->
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 flex flex-col md:flex-row gap-6">
-                    <div class="md:w-1/4 text-center md:text-left border-b md:border-b-0 md:border-r border-gray-200 pb-4 md:pb-0 md:pr-6">
-                        <div class="text-red-500 font-black en-font text-2xl mb-1">Q & A</div>
-                        <div class="text-gray-400 font-bold">15:30 - 16:00</div>
-                    </div>
-                    <div class="md:w-3/4">
-                        <h3 class="text-2xl font-bold mb-3">質疑応答・個別相談</h3>
-                        <p class="text-gray-600">参加者からの質問にその場でお答えします。自社への具体的な導入方法など、どんなことでもご相談ください。</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <footer class="bg-gray-900 text-gray-500 py-12 text-center text-sm font-bold">
-        <p>&copy; 2026 Webinar Template by AI WebAuto.</p>
+    <!-- Footer -->
+    <footer class="bg-black py-12 border-t border-gray-900 text-center text-gray-600 en-font text-sm tracking-[0.2em]">
+        <div class="mb-4 text-white text-xl font-black">IGNITE<span class="text-accent">2026</span></div>
+        <p>&copy; 2026 IGNITE EVENT ORG. ALL RIGHTS RESERVED.</p>
     </footer>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ once: true, offset: 50 });
+
+        // Countdown Timer Logic
+        // Set target date to 10 days from now
+        const targetDate = new Date();
+        targetDate.setDate(targetDate.getDate() + 10);
+        targetDate.setHours(23, 59, 59);
+
+        function updateTimer() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) return;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = String(days).padStart(2, '0');
+            document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+        }
+
+        setInterval(updateTimer, 1000);
+        updateTimer();
+
+        // Sticky Urgency Bar Logic
+        window.addEventListener('scroll', () => {
+            const urgencyBar = document.getElementById('urgency-bar');
+            if (window.scrollY > 300) {
+                urgencyBar.classList.add('show');
+            } else {
+                urgencyBar.classList.remove('show');
+            }
+        });
+    </script>
 </body>
 </html>
