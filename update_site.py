@@ -51,7 +51,15 @@ prompt = f"""
 本日の最重要ミッション: 「{daily_theme}」
 このテーマに沿って、サイトをプロフェッショナルな視点で微調整してください。
 
-以下の指示に従って、提供されたHTMLコードを更新し、新しいHTMLコード全体のみを返してください。（Markdownのバッククォート ```html などは絶対に含めないでください）
+以下の指示に従って、出力は必ず以下のXMLフォーマットで返してください。
+Markdownのバッククォート(```)などは全体にも中身にも絶対に含めないでください。
+
+<tweet>
+本日の更新内容を魅力的に伝えるX（Twitter）用の宣伝テキスト（140字以内。「AIが勝手にHPを更新して進化させている」という驚きを持たせる文章。ハッシュタグ #AI完全自動更新 #Web制作 などを含める）
+</tweet>
+<html>
+更新後の完全なHTMLコード全体
+</html>
 
 【指示内容】
 1. HTML内の `<!-- 更新履歴 1 (最新) -->` の下にある `<div class="glass-panel changelog-card">` ブロックを見つけてください。
@@ -108,7 +116,7 @@ except urllib.error.HTTPError as e:
 data = {
     "model": selected_model,
     "max_tokens": 4000,
-    "system": "You are a professional AI web developer. You strictly output ONLY raw HTML code without any markdown formatting or explanations.",
+    "system": "You are a professional AI web developer. You strictly follow the requested XML output format.",
     "messages": [
         {"role": "user", "content": prompt}
     ]
@@ -141,12 +149,24 @@ try:
         if not new_html:
             raise ValueError("テキストデータが見つかりませんでした。")
             
-        new_html = new_html.strip()
+        raw_output = new_html.strip()
     except Exception as e:
         print(f"APIからの返答形式が予想と異なりました。エラー: {e}")
         print("実際の返答データ:")
         print(json.dumps(result, indent=2, ensure_ascii=False))
         raise
+
+    import re
+    tweet_text = "AIが今日もWebサイトを自動で進化させました！\n#AI自動更新 #Web制作"
+    tweet_match = re.search(r'<tweet>(.*?)</tweet>', raw_output, re.DOTALL)
+    if tweet_match:
+        tweet_text = tweet_match.group(1).strip()
+        
+    html_match = re.search(r'<html>(.*?)</html>', raw_output, re.DOTALL)
+    if html_match:
+        new_html = html_match.group(1).strip()
+    else:
+        new_html = raw_output
 
     # 万が一Markdown記法が含まれていた場合の除去処理
     if new_html.startswith("```html"):
@@ -215,7 +235,8 @@ try:
 
     if tweepy and twitter_api_key and twitter_access_token:
         print("X(Twitter)への自動投稿を開始します...")
-        final_tweet = f"{summary_text}\n#AI自動更新\n\n👇自動更新されるデモサイトはこちら\nhttps://melodic-peony-09bb15.netlify.app/daily-demo/index.html"
+        # AIが生成した宣伝用tweet_textを使用する
+        final_tweet = f"{tweet_text}\n\n👇自動更新されるデモサイトはこちら\nhttps://akanaiwa1850-cpu.github.io/ai-web-service/daily-demo/index.html"
         
         try:
             client = tweepy.Client(
