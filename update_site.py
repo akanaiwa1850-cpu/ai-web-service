@@ -3,6 +3,7 @@ import json
 import urllib.request
 import urllib.error
 import re
+import random
 from datetime import datetime, timedelta
 
 try:
@@ -29,20 +30,35 @@ yesterday = today - timedelta(days=1)
 today_str = today.strftime("%Y年%m月%d日")
 yesterday_str = yesterday.strftime("%Y年%m月%d日")
 
+# 3.5. 今日の「日替わり最適化テーマ」をランダムに決定
+optimization_themes = [
+    "【SEO強化】検索エンジンからの流入を増やすためのテキスト構造や文言の調整",
+    "【コンバージョン（成約率）最適化】CTA（ボタン）周辺のマイクロコピーの改善と心理的ハードルの除去",
+    "【Z世代向けUI/UX改善】スマホでのタップしやすさ向上や、より直感的でモダンな配色への微調整",
+    "【ユーザビリティ向上】文字の視認性（コントラスト比）の向上や、情報階層の整理による離脱率低下施策",
+    "【季節トレンド反映】現在の季節感やトレンドキーワードを意識したキャッチコピーへのリライト",
+    "【LCP（読み込み速度）意識】より軽量で無駄のないCSS構造への最適化風のコード整形",
+    "【エンゲージメント向上】ユーザーが「おっ」と思えるようなポジティブでエネルギッシュな言い回しへの変更"
+]
+daily_theme = random.choice(optimization_themes)
+
 # 4. Claude APIへの指示（プロンプト）
 prompt = f"""
 あなたは優秀な「AI Webコーダー」です。
 現在、以下のHTMLコードで「毎日自動進化するデモサイト」を運用しています。
 毎日、あなたがHTMLのコードを直接書き換えることで、自動更新の証明としています。
 
+本日の最重要ミッション: 「{daily_theme}」
+このテーマに沿って、サイトをプロフェッショナルな視点で微調整してください。
+
 以下の指示に従って、提供されたHTMLコードを更新し、新しいHTMLコード全体のみを返してください。（Markdownのバッククォート ```html などは絶対に含めないでください）
 
 【指示内容】
 1. HTML内の `<!-- 更新履歴 1 (最新) -->` の下にある `<div class="glass-panel changelog-card">` ブロックを見つけてください。
 2. `<div class="changelog-date" id="changelog-date-1">` の日付を「📅 {today_str}の更新」に変更してください（JavaScriptで自動更新されますが一応HTML側も書き換えます）。
-3. `<div class="log-box request">` 内の `<p>` タグの文章を、架空のクライアントからの新しい要望（例：「少しボタンの色を目立たせて」「テキストをポジティブな言葉に変えて」など、ごく簡単なもの）に書き換えてください。
-4. `<div class="log-box result">` 内の `<p>` タグの文章を、「承知いたしました。〇〇を〇〇に変更しました。」という実行報告に書き換えてください。
-5. **最重要**: 3で設定した要望の内容通りに、**実際のHTMLコードの一部（CSSのカラーコードや、ヒーローセクションのテキスト等）を本当に書き換えてください**。
+3. `<div class="log-box request">` 内の `<p>` タグの文章を、本日のテーマ（{daily_theme}）に基づいた、クライアントやマーケティングチームからの「高度で具体的な改善要望」に書き換えてください。
+4. `<div class="log-box result">` 内の `<p>` タグの文章を、「AIによる高度な分析・実行報告」として書き換えてください。「ボタンの色を変えました」のような単調なものではなく、「〇〇の指標を改善するため、〇〇の心理効果を狙い、〇〇という文言と配色へ最適化を実行しました」といった、プロエンジニア顔負けの具体的で説得力のある報告文にしてください。
+5. **最重要**: 上記で設定した報告内容の通りに、**実際のHTMLコードの一部（CSSのカラーコード、マージン、キャッチコピーのテキスト等）を本当に書き換えてください**。
    ※大きな構造変更はせず、色、文字、マージンなどの微小な変更にとどめること。
 
 【現在のHTMLコード】
@@ -169,13 +185,13 @@ try:
         # ログの「new」バッジを古いものから消す
         lp_content = lp_content.replace('<li class="log-item new">', '<li class="log-item">')
         
-        # 新しいログアイテムを作成
+        # 新しいログアイテムを作成（タイプライターエフェクト対応）
         now_date_str = datetime.now().strftime("%Y-%m-%d 09:00:00")
         new_log_html = f"""
                     <li class="log-item new">
                         <div class="log-marker"></div>
                         <div class="log-date">{now_date_str} [SYSTEM]</div>
-                        <div class="log-content"><span class="highlight-ai">自動更新完了:</span> {summary_text}</div>
+                        <div class="log-content typewriter-effect" data-text="{summary_text}"><span class="highlight-ai">最適化完了:</span> {summary_text}</div>
                     </li>"""
         
         # タイムラインの先頭に追加
