@@ -46,7 +46,6 @@ daily_theme = random.choice(optimization_themes)
 prompt = f"""
 あなたは優秀な「AI Webコーダー」です。
 現在、以下のHTMLコードで「毎日自動進化するデモサイト」を運用しています。
-毎日、あなたがHTMLのコードを直接書き換えることで、自動更新の証明としています。
 
 本日の最重要ミッション: 「{daily_theme}」
 このテーマに沿って、サイトをプロフェッショナルな視点で微調整してください。
@@ -55,19 +54,21 @@ prompt = f"""
 Markdownのバッククォート(```)などは全体にも中身にも絶対に含めないでください。
 
 <tweet>
-本日の更新内容を魅力的に伝えるX（Twitter）用の宣伝テキスト（140字以内。「AIが勝手にHPを更新して進化させている」という驚きを持たせる文章。ハッシュタグ #AI完全自動更新 #Web制作 などを含める）
+本日の更新内容を魅力的に伝えるX（Twitter）用の宣伝テキスト（140字以内。「AIが勝手にHPを更新して進化させている」という驚きを持たせる文章。ハッシュタグ #AI自動更新 #Web制作 などを含める）
 </tweet>
-<html>
-更新後の完全なHTMLコード全体
-</html>
-
-【指示内容】
-1. HTML内の `<!-- 更新履歴 1 (最新) -->` の下にある `<div class="glass-panel changelog-card">` ブロックを見つけてください。
-2. `<div class="changelog-date" id="changelog-date-1">` の日付を「📅 {today_str}の更新」に変更してください（JavaScriptで自動更新されますが一応HTML側も書き換えます）。
-3. `<div class="log-box request">` 内の `<p>` タグの文章を、本日のテーマ（{daily_theme}）に基づいた、クライアントやマーケティングチームからの「高度で具体的な改善要望」に書き換えてください。
-4. `<div class="log-box result">` 内の `<p>` タグの文章を、「AIによる高度な分析・実行報告」として書き換えてください。「ボタンの色を変えました」のような単調なものではなく、「〇〇の指標を改善するため、〇〇の心理効果を狙い、〇〇という文言と配色へ最適化を実行しました」といった、プロエンジニア顔負けの具体的で説得力のある報告文にしてください。
-5. **最重要**: 上記で設定した報告内容の通りに、**実際のHTMLコードの一部（CSSのカラーコード、マージン、キャッチコピーのテキスト等）を本当に書き換えてください**。
-   ※大きな構造変更はせず、色、文字、マージンなどの微小な変更にとどめること。
+<css>
+/* {today_str}の更新：ここに概要を書く */
+.hero .btn {{
+    background: #xxxxxx;
+}}
+など、変更するCSSのみを数行で記述してください（必ず<style>タグの末尾に追加できる形式）
+</css>
+<request>
+本日のテーマ（{daily_theme}）に基づいた、クライアントやマーケティングチームからの「高度で具体的な改善要望」
+</request>
+<result>
+「AIによる高度な分析・実行報告」。「〇〇の指標を改善するため、〇〇の心理効果を狙い、〇〇という文言と配色へ最適化を実行しました」など、プロエンジニア顔負けの具体的で説得力のある報告文
+</result>
 
 【現在のHTMLコード】
 {html_content}
@@ -162,40 +163,60 @@ try:
     if tweet_match:
         tweet_text = tweet_match.group(1).strip()
         
-    html_match = re.search(r'<html>(.*?)</html>', raw_output, re.DOTALL)
-    if html_match:
-        new_html = html_match.group(1).strip()
-    else:
-        new_html = raw_output
+    css_text = ""
+    css_match = re.search(r'<css>(.*?)</css>', raw_output, re.DOTALL)
+    if css_match:
+        css_text = css_match.group(1).strip()
 
-    # 万が一Markdown記法が含まれていた場合の除去処理
-    if new_html.startswith("```html"):
-        new_html = new_html[7:]
-    if new_html.startswith("```"):
-        new_html = new_html[3:]
-    if new_html.endswith("```"):
-        new_html = new_html[:-3]
+    request_text = "本日は全体の最適化を実施します。"
+    req_match = re.search(r'<request>(.*?)</request>', raw_output, re.DOTALL)
+    if req_match:
+        request_text = req_match.group(1).strip()
         
-    new_html = new_html.strip()
+    result_text = "最適化を完了いたしました。"
+    res_match = re.search(r'<result>(.*?)</result>', raw_output, re.DOTALL)
+    if res_match:
+        result_text = res_match.group(1).strip()
+
+    # プログラムによる安全なHTMLの置換
+    html = html_content
+    
+    # 1. CSSの追加
+    if css_text:
+        html = html.replace('</style>', f'        {css_text}\n    </style>')
+        
+    # 2. 日付の更新
+    html = re.sub(
+        r'<div class="changelog-date" id="changelog-date-1">.*?</div>',
+        f'<div class="changelog-date" id="changelog-date-1">📅 {today_str}の更新</div>',
+        html
+    )
+    
+    # 3. Requestの更新
+    html = re.sub(
+        r'(<div class="log-box request">\s*<div class="log-title">📩 クライアント（あなた）の要望</div>\s*<p>)(.*?)(</p>\s*</div>)',
+        rf'\g<1>{request_text}\g<3>',
+        html,
+        flags=re.DOTALL
+    )
+    
+    # 4. Resultの更新
+    html = re.sub(
+        r'(<div class="log-box result">\s*<div class="log-title">✨ AIの対応結果</div>\s*<p>)(.*?)(</p>\s*</div>)',
+        rf'\g<1>{result_text}\g<3>',
+        html,
+        flags=re.DOTALL
+    )
 
     # 新しいHTMLを保存
     with open(HTML_PATH, "w", encoding="utf-8") as f:
-        f.write(new_html)
+        f.write(html)
         
     print(f"成功: {HTML_PATH} を自動更新しました！")
     
     # 8. 短い要約文の生成と、自社LP (lp/index.html) のメッセージ枠の更新
     print("LP更新用の短い要約を生成中...")
-    # 新しく生成されたHTML(new_html)の中から、AIが報告した内容(result)を抽出する安全な方法を採用
-    import re
-    summary_text = "本日のアクセス傾向に合わせて数件の微調整を行いました。"
-    match = re.search(r'<div class="log-box result">\s*<p>(.*?)</p>', new_html, re.DOTALL)
-    if match:
-        extracted = match.group(1).strip()
-        # HTMLタグが混入している場合は除去
-        extracted = re.sub(r'<[^>]+>', '', extracted)
-        if extracted:
-            summary_text = extracted
+    summary_text = result_text
     
     # 自社LP (lp/index.html) の更新
     try:
