@@ -1,9 +1,13 @@
 name: Daily AI Website Update
 
 on:
+  push:
+    branches:
+      - main
   schedule:
-    # 毎朝9時（日本時間）にAIがXへ自動宣伝投稿とホームページ更新を行う（UTC 0:00 = JST 9:00）
-    - cron: '0 0 * * *'
+    # GitHubサーバーの世界的混雑（毎時00分）による大幅な遅延・スキップを回避するため、
+    # 毎朝8:45（UTC 23:45）に確実に実行開始させ、9:00頃に完了するように設定
+    - cron: '45 23 * * *'
   workflow_dispatch: # 手動でいつでも実行できるボタンを追加
 
 # ロボットに強制的にファイル書き込み権限（Push権限）を与える
